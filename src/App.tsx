@@ -192,6 +192,11 @@ function Act2() {
       desc: 'Codey',
       color: '#10b981',
     },
+    {
+      title: '9.3 billion tokens visualized in 3D.',
+      desc: 'Claude Usage Dashboard',
+      color: '#a855f7',
+    },
   ]
 
   return (
@@ -325,6 +330,59 @@ function Act3() {
             <a href="https://codey.cc" target="_blank" rel="noopener noreferrer"
               className="text-sm text-[#10b981] hover:text-[#10b981]/80 transition-colors tracking-wider">
               codey.cc &rarr;
+            </a>
+          </div>
+        </FadeIn>
+      </div>
+
+      {/* Claude Usage Dashboard Section */}
+      <div className="max-w-4xl mx-auto px-6 mt-40">
+        <FadeIn>
+          <div className="text-xs tracking-[0.4em] uppercase text-[#a855f7] mb-6">Data</div>
+          <h3 className="font-display text-3xl md:text-5xl font-bold mb-8">Claude Usage Dashboard</h3>
+        </FadeIn>
+        <FadeIn delay={0.2}>
+          <p className="text-2xl font-display text-[#f5f0e8]/80 mb-8 leading-relaxed">
+            9.3 billion tokens. $6,865. 32 days.
+          </p>
+          <p className="text-[#f5f0e8]/40 text-sm mb-4 max-w-xl">
+            A 3D animated, immersive data visualization of real Claude Code token usage and costs.
+            Particle globe, burn rate projections, model breakdowns, session explorer — all driven by real data.
+          </p>
+          <p className="text-[#f5f0e8]/40 text-sm mb-8 max-w-xl">
+            32x the Max plan. Top 0.1% of users. This is what building five products simultaneously
+            with AI actually looks like.
+          </p>
+        </FadeIn>
+
+        <FadeIn delay={0.3}>
+          <div className="bg-[#0d1220] border border-[#1e2d40] rounded-xl p-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+              <div>
+                <div className="text-2xl font-bold text-[#a855f7]">9.3B</div>
+                <div className="text-xs text-[#f5f0e8]/30 mt-1">Tokens</div>
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-[#a855f7]">$6,865</div>
+                <div className="text-xs text-[#f5f0e8]/30 mt-1">Total Cost</div>
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-[#a855f7]">32x</div>
+                <div className="text-xs text-[#f5f0e8]/30 mt-1">vs Max Plan</div>
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-[#a855f7]">$215/day</div>
+                <div className="text-xs text-[#f5f0e8]/30 mt-1">Burn Rate</div>
+              </div>
+            </div>
+          </div>
+        </FadeIn>
+
+        <FadeIn delay={0.4}>
+          <div className="mt-8">
+            <a href="https://theartofsound.github.io/claude-usage-dashboard/" target="_blank" rel="noopener noreferrer"
+              className="text-sm text-[#a855f7] hover:text-[#a855f7]/80 transition-colors tracking-wider">
+              View Live Dashboard &rarr;
             </a>
           </div>
         </FadeIn>
