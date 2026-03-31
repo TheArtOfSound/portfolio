@@ -199,13 +199,39 @@ nav {
 /* ── REVEAL ANIMATION ── */
 .reveal {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 .reveal.visible {
   opacity: 1;
   transform: translateY(0);
 }
+.reveal-child {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+.reveal-child.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── HERO FADE-IN ── */
+.hero-fade {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: heroIn 0.8s ease-out forwards;
+}
+@keyframes heroIn { to { opacity: 1; transform: translateY(0); } }
+
+/* ── FLOAT CARD OSCILLATION ── */
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* ── NAV ACTIVE LINK ── */
+.nav-links a.active { color: var(--accent2); }
 
 /* ── SECTION 1: OPENING ── */
 #opening {
@@ -310,16 +336,19 @@ nav {
   margin: 0 auto;
 }
 .work-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.08);
   border-radius: 12px;
   padding: 32px;
   position: relative;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 .work-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border-color: rgba(99,102,241,0.4);
+  box-shadow: 0 8px 32px rgba(37,99,235,0.15);
 }
 .work-card .card-accent {
   position: absolute;
@@ -424,6 +453,15 @@ nav {
   margin: 0 auto;
   line-height: 1.8;
 }
+.phoenix-quote {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.phoenix-quote.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 
 /* ── SECTION 4: PHILOSOPHY ── */
 #philosophy {
@@ -440,11 +478,17 @@ nav {
 }
 .principle {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(18px, 2.2vw, 22px);
+  font-size: clamp(18px, 3vw, 28px);
   line-height: 1.8;
   color: var(--warm);
-  margin-bottom: 64px;
+  margin-bottom: 80px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.principle.visible {
   opacity: 0.9;
+  transform: translateY(0);
 }
 .principle:last-child { margin-bottom: 0; }
 
@@ -542,7 +586,7 @@ nav {
   .stats-grid { grid-template-columns: 1fr 1fr; }
 
   #philosophy { padding: 64px 24px; }
-  .principle { font-size: 17px; margin-bottom: 40px; }
+  .principle { font-size: 18px; margin-bottom: 48px; }
 
   .contact-row .cr-label { width: 80px; }
   .contact-row .cr-value { font-size: 12px; }
@@ -583,27 +627,27 @@ nav {
 
 <!-- SECTION 1: OPENING -->
 <section id="opening">
-  <div class="float-card fc-tl reveal">
+  <div class="float-card fc-tl reveal" style="animation: floatY 6s ease-in-out infinite; animation-delay: 0s;">
     <div class="fc-label">Study Live</div>
     <div class="fc-value"><span class="live-count">40</span>+</div>
   </div>
-  <div class="float-card fc-tr reveal">
+  <div class="float-card fc-tr reveal" style="animation: floatY 6s ease-in-out infinite; animation-delay: -1.5s;">
     <div class="fc-label">Pearson R</div>
     <div class="fc-value">0.311</div>
   </div>
-  <div class="float-card fc-bl reveal">
+  <div class="float-card fc-bl reveal" style="animation: floatY 6s ease-in-out infinite; animation-delay: -3s;">
     <div class="fc-label">TPU Research</div>
     <div class="fc-value">Cloud &#10003;</div>
   </div>
-  <div class="float-card fc-br reveal">
+  <div class="float-card fc-br reveal" style="animation: floatY 6s ease-in-out infinite; animation-delay: -4.5s;">
     <div class="fc-label">Location</div>
     <div class="fc-value">Phoenix, AZ</div>
   </div>
 
   <div class="opening-center">
-    <h1 class="opening-name">Bryan Leonard</h1>
-    <p class="opening-tagline">Consciousness researcher. ML engineer. Builder.</p>
-    <p class="opening-affil">Co-founder, Qira LLC &middot; Phoenix, Arizona</p>
+    <h1 class="opening-name hero-fade" style="animation-delay:0.3s">Bryan Leonard</h1>
+    <p class="opening-tagline hero-fade" style="animation-delay:0.6s">Consciousness researcher. ML engineer. Builder.</p>
+    <p class="opening-affil hero-fade" style="animation-delay:0.9s">Co-founder, Qira LLC &middot; Phoenix, Arizona</p>
   </div>
 
   <div class="scroll-indicator">
@@ -660,16 +704,16 @@ nav {
   <div class="section-title reveal">The Numbers</div>
   <p class="section-subtitle reveal">Scale that speaks for itself.</p>
   <div class="stats-grid">
-    <div class="stat-card reveal"><div class="stat-number">9.3B</div><div class="stat-label">tokens processed</div></div>
-    <div class="stat-card reveal"><div class="stat-number">$6,859</div><div class="stat-label">compute this month</div></div>
-    <div class="stat-card reveal"><div class="stat-number live-count-stat">44+</div><div class="stat-label">research subjects</div></div>
-    <div class="stat-card reveal"><div class="stat-number">0.311</div><div class="stat-label">Pearson correlation</div></div>
-    <div class="stat-card reveal"><div class="stat-number">10B&ndash;100B</div><div class="stat-label">parameter target</div></div>
-    <div class="stat-card reveal"><div class="stat-number">20+</div><div class="stat-label">Vol-bot signups</div></div>
-    <div class="stat-card reveal"><div class="stat-number">4</div><div class="stat-label">active projects</div></div>
-    <div class="stat-card reveal"><div class="stat-number">0</div><div class="stat-label">institutional backing</div></div>
+    <div class="stat-card reveal"><div class="stat-number" data-target="9.3B">9.3B</div><div class="stat-label">tokens processed</div></div>
+    <div class="stat-card reveal"><div class="stat-number" data-target="$6,859">$6,859</div><div class="stat-label">compute this month</div></div>
+    <div class="stat-card reveal"><div class="stat-number live-count-stat" data-target="44+">44+</div><div class="stat-label">research subjects</div></div>
+    <div class="stat-card reveal"><div class="stat-number" data-target="0.311">0.311</div><div class="stat-label">Pearson correlation</div></div>
+    <div class="stat-card reveal"><div class="stat-number" data-target="10B&ndash;100B">10B&ndash;100B</div><div class="stat-label">parameter target</div></div>
+    <div class="stat-card reveal"><div class="stat-number" data-target="20+">20+</div><div class="stat-label">Vol-bot signups</div></div>
+    <div class="stat-card reveal"><div class="stat-number" data-target="4">4</div><div class="stat-label">active projects</div></div>
+    <div class="stat-card reveal"><div class="stat-number" data-target="0">0</div><div class="stat-label">institutional backing</div></div>
   </div>
-  <p class="numbers-quote reveal">From Phoenix, Arizona. Without permission. Without a lab.</p>
+  <p class="numbers-quote phoenix-quote">From Phoenix, Arizona. Without permission. Without a lab.</p>
 </section>
 
 <!-- SECTION 4: PHILOSOPHY -->
@@ -730,7 +774,7 @@ nav {
   const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
   camera.position.z = 50;
 
-  const COUNT = 400;
+  const COUNT = window.innerWidth <= 768 ? 200 : 400;
   const geo = new THREE.BufferGeometry();
   const pos = new Float32Array(COUNT * 3);
   const vel = new Float32Array(COUNT * 3);
@@ -756,6 +800,12 @@ nav {
   const points = new THREE.Points(geo, mat);
   scene.add(points);
 
+  var mouseX = 0, mouseY = 0;
+  window.addEventListener('mousemove', function(e) {
+    mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+    mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+  });
+
   function animate() {
     requestAnimationFrame(animate);
     const p = geo.attributes.position.array;
@@ -768,6 +818,8 @@ nav {
       if (Math.abs(p[i * 3 + 2]) > 35) vel[i * 3 + 2] *= -1;
     }
     geo.attributes.position.needsUpdate = true;
+    camera.position.x += (mouseX * 3 - camera.position.x) * 0.02;
+    camera.position.y += (-mouseY * 2 - camera.position.y) * 0.02;
     points.rotation.y += 0.0003;
     points.rotation.x += 0.0001;
     renderer.render(scene, camera);
@@ -849,10 +901,113 @@ nav {
     entries.forEach(function(entry) {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
+        // Stagger reveal-child elements inside
+        var children = entry.target.querySelectorAll('.reveal-child');
+        children.forEach(function(child, i) {
+          child.style.transitionDelay = (i * 80) + 'ms';
+          child.classList.add('visible');
+        });
       }
     });
-  }, { threshold: 0.1 });
+  }, { threshold: 0.15 });
   els.forEach(function(el) { observer.observe(el); });
+})();
+
+// ── PHILOSOPHY PRINCIPLE REVEALS ──
+(function() {
+  var principles = document.querySelectorAll('.principle');
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+  principles.forEach(function(el) { observer.observe(el); });
+})();
+
+// ── NUMBER COUNTER ANIMATION ──
+(function() {
+  function animateCounters() {
+    document.querySelectorAll('.stat-number').forEach(function(el) {
+      if (el.dataset.animated) return;
+      var target = el.dataset.target || el.textContent;
+      // Skip non-numeric targets like "10B–100B"
+      if (target.indexOf('\u2013') !== -1 || target.indexOf('-') !== -1 && target.indexOf('$') === -1) {
+        el.dataset.animated = 'true';
+        return;
+      }
+      var isFloat = target.indexOf('.') !== -1;
+      var hasPrefix = target.charAt(0) === '$';
+      var suffixMatch = target.match(/[+B]$/);
+      var prefix = hasPrefix ? '$' : '';
+      var suffix = suffixMatch ? suffixMatch[0] : '';
+      var numStr = target.replace(/[$+B,]/g, '');
+      var targetNum = parseFloat(numStr);
+      if (isNaN(targetNum)) { el.dataset.animated = 'true'; return; }
+
+      el.dataset.animated = 'true';
+      var duration = 1500;
+      var start = performance.now();
+
+      function update(now) {
+        var elapsed = now - start;
+        var progress = Math.min(elapsed / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        var current = targetNum * eased;
+
+        if (isFloat) {
+          var decimals = (target.split('.')[1] || '').replace(/[+B]/g, '').length || 1;
+          el.textContent = prefix + current.toFixed(decimals) + suffix;
+        } else {
+          el.textContent = prefix + Math.floor(current).toLocaleString() + suffix;
+        }
+
+        if (progress < 1) requestAnimationFrame(update);
+      }
+      requestAnimationFrame(update);
+    });
+  }
+
+  var numbersSection = document.getElementById('numbers');
+  if (numbersSection) {
+    var counterObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          animateCounters();
+          // Fade in phoenix quote 2 seconds after counters start
+          setTimeout(function() {
+            var quote = document.querySelector('.phoenix-quote');
+            if (quote) quote.classList.add('visible');
+          }, 2000);
+          counterObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    counterObserver.observe(numbersSection);
+  }
+})();
+
+// ── ACTIVE NAV LINK HIGHLIGHTING ──
+(function() {
+  var sections = document.querySelectorAll('section[id]');
+  var navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', function() {
+    var scrollY = window.scrollY + 100;
+    sections.forEach(function(section) {
+      var top = section.offsetTop;
+      var height = section.offsetHeight;
+      var id = section.getAttribute('id');
+      if (scrollY >= top && scrollY < top + height) {
+        navLinks.forEach(function(link) {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === '#' + id) {
+            link.classList.add('active');
+          }
+        });
+      }
+    });
+  });
 })();
 
 // ── SUPABASE LIVE COUNT ──
