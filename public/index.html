@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bryan Leonard — QIRA OS</title>
+<title>Bryan Leonard — Researcher, Engineer, Builder</title>
 <meta name="description" content="Independent researcher, builder, consciousness scientist. Bryan Leonard / Qira LLC.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,16 +25,22 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--bg);
   color: var(--text);
   font-family: 'DM Mono', monospace;
-  overflow: hidden;
-  width: 100vw;
-  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  font-size: 14px;
+  line-height: 1.6;
+  cursor: none;
 }
 
-/* Film grain */
+/* ── FILM GRAIN ── */
 body::after {
   content: '';
   position: fixed;
@@ -45,1139 +51,706 @@ body::after {
   opacity: 0.35;
 }
 
-/* ── PROGRESS BAR ── */
-#progress-bar {
-  position: fixed;
-  top: 0; left: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--accent), var(--accent3));
-  z-index: 9999;
-  width: 0%;
-  transition: width 0.4s cubic-bezier(0.33, 1, 0.68, 1);
-}
-
-/* ── NAV DOTS ── */
-#nav-dots {
-  position: fixed;
-  bottom: 28px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 14px;
-  z-index: 9998;
-  opacity: 0;
-  transition: opacity 0.6s;
-}
-#nav-dots.visible { opacity: 1; }
-.nav-dot {
-  width: 10px; height: 10px;
-  border-radius: 50%;
-  border: 1px solid rgba(255,255,255,0.3);
-  background: transparent;
-  cursor: pointer;
-  transition: background 0.3s, transform 0.3s;
-  padding: 0;
-  position: relative;
-}
-.nav-dot::before {
-  content: '';
-  position: absolute;
-  top: -17px; left: -17px;
-  width: 44px; height: 44px;
-}
-.nav-dot.active {
-  background: #fff;
-  border-color: #fff;
-  transform: scale(1.3);
-}
-.nav-dot:hover { background: rgba(255,255,255,0.4); }
-
-/* ── BOOT SCREEN ── */
-#boot-screen {
-  position: fixed;
-  inset: 0;
-  background: var(--bg);
-  z-index: 5000;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 40px;
-}
-#boot-terminal {
-  max-width: 640px;
-  width: 100%;
-}
-.boot-line {
-  font-family: 'DM Mono', monospace;
-  font-size: 15px;
-  color: var(--accent2);
-  margin-bottom: 6px;
-  opacity: 0;
-  white-space: nowrap;
-  overflow: hidden;
-}
-.boot-line .cursor-char {
-  display: inline-block;
-  width: 8px;
-  height: 16px;
-  background: var(--accent2);
-  animation: blink 0.6s step-end infinite;
-  vertical-align: text-bottom;
-  margin-left: 2px;
-}
-@keyframes blink { 50% { opacity: 0; } }
-
-#boot-question {
-  opacity: 0;
-  transition: opacity 1.2s;
-  text-align: center;
-  margin-top: 60px;
-}
-#boot-question h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(22px, 4vw, 36px);
-  font-weight: 400;
-  font-style: italic;
-  color: var(--warm);
-  line-height: 1.5;
-  max-width: 600px;
-  margin: 0 auto 40px;
-}
-.boot-buttons {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-.boot-btn {
-  font-family: 'DM Mono', monospace;
-  font-size: 13px;
-  padding: 14px 28px;
-  background: transparent;
-  border: 1px solid var(--accent2);
-  color: var(--accent2);
-  cursor: pointer;
-  transition: all 0.3s;
-  letter-spacing: 0.5px;
-}
-.boot-btn:hover {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #fff;
-}
-
-/* ── CHAPTERS ── */
-.chapter {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100vw;
-  height: 100vh;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s cubic-bezier(0.33, 1, 0.68, 1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-.chapter.active {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-/* ── CH1 IDENTITY ── */
-#ch1 {
-  display: flex;
-  flex-direction: row;
-}
-#ch1-canvas {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-}
-#ch1-content {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  padding: 60px 80px;
-}
-.ch1-left {
-  flex: 1;
-}
-.ch1-right {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-left: 40px;
-}
-.ch1-right .identity-line {
-  opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 0.6s, transform 0.6s;
-}
-.ch1-right .identity-line.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-.ch1-name {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(36px, 5vw, 64px);
-  font-weight: 800;
-  color: var(--text);
-  margin-bottom: 8px;
-}
-.ch1-role {
-  font-family: 'DM Mono', monospace;
-  font-size: clamp(13px, 1.5vw, 16px);
-  color: var(--accent2);
-  margin-bottom: 4px;
-}
-.ch1-detail {
-  font-size: 13px;
-  color: var(--muted);
-  margin-bottom: 2px;
-}
-.ch1-terminal {
-  margin-top: 32px;
-  font-size: 13px;
-  color: var(--accent2);
-  line-height: 1.8;
-}
-.ch1-terminal span { color: var(--accent3); }
-.ch1-paths {
-  margin-top: 36px;
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-.path-btn {
-  font-family: 'DM Mono', monospace;
-  font-size: 12px;
-  padding: 12px 24px;
-  background: rgba(37,99,235,0.08);
-  border: 1px solid var(--border);
-  color: var(--accent2);
-  cursor: pointer;
-  transition: all 0.3s;
-}
-.path-btn:hover {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #fff;
-}
-
-/* ── CH2 THE WORK ── */
-#ch2 {
-  flex-direction: column;
-  padding: 60px;
-}
-.cta-btns {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-.cta-btn {
-  font-family: 'DM Mono', monospace;
-  font-size: 12px;
-  padding: 12px 24px;
-  cursor: pointer;
-  transition: all 0.3s;
-  text-decoration: none;
-  display: inline-block;
-}
-.cta-primary {
-  background: var(--accent);
-  border: 1px solid var(--accent);
-  color: #fff;
-}
-.cta-primary:hover {
-  background: var(--accent2);
-  border-color: var(--accent2);
-}
-.cta-secondary {
-  background: transparent;
-  border: 1px solid var(--border);
-  color: var(--accent2);
-}
-.cta-secondary:hover {
-  background: rgba(37,99,235,0.1);
-  border-color: var(--accent2);
-}
-
-/* ── CH3 THE NUMBERS ── */
-#ch3 {
-  flex-direction: column;
-  background: var(--bg2);
-}
-
-/* ── CH4 PHILOSOPHY ── */
-#ch4 {
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 60px;
-  background: var(--bg);
-}
-.philosophy-line {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(18px, 2.8vw, 28px);
-  font-weight: 400;
-  color: var(--warm);
-  line-height: 1.7;
-  max-width: 720px;
-  text-align: center;
-  margin-bottom: 48px;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 1.2s, transform 1.2s;
-}
-.philosophy-line.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-.philosophy-tag {
-  font-family: 'DM Mono', monospace;
-  font-size: 13px;
-  color: var(--muted);
-  text-align: center;
-  line-height: 2;
-  opacity: 0;
-  transition: opacity 1s;
-  margin-top: 16px;
-}
-.philosophy-tag.show { opacity: 1; }
-.ch4-ctas {
-  margin-top: 48px;
-  display: flex;
-  gap: 16px;
-  opacity: 0;
-  transition: opacity 0.8s;
-}
-.ch4-ctas.show { opacity: 1; }
-
-/* ── CH5 CONTACT ── */
-#ch5 {
-  flex-direction: column;
-  padding: 60px;
-}
-#ch5-inner {
-  max-width: 640px;
-  width: 100%;
-}
-.ch5-intro {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(18px, 2.5vw, 24px);
-  color: var(--warm);
-  font-style: italic;
-  margin-bottom: 40px;
-  opacity: 0;
-  transition: opacity 0.8s;
-}
-.ch5-intro.show { opacity: 1; }
-.ch5-cmd {
-  font-size: 13px;
-  color: var(--accent2);
-  line-height: 2.4;
-  margin-bottom: 8px;
-  opacity: 0;
-  transform: translateX(-10px);
-  transition: opacity 0.5s, transform 0.5s;
-}
-.ch5-cmd.show {
-  opacity: 1;
-  transform: translateX(0);
-}
-.ch5-cmd a {
-  color: var(--accent2);
-  text-decoration: none;
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 1px;
-  transition: border-color 0.3s;
-}
-.ch5-cmd a:hover { border-color: var(--accent2); }
-.ch5-study {
-  margin-top: 40px;
-  padding: 20px;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  background: rgba(37,99,235,0.04);
-  opacity: 0;
-  transition: opacity 0.6s;
-}
-.ch5-study.show { opacity: 1; }
-.ch5-study p {
-  font-size: 13px;
-  color: var(--muted);
-  margin-bottom: 12px;
-}
-.ch5-study a {
-  color: var(--accent3);
-  text-decoration: none;
-  font-size: 13px;
-}
-.ch5-study a:hover { text-decoration: underline; }
-
-/* ── NEXT INDICATOR ── */
-.chapter-next {
-  position: absolute;
-  bottom: 60px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: 'DM Mono', monospace;
-  font-size: 12px;
-  color: var(--accent2);
-  cursor: pointer;
-  z-index: 100;
-  transition: color 0.3s;
-  letter-spacing: 0.05em;
-}
-.chapter-next:hover { color: #fff; }
-
-/* ── BACK ARROW ── */
-.chapter-back {
-  position: absolute;
-  top: 50px;
-  left: 24px;
-  font-family: 'DM Mono', monospace;
-  font-size: 18px;
-  color: var(--accent2);
-  cursor: pointer;
-  z-index: 100;
-  transition: color 0.3s;
-  background: none;
-  border: none;
-  padding: 8px;
-}
-.chapter-back:hover { color: #fff; }
-
-/* ── CHAPTER LABEL ── */
-.chapter-label {
-  position: absolute;
-  bottom: 24px;
-  left: 24px;
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  color: var(--muted);
-  opacity: 0.5;
-  z-index: 100;
-  text-transform: uppercase;
-}
-
-/* ── TOP NAV BAR ── */
-#top-nav {
+/* ── SCROLL PROGRESS BAR ── */
+#scroll-progress {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  padding: 16px 32px;
-  background: rgba(6,8,15,0.85);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border);
-  display: none;
+  height: 2px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  z-index: 10002;
+  transition: width 0.05s linear;
+}
+
+/* ── CUSTOM CURSOR ── */
+.cursor-dot {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  background: var(--accent2);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10001;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease, opacity 0.2s ease;
+  mix-blend-mode: screen;
+}
+.cursor-ring {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  border: 1.5px solid rgba(96, 165, 250, 0.4);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10001;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease;
+}
+
+/* ── THREE.JS CANVAS ── */
+#three-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 0 40px;
+  height: 56px;
+  display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: center;
-  z-index: 100;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: rgba(6, 8, 15, 0.7);
+  border-bottom: 1px solid rgba(26, 37, 64, 0.5);
 }
-#top-nav.visible {
-  display: flex;
-}
-#top-nav .nav-logo {
+.nav-logo {
   font-family: 'Syne', sans-serif;
-  font-size: 14px;
   font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 3px;
   color: var(--text);
-  letter-spacing: 0.05em;
+  text-decoration: none;
+  text-transform: uppercase;
 }
-#top-nav .nav-links {
+.nav-links {
   display: flex;
-  gap: 24px;
-  align-items: center;
+  gap: 32px;
+  list-style: none;
 }
-#top-nav .nav-link {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.15em;
+.nav-links a {
+  font-size: 12px;
+  letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--muted);
-  cursor: pointer;
   text-decoration: none;
-  transition: color 0.3s;
+  transition: color 0.3s ease;
 }
-#top-nav .nav-link:hover {
-  color: var(--accent2);
-}
-#top-nav .nav-link.active {
-  color: var(--accent2);
-}
-#top-nav .hamburger {
+.nav-links a:hover { color: var(--text); }
+
+/* Hamburger */
+.hamburger {
   display: none;
+  flex-direction: column;
+  gap: 5px;
   background: none;
   border: none;
-  color: var(--muted);
-  font-size: 20px;
   cursor: pointer;
-  padding: 4px;
+  padding: 8px;
 }
-#top-nav .mobile-menu {
+.hamburger span {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: var(--text);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.mobile-menu {
   display: none;
-  position: absolute;
-  top: 100%;
+  position: fixed;
+  top: 56px;
   left: 0;
-  width: 100%;
-  background: rgba(6,8,15,0.95);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  right: 0;
+  background: rgba(6, 8, 15, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
-  padding: 16px 32px;
+  z-index: 999;
+  padding: 24px 40px;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
 }
-#top-nav .mobile-menu.open {
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 8px 0;
+}
+
+/* ── SECTIONS ── */
+.section {
+  position: relative;
+  z-index: 1;
+  padding: 80px 60px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.section-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 48px;
+}
+
+/* ── REVEAL ANIMATION ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── SECTION 1: OPENING ── */
+#opening {
+  height: 100vh;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  max-width: none;
+  position: relative;
+}
+.opening-center {
+  text-align: center;
+  z-index: 2;
+  position: relative;
+}
+.opening-name {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: clamp(48px, 8vw, 88px);
+  line-height: 1.05;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+.opening-tagline {
+  font-family: 'DM Mono', monospace;
+  font-size: clamp(13px, 1.5vw, 16px);
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.opening-affil {
+  font-family: 'DM Mono', monospace;
+  font-size: clamp(12px, 1.2vw, 14px);
+  color: var(--muted);
+  opacity: 0.6;
 }
 
-/* ── MOBILE ── */
-@media (max-width: 768px) {
-  #ch1-content {
-    flex-direction: column;
-    padding: 30px 24px;
-    justify-content: center;
-  }
-  .ch1-left { display: none; }
-  .ch1-right { padding-left: 0; text-align: center; }
-  .ch1-paths { justify-content: center; }
+/* Floating data cards */
+.float-card {
+  position: absolute;
+  background: rgba(15, 22, 35, 0.7);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 20px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 2;
+}
+.float-card .fc-label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.float-card .fc-value {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--text);
+}
+.fc-tl { top: 18%; left: 6%; }
+.fc-tr { top: 18%; right: 6%; }
+.fc-bl { bottom: 18%; left: 6%; }
+.fc-br { bottom: 18%; right: 6%; }
 
-  #ch2 { padding: 30px 24px; }
-
-  #ch4 { padding: 30px 24px; }
-  #ch5 { padding: 30px 24px; }
-
-  #ch1-canvas { display: none; }
-
-  .nav-dot::before {
-    top: -17px; left: -17px;
-    width: 44px; height: 44px;
-  }
-
-  .chapter-next { bottom: 56px; font-size: 10px; }
-  .chapter-label { font-size: 9px; bottom: 20px; }
-
-  #top-nav .nav-links { display: none; }
-  #top-nav .hamburger { display: block; }
-
-  .philosophy-line { font-size: clamp(15px, 4vw, 22px); margin-bottom: 32px; }
-  .work-grid { grid-template-columns: 1fr !important; }
-  .numbers-grid { grid-template-columns: 1fr 1fr !important; }
+/* Scroll indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  z-index: 2;
+}
+.scroll-indicator .line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, transparent, var(--accent2));
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+.scroll-indicator .label {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(0.7); }
+  50% { opacity: 1; transform: scaleY(1); }
 }
 
-/* ── WORK GRID (CH2) ── */
+/* ── SECTION 2: THE WORK ── */
 .work-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 24px;
-  max-width: 900px;
-  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 .work-card {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 12px;
-  padding: 28px;
-  transition: border-color 0.3s;
-  opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 0.6s, transform 0.6s, border-color 0.3s;
-}
-.work-card.show {
-  opacity: 1;
-  transform: translateY(0);
+  padding: 32px;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .work-card:hover {
-  border-color: var(--accent2);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
-.work-card.accent-blue { border-top: 3px solid #2563eb; }
-.work-card.accent-gold { border-top: 3px solid #c8a84b; }
-.work-card.accent-green { border-top: 3px solid #22c55e; }
-.work-card.accent-cyan { border-top: 3px solid #06b6d4; }
+.work-card .card-accent {
+  position: absolute;
+  top: 0;
+  left: 24px;
+  right: 24px;
+  height: 2px;
+  border-radius: 0 0 2px 2px;
+}
 .work-card h3 {
   font-family: 'Syne', sans-serif;
-  font-size: 22px;
   font-weight: 700;
+  font-size: 18px;
   color: var(--text);
-  margin-bottom: 8px;
-}
-.work-card .work-desc {
-  font-size: 13px;
-  color: var(--accent2);
   margin-bottom: 12px;
-}
-.work-card .work-stat {
-  font-size: 12px;
-  color: var(--muted);
-  line-height: 1.8;
-}
-.work-card .work-link {
-  display: inline-block;
-  margin-top: 12px;
-  font-size: 12px;
-  color: var(--accent3);
-  text-decoration: none;
-}
-.work-card .work-link:hover { text-decoration: underline; }
-.work-card .work-credit {
-  font-size: 11px;
-  color: var(--muted);
-  font-style: italic;
   margin-top: 8px;
 }
-
-/* ── NUMBERS GRID (CH3) ── */
-#ch3-numbers {
-  max-width: 900px;
-  width: 100%;
-  text-align: center;
-}
-.numbers-title {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+.work-card p {
+  font-size: 13px;
   color: var(--muted);
-  margin-bottom: 8px;
+  line-height: 1.7;
+  margin-bottom: 10px;
 }
-.numbers-subtitle {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(18px, 2.5vw, 26px);
-  color: var(--warm);
+.work-card .card-stats {
+  font-size: 12px;
+  color: var(--accent2);
+  margin-bottom: 6px;
+}
+.work-card .card-formula {
+  font-size: 12px;
+  color: var(--accent3);
   font-style: italic;
+  margin-bottom: 14px;
+}
+.badge {
+  display: inline-block;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+.badge-green { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+.badge-amber { background: rgba(200, 168, 75, 0.15); color: #c8a84b; }
+.badge-blue { background: rgba(37, 99, 235, 0.15); color: #60a5fa; }
+.card-link {
+  display: inline-block;
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--accent2);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.card-link:hover { color: var(--text); }
+
+/* ── SECTION 3: THE NUMBERS ── */
+#numbers .section-subtitle {
+  font-family: 'DM Mono', monospace;
+  font-size: 14px;
+  color: var(--muted);
+  margin-top: -36px;
   margin-bottom: 48px;
 }
-.numbers-grid {
+.stats-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  margin-bottom: 48px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  max-width: 1000px;
+  margin: 0 auto 48px;
 }
 .stat-card {
-  padding: 24px;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.6s, transform 0.6s;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px 24px;
+  text-align: center;
+  transition: transform 0.3s ease;
 }
-.stat-card.show {
-  opacity: 1;
-  transform: translateY(0);
+.stat-card:hover {
+  transform: translateY(-3px);
 }
 .stat-number {
   font-family: 'Syne', sans-serif;
-  font-size: 36px;
-  font-weight: 700;
-  color: var(--accent2);
-  margin-bottom: 4px;
+  font-weight: 800;
+  font-size: 28px;
+  color: var(--text);
+  margin-bottom: 6px;
 }
-.stat-desc {
+.stat-label {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 1px;
+}
+.numbers-quote {
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--muted);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+/* ── SECTION 4: PHILOSOPHY ── */
+#philosophy {
+  background: var(--bg2);
+  max-width: none;
+  padding: 120px 60px;
+}
+.philosophy-inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+.philosophy-inner .section-title {
+  margin-bottom: 64px;
+}
+.principle {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(18px, 2.2vw, 22px);
+  line-height: 1.8;
+  color: var(--warm);
+  margin-bottom: 64px;
+  opacity: 0.9;
+}
+.principle:last-child { margin-bottom: 0; }
+
+/* ── SECTION 5: CONTACT ── */
+#contact {
+  padding-top: 100px;
+  padding-bottom: 60px;
+}
+.contact-subtitle {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--muted);
+  margin-bottom: 48px;
+}
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 48px;
+  max-width: 600px;
+}
+.contact-row {
+  display: flex;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+.contact-row:first-child { border-top: 1px solid var(--border); }
+.contact-row:hover { background: rgba(15, 22, 35, 0.5); }
+.contact-row .cr-label {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  width: 110px;
+  flex-shrink: 0;
+}
+.contact-row .cr-value {
+  font-size: 13px;
+  color: var(--accent2);
+}
+
+.study-cta {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 32px;
+  max-width: 600px;
+  margin-bottom: 64px;
+}
+.study-cta p {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 16px;
+  line-height: 1.7;
+}
+.study-cta a {
+  font-size: 13px;
+  color: var(--accent2);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.study-cta a:hover { color: var(--text); }
+
+.footer {
   font-size: 12px;
   color: var(--muted);
+  opacity: 0.5;
+  padding-top: 40px;
+  border-top: 1px solid var(--border);
+  max-width: 600px;
 }
-.numbers-tagline {
-  font-family: 'DM Mono', monospace;
-  font-size: 13px;
-  color: var(--muted);
-  opacity: 0;
-  transition: opacity 0.8s;
+
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+  body { cursor: auto; }
+  .cursor-dot, .cursor-ring { display: none; }
+  #three-canvas { opacity: 0.3; }
+
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+
+  .section { padding: 48px 24px; }
+
+  .float-card { display: none; }
+
+  .opening-name { margin-top: -40px; }
+
+  .work-grid { grid-template-columns: 1fr; }
+
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+
+  #philosophy { padding: 64px 24px; }
+  .principle { font-size: 17px; margin-bottom: 40px; }
+
+  .contact-row .cr-label { width: 80px; }
+  .contact-row .cr-value { font-size: 12px; }
 }
-.numbers-tagline.show { opacity: 1; }
 </style>
 </head>
 <body>
 
-<!-- Progress bar -->
-<div id="progress-bar"></div>
+<!-- Scroll progress -->
+<div id="scroll-progress"></div>
 
-<!-- Nav dots -->
-<div id="nav-dots">
-  <div class="nav-dot" data-ch="0" onclick="goToChapter(0)" title="Identity"></div>
-  <div class="nav-dot" data-ch="1" onclick="goToChapter(1)" title="The Work"></div>
-  <div class="nav-dot" data-ch="2" onclick="goToChapter(2)" title="The Numbers"></div>
-  <div class="nav-dot" data-ch="3" onclick="goToChapter(3)" title="Philosophy"></div>
-  <div class="nav-dot" data-ch="4" onclick="goToChapter(4)" title="Contact"></div>
-</div>
+<!-- Custom cursor -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
 
-<!-- Top Nav Bar -->
-<nav id="top-nav">
-  <span class="nav-logo">BRYAN LEONARD</span>
-  <div class="nav-links">
-    <span class="nav-link" onclick="goToChapter(0)">Identity</span>
-    <span class="nav-link" onclick="goToChapter(1)">Work</span>
-    <span class="nav-link" onclick="goToChapter(2)">Numbers</span>
-    <span class="nav-link" onclick="goToChapter(3)">Philosophy</span>
-    <span class="nav-link" onclick="goToChapter(4)">Contact</span>
-  </div>
-  <button class="hamburger" onclick="toggleMobileMenu()">&equiv;</button>
-  <div class="mobile-menu" id="mobile-menu">
-    <span class="nav-link" onclick="goToChapter(0); toggleMobileMenu()">Identity</span>
-    <span class="nav-link" onclick="goToChapter(1); toggleMobileMenu()">Work</span>
-    <span class="nav-link" onclick="goToChapter(2); toggleMobileMenu()">Numbers</span>
-    <span class="nav-link" onclick="goToChapter(3); toggleMobileMenu()">Philosophy</span>
-    <span class="nav-link" onclick="goToChapter(4); toggleMobileMenu()">Contact</span>
-  </div>
+<!-- Three.js canvas -->
+<canvas id="three-canvas"></canvas>
+
+<!-- NAV -->
+<nav>
+  <a href="#opening" class="nav-logo">Bryan Leonard</a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#numbers">Numbers</a></li>
+    <li><a href="#philosophy">Philosophy</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
-
-<!-- BOOT SCREEN -->
-<div id="boot-screen">
-  <div id="boot-terminal">
-    <div class="boot-line" id="bl0"></div>
-    <div class="boot-line" id="bl1"></div>
-    <div class="boot-line" id="bl2"></div>
-    <div class="boot-line" id="bl3"></div>
-    <div class="boot-line" id="bl4"></div>
-  </div>
-  <div id="boot-question">
-    <h2>Have you ever known exactly what you wanted to say — but under pressure, a simpler version came out?</h2>
-    <div class="boot-buttons">
-      <button class="boot-btn" onclick="bootAnswer('yes')">[ YES, that happens to me ]</button>
-      <button class="boot-btn" onclick="bootAnswer('no')">[ NO, I always say what I mean ]</button>
-    </div>
-  </div>
-  <span id="boot-skip" onclick="completeBoot()" style="position:absolute; bottom:24px; right:24px; font-family:'DM Mono',monospace; font-size:10px; color:var(--muted); cursor:pointer; transition:color 0.3s;" onmouseover="this.style.color='var(--accent2)'" onmouseout="this.style.color='var(--muted)'">skip &rarr;</span>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#work" class="mobile-link">Work</a>
+  <a href="#numbers" class="mobile-link">Numbers</a>
+  <a href="#philosophy" class="mobile-link">Philosophy</a>
+  <a href="#contact" class="mobile-link">Contact</a>
 </div>
 
-<!-- CHAPTER 1: IDENTITY -->
-<div class="chapter" id="ch1">
-  <div class="chapter-label">01 / IDENTITY</div>
-  <div class="chapter-next" onclick="goToChapter(1)">&rarr; next: The Work</div>
-  <canvas id="ch1-canvas"></canvas>
-  <div id="ch1-content">
-    <div class="ch1-left"></div>
-    <div class="ch1-right">
-      <div class="identity-line ch1-name">Bryan Leonard</div>
-      <div class="identity-line ch1-role">Builder &middot; Full-Stack Developer</div>
-      <div class="identity-line ch1-role">Consciousness Researcher</div>
-      <div class="identity-line ch1-detail">Co-founder, Qira LLC &middot; Phoenix, Arizona</div>
-      <div class="identity-line ch1-terminal">
-        <span>&gt;</span> Currently running: EGC &middot; LOLM &middot; Codey &middot; NFET<br>
-        <span>&gt;</span> 9.3B tokens &middot; $6,859 compute &middot; <span id="live-count">--</span> research subjects
-      </div>
-      <div class="identity-line ch1-paths">
-        <button class="path-btn" onclick="goToChapter(1)">[ EGC Research ]</button>
-        <button class="path-btn" onclick="goToChapter(1)">[ Systems &amp; Products ]</button>
-        <button class="path-btn" onclick="goToChapter(3)">[ Philosophy ]</button>
-      </div>
-    </div>
+<!-- SECTION 1: OPENING -->
+<section id="opening">
+  <div class="float-card fc-tl reveal">
+    <div class="fc-label">Study Live</div>
+    <div class="fc-value"><span class="live-count">40</span>+</div>
   </div>
-</div>
+  <div class="float-card fc-tr reveal">
+    <div class="fc-label">Pearson R</div>
+    <div class="fc-value">0.311</div>
+  </div>
+  <div class="float-card fc-bl reveal">
+    <div class="fc-label">TPU Research</div>
+    <div class="fc-value">Cloud &#10003;</div>
+  </div>
+  <div class="float-card fc-br reveal">
+    <div class="fc-label">Location</div>
+    <div class="fc-value">Phoenix, AZ</div>
+  </div>
 
-<!-- CHAPTER 2: THE GATE (EGC) -->
-<div class="chapter" id="ch2">
-  <button class="chapter-back" onclick="goToChapter(0)">&larr;</button>
-  <div class="chapter-label">02 / THE WORK</div>
-  <div class="chapter-next" onclick="goToChapter(2)">&rarr; next: The Numbers</div>
+  <div class="opening-center">
+    <h1 class="opening-name">Bryan Leonard</h1>
+    <p class="opening-tagline">Consciousness researcher. ML engineer. Builder.</p>
+    <p class="opening-affil">Co-founder, Qira LLC &middot; Phoenix, Arizona</p>
+  </div>
+
+  <div class="scroll-indicator">
+    <div class="line"></div>
+    <div class="label">Scroll to enter</div>
+  </div>
+</section>
+
+<!-- SECTION 2: THE WORK -->
+<section id="work" class="section">
+  <div class="section-title reveal">The Work</div>
   <div class="work-grid">
-    <div class="work-card accent-blue" id="wc-egc">
-      <h3>EGC</h3>
-      <div class="work-desc">Expression-Gated Consciousness</div>
-      <div class="work-stat">
-        Live empirical study &middot; N=<span id="ch2-count">--</span>+ subjects<br>
-        Pearson r = 0.311 &middot; Comfort gap: 5.6pts<br>
-        g(K) = 4K(1&minus;K)
-      </div>
-      <div class="work-credit">Brandyn Leonard</div>
-      <a href="https://theartofsound.github.io/egcstudy/" target="_blank" rel="noopener" class="work-link">Take the study &rarr;</a>
+
+    <div class="work-card reveal">
+      <div class="card-accent" style="background:#2563eb;"></div>
+      <h3>Expression-Gated Consciousness</h3>
+      <p>Live empirical study measuring the gap between what people know and what they express.</p>
+      <div class="card-stats">N=<span class="live-count">40</span>+ subjects &middot; Pearson r=0.311 &middot; Comfort gap: 5.6pts</div>
+      <div class="card-formula">g(K) = 4K(1&minus;K) &mdash; Brandyn Leonard</div>
+      <span class="badge badge-green">Live</span>
+      <br><a class="card-link" href="https://theartofsound.github.io/egcstudy/" target="_blank" rel="noopener">Take the study &rarr;</a>
     </div>
-    <div class="work-card accent-gold" id="wc-lolm">
-      <h3>LOLM</h3>
-      <div class="work-desc">Custom Language Model</div>
-      <div class="work-stat">
-        10B&ndash;100B parameter target<br>
-        Google TPU &middot; TRC Grant<br>
-        Training in progress
-      </div>
+
+    <div class="work-card reveal">
+      <div class="card-accent" style="background:#c8a84b;"></div>
+      <h3>Custom Language Model</h3>
+      <p>Building a transformer architecture from scratch targeting 10B&ndash;100B parameters on TPU pods.</p>
+      <div class="card-stats">Google TPU Research Cloud grant &middot; XLA FSDP training</div>
+      <span class="badge badge-amber">Training</span>
     </div>
-    <div class="work-card accent-green" id="wc-codey">
-      <h3>Codey</h3>
-      <div class="work-desc">AI Coding Intelligence</div>
-      <div class="work-stat">
-        Live on Render<br>
-        Free / $19 / $49 / $149
-      </div>
-      <a href="https://theartofsound.github.io/codey/" target="_blank" rel="noopener" class="work-link">codey &rarr;</a>
+
+    <div class="work-card reveal">
+      <div class="card-accent" style="background:#10b981;"></div>
+      <h3>AI Coding Intelligence</h3>
+      <p>The only coding AI that treats your codebase as a connected network.</p>
+      <div class="card-stats">Live on Render &middot; Free / $19 / $49 / $149</div>
+      <span class="badge badge-green">Live</span>
+      <br><a class="card-link" href="https://theartofsound.github.io/codey/" target="_blank" rel="noopener">codey.cc &rarr;</a>
     </div>
-    <div class="work-card accent-cyan" id="wc-nfet">
-      <h3>NFET</h3>
-      <div class="work-desc">Traffic Optimization</div>
-      <div class="work-stat">
-        Kuramoto oscillators &middot; Monte Carlo<br>
-        Live AZ-511 data &middot; Phoenix metro
-      </div>
+
+    <div class="work-card reveal">
+      <div class="card-accent" style="background:#06b6d4;"></div>
+      <h3>Traffic Optimization</h3>
+      <p>Kuramoto oscillator modeling with Monte Carlo variance and BPR delay functions.</p>
+      <div class="card-stats">Live AZ-511 data feed &middot; Phoenix metro area</div>
+      <span class="badge badge-blue">Active</span>
     </div>
+
   </div>
-</div>
+</section>
 
-<!-- CHAPTER 3: THE BUILD -->
-<div class="chapter" id="ch3">
-  <button class="chapter-back" onclick="goToChapter(1)">&larr;</button>
-  <div class="chapter-label">03 / THE NUMBERS</div>
-  <div class="chapter-next" onclick="goToChapter(3)">&rarr; next: Philosophy</div>
-  <div id="ch3-numbers">
-    <div class="numbers-title">THE NUMBERS</div>
-    <div class="numbers-subtitle">Scale that speaks for itself.</div>
-    <div class="numbers-grid">
-      <div class="stat-card" id="stat0"><div class="stat-number">9.3B</div><div class="stat-desc">tokens processed</div></div>
-      <div class="stat-card" id="stat1"><div class="stat-number">$6,859</div><div class="stat-desc">compute this month</div></div>
-      <div class="stat-card" id="stat2"><div class="stat-number"><span id="ch3-count">44</span>+</div><div class="stat-desc">research subjects</div></div>
-      <div class="stat-card" id="stat3"><div class="stat-number">10B-100B</div><div class="stat-desc">parameter target</div></div>
-      <div class="stat-card" id="stat4"><div class="stat-number">20+</div><div class="stat-desc">Vol-bot signups</div></div>
-      <div class="stat-card" id="stat5"><div class="stat-number">4</div><div class="stat-desc">simultaneous projects</div></div>
-      <div class="stat-card" id="stat6"><div class="stat-number">0</div><div class="stat-desc">institutional backing</div></div>
-    </div>
-    <div class="numbers-tagline" id="numbers-tagline">From Phoenix, Arizona. Without permission. Without a lab.</div>
+<!-- SECTION 3: THE NUMBERS -->
+<section id="numbers" class="section">
+  <div class="section-title reveal">The Numbers</div>
+  <p class="section-subtitle reveal">Scale that speaks for itself.</p>
+  <div class="stats-grid">
+    <div class="stat-card reveal"><div class="stat-number">9.3B</div><div class="stat-label">tokens processed</div></div>
+    <div class="stat-card reveal"><div class="stat-number">$6,859</div><div class="stat-label">compute this month</div></div>
+    <div class="stat-card reveal"><div class="stat-number live-count-stat">44+</div><div class="stat-label">research subjects</div></div>
+    <div class="stat-card reveal"><div class="stat-number">0.311</div><div class="stat-label">Pearson correlation</div></div>
+    <div class="stat-card reveal"><div class="stat-number">10B&ndash;100B</div><div class="stat-label">parameter target</div></div>
+    <div class="stat-card reveal"><div class="stat-number">20+</div><div class="stat-label">Vol-bot signups</div></div>
+    <div class="stat-card reveal"><div class="stat-number">4</div><div class="stat-label">active projects</div></div>
+    <div class="stat-card reveal"><div class="stat-number">0</div><div class="stat-label">institutional backing</div></div>
   </div>
-</div>
+  <p class="numbers-quote reveal">From Phoenix, Arizona. Without permission. Without a lab.</p>
+</section>
 
-<!-- CHAPTER 4: PHILOSOPHY -->
-<div class="chapter" id="ch4">
-  <button class="chapter-back" onclick="goToChapter(2)">&larr;</button>
-  <div class="chapter-label">04 / PHILOSOPHY</div>
-  <div class="chapter-next" onclick="goToChapter(4)">&rarr; next: Contact</div>
-  <div style="display:flex; flex-direction:column; align-items:center;">
-    <div class="philosophy-line" id="phil1">Real work over everything. Not the appearance of progress. The actual thing. If the numbers don't confirm it, the idea doesn't survive.</div>
-    <div class="philosophy-line" id="phil2">Shoot for the scale that makes people uncomfortable when you say it out loud. 10 billion parameter models. Peer-reviewed consciousness research. From Phoenix, without permission.</div>
-    <div class="philosophy-line" id="phil3">The gap between knowing and saying is the most interesting problem in existence. We are closing it. That is what all of this is.</div>
-    <div class="philosophy-tag" id="phil-tag">&gt; Built in Phoenix, Arizona<br>&gt; Without permission</div>
-    <div class="ch4-ctas" id="ch4-ctas">
-      <button class="cta-btn cta-secondary" onclick="goToChapter(0)">[ Back to the beginning ]</button>
-      <button class="cta-btn cta-primary" onclick="goToChapter(4)">[ Reach out ]</button>
-    </div>
+<!-- SECTION 4: PHILOSOPHY -->
+<section id="philosophy">
+  <div class="philosophy-inner">
+    <div class="section-title reveal">Philosophy</div>
+    <p class="principle reveal">Real work over everything. Not the appearance of progress. The actual thing. If the numbers don't confirm it, the idea doesn't survive.</p>
+    <p class="principle reveal">Shoot for the scale that makes people uncomfortable when you say it out loud. 10 billion parameter models. Peer-reviewed consciousness research. From Phoenix, without permission.</p>
+    <p class="principle reveal">The gap between knowing and saying is the most interesting problem in existence. We are closing it. That is what all of this is.</p>
   </div>
-</div>
+</section>
 
-<!-- CHAPTER 5: CONTACT -->
-<div class="chapter" id="ch5">
-  <button class="chapter-back" onclick="goToChapter(3)">&larr;</button>
-  <div class="chapter-label">05 / CONTACT</div>
-  <div id="ch5-inner">
-    <div class="ch5-intro" id="ch5-intro">You made it through. Most people don't read this far.</div>
+<!-- SECTION 5: CONTACT -->
+<section id="contact" class="section">
+  <div class="section-title reveal">Contact</div>
+  <p class="contact-subtitle reveal">Collaboration, research, and impossible ideas.</p>
 
-    <div class="ch5-cmd" id="cmd1"><span style="color:var(--accent3)">&gt;</span> echo $EMAIL<br>&nbsp;&nbsp;<a href="mailto:bryanleonard237@gmail.com">bryanleonard237@gmail.com</a></div>
-    <div class="ch5-cmd" id="cmd2"><span style="color:var(--accent3)">&gt;</span> cat /links/github<br>&nbsp;&nbsp;<a href="https://github.com/TheArtOfSound" target="_blank" rel="noopener">github.com/TheArtOfSound</a></div>
-    <div class="ch5-cmd" id="cmd3"><span style="color:var(--accent3)">&gt;</span> cat /links/linkedin<br>&nbsp;&nbsp;<a href="https://www.linkedin.com/in/bryan-leonard-54155218a/" target="_blank" rel="noopener">linkedin.com/in/bryan-leonard</a></div>
-    <div class="ch5-cmd" id="cmd4"><span style="color:var(--accent3)">&gt;</span> cat /links/zenodo<br>&nbsp;&nbsp;<a href="https://zenodo.org/records/19242315" target="_blank" rel="noopener">zenodo.org — EGC Publication</a></div>
-    <div class="ch5-cmd" id="cmd5"><span style="color:var(--accent3)">&gt;</span> cat /links/egcstudy<br>&nbsp;&nbsp;<a href="https://theartofsound.github.io/egcstudy/" target="_blank" rel="noopener">theartofsound.github.io/egcstudy</a></div>
-    <div class="ch5-cmd" id="cmd6"><span style="color:var(--accent3)">&gt;</span> cat /links/codey<br>&nbsp;&nbsp;<a href="https://theartofsound.github.io/codey/" target="_blank" rel="noopener">theartofsound.github.io/codey</a></div>
-    <div class="ch5-cmd" id="cmd7"><span style="color:var(--accent3)">&gt;</span> cat /links/dashboard<br>&nbsp;&nbsp;<a href="https://theartofsound.github.io/claude-usage-dashboard/" target="_blank" rel="noopener">Claude Usage Dashboard</a></div>
-
-    <div class="ch5-study" id="ch5-study">
-      <p>The study is still live. Your data would matter.</p>
-      <a href="https://theartofsound.github.io/egcstudy/" target="_blank" rel="noopener">[ Take it &rarr; ]</a>
-    </div>
+  <div class="contact-links reveal">
+    <a class="contact-row" href="mailto:bryanleonard237@gmail.com">
+      <span class="cr-label">Email</span>
+      <span class="cr-value">bryanleonard237@gmail.com</span>
+    </a>
+    <a class="contact-row" href="https://github.com/TheArtOfSound" target="_blank" rel="noopener">
+      <span class="cr-label">GitHub</span>
+      <span class="cr-value">github.com/TheArtOfSound</span>
+    </a>
+    <a class="contact-row" href="https://linkedin.com/in/bryan-leonard-54155218a" target="_blank" rel="noopener">
+      <span class="cr-label">LinkedIn</span>
+      <span class="cr-value">linkedin.com/in/bryan-leonard-54155218a</span>
+    </a>
+    <a class="contact-row" href="https://zenodo.org/records/19242315" target="_blank" rel="noopener">
+      <span class="cr-label">Preprint</span>
+      <span class="cr-value">zenodo.org/records/19242315</span>
+    </a>
+    <a class="contact-row" href="https://theartofsound.github.io/claude-usage-dashboard" target="_blank" rel="noopener">
+      <span class="cr-label">Dashboard</span>
+      <span class="cr-value">Claude Usage Dashboard</span>
+    </a>
   </div>
-</div>
+
+  <div class="study-cta reveal">
+    <p>The study is still live. Your data would matter.</p>
+    <a href="https://theartofsound.github.io/egcstudy/" target="_blank" rel="noopener">Take the EGC study &rarr;</a>
+  </div>
+
+  <div class="footer reveal">Qira LLC &middot; Phoenix, Arizona</div>
+</section>
 
 <script>
-/* ══════════════════════════════════════════
-   QIRA OS — Portfolio Engine
-   ══════════════════════════════════════════ */
+// ── THREE.JS PARTICLES ──
+(function() {
+  const canvas = document.getElementById('three-canvas');
+  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(window.innerWidth, window.innerHeight);
 
-const SUPABASE_URL = 'https://wgzopjrdnyazvhpklzhw.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indnem9wanJkbnlhenZocGtsemh3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzOTc4NzcsImV4cCI6MjA4OTk3Mzg3N30.8dx5xWljLDZa5PMvE0Ps5q4ZEyuZgx_5FHVnD0WfBjs';
-
-let currentChapter = 0;
-let transitioning = false;
-let chapterLocked = false;
-let chapterTimers = {};
-
-const chapters = [
-  document.getElementById('ch1'),
-  document.getElementById('ch2'),
-  document.getElementById('ch3'),
-  document.getElementById('ch4'),
-  document.getElementById('ch5')
-];
-
-/* ── SUPABASE COUNT ── */
-async function fetchCount() {
-  try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/responses?select=id`, {
-      headers: {
-        'apikey': SUPABASE_KEY,
-        'Authorization': `Bearer ${SUPABASE_KEY}`,
-        'Prefer': 'count=exact'
-      }
-    });
-    const count = res.headers.get('content-range');
-    if (count) {
-      const n = count.split('/')[1];
-      document.getElementById('live-count').textContent = n;
-      document.getElementById('ch2-count').textContent = n;
-      document.getElementById('ch3-count').textContent = n;
-    }
-  } catch(e) {
-    document.getElementById('live-count').textContent = '44';
-    document.getElementById('ch2-count').textContent = '44';
-    document.getElementById('ch3-count').textContent = '44';
-  }
-}
-fetchCount();
-
-/* ── BOOT SEQUENCE ── */
-const bootLines = [
-  'QIRA OS v1.0',
-  'Initializing...',
-  'Loading identity layer...',
-  'Loading research core...',
-  'One question before we begin.'
-];
-
-function typeBootLine(el, text, speed) {
-  return new Promise(resolve => {
-    el.style.opacity = '1';
-    let i = 0;
-    const cursorSpan = document.createElement('span');
-    cursorSpan.className = 'cursor-char';
-    el.appendChild(cursorSpan);
-
-    function tick() {
-      if (i < text.length) {
-        el.insertBefore(document.createTextNode(text[i]), cursorSpan);
-        i++;
-        setTimeout(tick, speed);
-      } else {
-        setTimeout(() => {
-          if (el.contains(cursorSpan)) el.removeChild(cursorSpan);
-          resolve();
-        }, 200);
-      }
-    }
-    tick();
-  });
-}
-
-async function runBoot() {
-  if (sessionStorage.getItem('boot_complete')) {
-    document.getElementById('boot-screen').style.display = 'none';
-    enterChapters();
-    return;
-  }
-
-  for (let i = 0; i < bootLines.length; i++) {
-    await typeBootLine(document.getElementById('bl' + i), bootLines[i], 40);
-    if (i < bootLines.length - 1) await sleep(300);
-  }
-
-  await sleep(600);
-  document.getElementById('boot-question').style.opacity = '1';
-}
-
-function bootAnswer(ans) {
-  sessionStorage.setItem('boot_answer', ans);
-  sessionStorage.setItem('boot_complete', 'true');
-
-  const boot = document.getElementById('boot-screen');
-  boot.style.transition = 'opacity 0.8s';
-  boot.style.opacity = '0';
-  setTimeout(() => {
-    boot.style.display = 'none';
-    enterChapters();
-  }, 800);
-}
-
-function completeBoot() {
-  sessionStorage.setItem('boot_complete', 'true');
-  const boot = document.getElementById('boot-screen');
-  boot.style.transition = 'opacity 0.8s';
-  boot.style.opacity = '0';
-  setTimeout(() => {
-    boot.style.display = 'none';
-    enterChapters();
-  }, 800);
-}
-
-function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
-
-/* ── MOBILE MENU TOGGLE ── */
-function toggleMobileMenu() {
-  document.getElementById('mobile-menu').classList.toggle('open');
-}
-
-/* ── NAV LINK ACTIVE STATE ── */
-function updateNavLinks(idx) {
-  document.querySelectorAll('#top-nav .nav-link').forEach((link, i) => {
-    // There are 5 in .nav-links and 5 in .mobile-menu, so use modulo
-    link.classList.toggle('active', (i % 5) === idx);
-  });
-}
-
-/* ── CHAPTER SYSTEM ── */
-function enterChapters() {
-  document.getElementById('nav-dots').classList.add('visible');
-  document.getElementById('top-nav').classList.add('visible');
-  goToChapter(0);
-}
-
-function goToChapter(idx) {
-  if (idx < 0 || idx >= chapters.length) return;
-  if (transitioning) return;
-  transitioning = true;
-
-  // Clear old chapter timer
-  if (chapterTimers[currentChapter]) {
-    clearTimeout(chapterTimers[currentChapter]);
-  }
-
-  chapters[currentChapter].classList.remove('active');
-  currentChapter = idx;
-  chapters[idx].classList.add('active');
-
-  // Progress bar
-  document.getElementById('progress-bar').style.width = ((idx + 1) * 20) + '%';
-
-  // Nav dots
-  document.querySelectorAll('.nav-dot').forEach((d, i) => {
-    d.classList.toggle('active', i === idx);
-  });
-
-  // Top nav active state
-  updateNavLinks(idx);
-
-  // Lock forward nav for 2s
-  chapterLocked = true;
-  chapterTimers[idx] = setTimeout(() => { chapterLocked = false; }, 2000);
-
-  // Run entrance animations
-  setTimeout(() => {
-    runChapterEntrance(idx);
-    transitioning = false;
-  }, 100);
-}
-
-function runChapterEntrance(idx) {
-  if (idx === 0) entranceCh1();
-  if (idx === 1) entranceCh2();
-  if (idx === 2) entranceCh3();
-  if (idx === 3) entranceCh4();
-  if (idx === 4) entranceCh5();
-}
-
-/* ── CH1 ENTRANCE ── */
-function entranceCh1() {
-  const lines = document.querySelectorAll('#ch1 .identity-line');
-  lines.forEach((el, i) => {
-    setTimeout(() => el.classList.add('show'), i * 250);
-  });
-  initThreeJS();
-}
-
-/* ── CH2 ENTRANCE ── */
-function entranceCh2() {
-  const cards = document.querySelectorAll('.work-card');
-  cards.forEach((c, i) => {
-    c.classList.remove('show');
-    setTimeout(() => c.classList.add('show'), i * 200);
-  });
-}
-
-/* ── CH3 ENTRANCE ── */
-function entranceCh3() {
-  const stats = document.querySelectorAll('.stat-card');
-  stats.forEach((s, i) => {
-    s.classList.remove('show');
-    setTimeout(() => s.classList.add('show'), 200 + i * 150);
-  });
-  const tagline = document.getElementById('numbers-tagline');
-  tagline.classList.remove('show');
-  setTimeout(() => tagline.classList.add('show'), 200 + stats.length * 150 + 400);
-}
-
-/* ── CH4 ENTRANCE ── */
-function entranceCh4() {
-  // Reset
-  ['phil1','phil2','phil3'].forEach(id => document.getElementById(id).classList.remove('show'));
-  document.getElementById('phil-tag').classList.remove('show');
-  document.getElementById('ch4-ctas').classList.remove('show');
-
-  setTimeout(() => document.getElementById('phil1').classList.add('show'), 500);
-  setTimeout(() => document.getElementById('phil2').classList.add('show'), 8500);
-  setTimeout(() => document.getElementById('phil3').classList.add('show'), 14500);
-  setTimeout(() => document.getElementById('phil-tag').classList.add('show'), 20500);
-  setTimeout(() => document.getElementById('ch4-ctas').classList.add('show'), 22000);
-}
-
-/* ── CH5 ENTRANCE ── */
-function entranceCh5() {
-  setTimeout(() => document.getElementById('ch5-intro').classList.add('show'), 200);
-  for (let i = 1; i <= 7; i++) {
-    setTimeout(() => document.getElementById('cmd' + i).classList.add('show'), 400 + i * 350);
-  }
-  setTimeout(() => document.getElementById('ch5-study').classList.add('show'), 3000);
-}
-
-/* ── KEYBOARD NAV ── */
-document.addEventListener('keydown', e => {
-  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-    e.preventDefault();
-    if (!chapterLocked && currentChapter < chapters.length - 1) goToChapter(currentChapter + 1);
-  }
-  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-    e.preventDefault();
-    if (currentChapter > 0) goToChapter(currentChapter - 1);
-  }
-});
-
-/* ── SWIPE NAV ── */
-let touchStartX = 0;
-let touchStartY = 0;
-document.addEventListener('touchstart', e => {
-  touchStartX = e.changedTouches[0].screenX;
-  touchStartY = e.changedTouches[0].screenY;
-}, { passive: true });
-document.addEventListener('touchend', e => {
-  const dx = e.changedTouches[0].screenX - touchStartX;
-  const dy = e.changedTouches[0].screenY - touchStartY;
-  if (Math.abs(dx) < 50 || Math.abs(dy) > Math.abs(dx)) return;
-  if (dx < 0 && !chapterLocked && currentChapter < chapters.length - 1) goToChapter(currentChapter + 1);
-  if (dx > 0 && currentChapter > 0) goToChapter(currentChapter - 1);
-}, { passive: true });
-
-/* ── PATH CHOICE (removed — all sections now accessible from nav) ── */
-
-/* ── THREE.JS PARTICLES (CH1) ── */
-let threeInited = false;
-function initThreeJS() {
-  if (threeInited) return;
-  if (window.innerWidth < 768) return; // skip on mobile
-  threeInited = true;
-
-  const canvas = document.getElementById('ch1-canvas');
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-  camera.position.z = 4;
+  camera.position.z = 50;
 
-  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
+  const COUNT = 400;
   const geo = new THREE.BufferGeometry();
-  const count = 400;
-  const positions = new Float32Array(count * 3);
-  for (let i = 0; i < count * 3; i++) {
-    positions[i] = (Math.random() - 0.5) * 8;
+  const pos = new Float32Array(COUNT * 3);
+  const vel = new Float32Array(COUNT * 3);
+
+  for (let i = 0; i < COUNT; i++) {
+    pos[i * 3]     = (Math.random() - 0.5) * 100;
+    pos[i * 3 + 1] = (Math.random() - 0.5) * 100;
+    pos[i * 3 + 2] = (Math.random() - 0.5) * 60;
+    vel[i * 3]     = (Math.random() - 0.5) * 0.01;
+    vel[i * 3 + 1] = (Math.random() - 0.5) * 0.01;
+    vel[i * 3 + 2] = (Math.random() - 0.5) * 0.005;
   }
-  geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
 
   const mat = new THREE.PointsMaterial({
     color: 0x2563eb,
-    size: 0.025,
+    size: 1.8,
     transparent: true,
-    opacity: 0.7,
-    blending: THREE.AdditiveBlending
+    opacity: 0.5,
+    sizeAttenuation: true,
   });
 
   const points = new THREE.Points(geo, mat);
@@ -1185,26 +758,127 @@ function initThreeJS() {
 
   function animate() {
     requestAnimationFrame(animate);
-    const pos = geo.attributes.position.array;
-    for (let i = 0; i < count; i++) {
-      pos[i * 3 + 1] += Math.sin(Date.now() * 0.0003 + i * 0.1) * 0.0003;
-      pos[i * 3] += Math.cos(Date.now() * 0.0002 + i * 0.05) * 0.0002;
+    const p = geo.attributes.position.array;
+    for (let i = 0; i < COUNT; i++) {
+      p[i * 3]     += vel[i * 3];
+      p[i * 3 + 1] += vel[i * 3 + 1];
+      p[i * 3 + 2] += vel[i * 3 + 2];
+      if (Math.abs(p[i * 3])     > 55) vel[i * 3]     *= -1;
+      if (Math.abs(p[i * 3 + 1]) > 55) vel[i * 3 + 1] *= -1;
+      if (Math.abs(p[i * 3 + 2]) > 35) vel[i * 3 + 2] *= -1;
     }
     geo.attributes.position.needsUpdate = true;
-    points.rotation.y += 0.0002;
+    points.rotation.y += 0.0003;
+    points.rotation.x += 0.0001;
     renderer.render(scene, camera);
   }
   animate();
 
-  window.addEventListener('resize', () => {
+  window.addEventListener('resize', function() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
   });
-}
+})();
 
-/* ── INIT ── */
-runBoot();
+// ── CUSTOM CURSOR ──
+(function() {
+  if (window.innerWidth <= 768) return;
+  const dot = document.getElementById('cursorDot');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', function(e) {
+    mx = e.clientX; my = e.clientY;
+    dot.style.left = mx + 'px';
+    dot.style.top = my + 'px';
+  });
+
+  function followRing() {
+    rx += (mx - rx) * 0.15;
+    ry += (my - ry) * 0.15;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(followRing);
+  }
+  followRing();
+
+  document.querySelectorAll('a, button, .work-card, .stat-card').forEach(function(el) {
+    el.addEventListener('mouseenter', function() {
+      ring.style.width = '56px';
+      ring.style.height = '56px';
+      ring.style.borderColor = 'rgba(96,165,250,0.7)';
+    });
+    el.addEventListener('mouseleave', function() {
+      ring.style.width = '40px';
+      ring.style.height = '40px';
+      ring.style.borderColor = 'rgba(96,165,250,0.4)';
+    });
+  });
+})();
+
+// ── SCROLL PROGRESS ──
+(function() {
+  var bar = document.getElementById('scroll-progress');
+  window.addEventListener('scroll', function() {
+    var scrollTop = window.scrollY;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    bar.style.width = pct + '%';
+  });
+})();
+
+// ── HAMBURGER ──
+(function() {
+  var btn = document.getElementById('hamburgerBtn');
+  var menu = document.getElementById('mobileMenu');
+  btn.addEventListener('click', function() {
+    menu.classList.toggle('open');
+  });
+  menu.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      menu.classList.remove('open');
+    });
+  });
+})();
+
+// ── INTERSECTION OBSERVER REVEALS ──
+(function() {
+  var els = document.querySelectorAll('.reveal');
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+  els.forEach(function(el) { observer.observe(el); });
+})();
+
+// ── SUPABASE LIVE COUNT ──
+(function() {
+  var url = 'https://wgzopjrdnyazvhpklzhw.supabase.co';
+  var key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indnem9wanJkbnlhenZocGtsemh3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzOTc4NzcsImV4cCI6MjA4OTk3Mzg3N30.8dx5xWljLDZa5PMvE0Ps5q4ZEyuZgx_5FHVnD0WfBjs';
+
+  fetch(url + '/rest/v1/responses?select=id', {
+    headers: {
+      'apikey': key,
+      'Authorization': 'Bearer ' + key
+    }
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    if (Array.isArray(data)) {
+      var count = data.length;
+      document.querySelectorAll('.live-count').forEach(function(el) {
+        el.textContent = count;
+      });
+      var statEl = document.querySelector('.live-count-stat');
+      if (statEl) statEl.textContent = count + '+';
+    }
+  })
+  .catch(function(e) { console.warn('Supabase fetch error:', e); });
+})();
 </script>
 </body>
 </html>
