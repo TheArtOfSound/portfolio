@@ -72,16 +72,25 @@ body::after {
 .nav-dot {
   width: 10px; height: 10px;
   border-radius: 50%;
-  border: 1.5px solid var(--accent2);
+  border: 1px solid rgba(255,255,255,0.3);
   background: transparent;
   cursor: pointer;
   transition: background 0.3s, transform 0.3s;
+  padding: 0;
+  position: relative;
+}
+.nav-dot::before {
+  content: '';
+  position: absolute;
+  top: -17px; left: -17px;
+  width: 44px; height: 44px;
 }
 .nav-dot.active {
-  background: var(--accent2);
+  background: #fff;
+  border-color: #fff;
   transform: scale(1.3);
 }
-.nav-dot:hover { background: rgba(96,165,250,0.4); }
+.nav-dot:hover { background: rgba(255,255,255,0.4); }
 
 /* ── BOOT SCREEN ── */
 #boot-screen {
@@ -695,6 +704,53 @@ body::after {
 }
 .ch5-study a:hover { text-decoration: underline; }
 
+/* ── NEXT INDICATOR ── */
+.chapter-next {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  cursor: pointer;
+  z-index: 100;
+  transition: color 0.3s;
+  letter-spacing: 0.05em;
+}
+.chapter-next:hover { color: var(--accent2); }
+
+/* ── BACK ARROW ── */
+.chapter-back {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  font-family: 'DM Mono', monospace;
+  font-size: 18px;
+  color: var(--muted);
+  cursor: pointer;
+  z-index: 100;
+  transition: color 0.3s;
+  background: none;
+  border: none;
+  padding: 8px;
+}
+.chapter-back:hover { color: var(--accent2); }
+
+/* ── CHAPTER LABEL ── */
+.chapter-label {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  opacity: 0.5;
+  z-index: 100;
+  text-transform: uppercase;
+}
+
 /* ── MOBILE ── */
 @media (max-width: 768px) {
   #ch1-content {
@@ -735,6 +791,18 @@ body::after {
 
   #ch4 { padding: 30px 24px; }
   #ch5 { padding: 30px 24px; }
+
+  #ch1-canvas { display: none; }
+
+  .nav-dot::before {
+    top: -17px; left: -17px;
+    width: 44px; height: 44px;
+  }
+
+  .chapter-next { bottom: 56px; font-size: 10px; }
+  .chapter-label { font-size: 9px; bottom: 20px; }
+
+  .philosophy-line { font-size: clamp(15px, 4vw, 22px); margin-bottom: 32px; }
 }
 </style>
 </head>
@@ -772,6 +840,8 @@ body::after {
 
 <!-- CHAPTER 1: IDENTITY -->
 <div class="chapter" id="ch1">
+  <div class="chapter-label">01 / IDENTITY</div>
+  <div class="chapter-next" onclick="goToChapter(1)">&rarr; next: The Gate</div>
   <canvas id="ch1-canvas"></canvas>
   <div id="ch1-content">
     <div class="ch1-left"></div>
@@ -782,6 +852,7 @@ body::after {
       <div class="identity-line ch1-detail">Co-founder, Qira LLC</div>
       <div class="identity-line ch1-detail">Phoenix, Arizona</div>
       <div class="identity-line ch1-terminal">
+        <span>&gt;</span> 9.3B tokens processed &middot; $6,859 in compute this month<br>
         <span>&gt;</span> Currently running: EGC study &middot; LOLM &middot; Codey &middot; NFET<br>
         <span>&gt;</span> <span id="live-count">--</span> research subjects and counting
       </div>
@@ -796,23 +867,26 @@ body::after {
 
 <!-- CHAPTER 2: THE GATE (EGC) -->
 <div class="chapter" id="ch2">
+  <button class="chapter-back" onclick="goToChapter(0)">&larr;</button>
+  <div class="chapter-label">02 / THE GATE</div>
+  <div class="chapter-next" onclick="goToChapter(2)">&rarr; next: The Build</div>
   <div id="ch2-inner">
     <div class="ch2-hook" id="ch2-hook"></div>
 
     <div class="ch2-figures">
       <div class="figure-card" id="fig-comp">
         <div class="figure-icon"><div class="compressor-anim"></div></div>
-        <div class="figure-label">Compressor</div>
+        <div class="figure-label">Compressor — 42%</div>
         <div class="figure-desc">Contracts under pressure. Simplifies to survive the moment.</div>
       </div>
       <div class="figure-card" id="fig-exp">
         <div class="figure-icon"><div class="expander-anim"></div></div>
-        <div class="figure-label">Expander</div>
+        <div class="figure-label">Expander — 26%</div>
         <div class="figure-desc">Opens wider. Says more than they planned. Gains clarity through volume.</div>
       </div>
       <div class="figure-card" id="fig-sup">
         <div class="figure-icon"><div class="suppressor-anim"></div></div>
-        <div class="figure-label">Suppressor</div>
+        <div class="figure-label">Suppressor — 32%</div>
         <div class="figure-desc">Stops mid-thought. The signal was there, then it wasn't.</div>
       </div>
     </div>
@@ -820,20 +894,23 @@ body::after {
     <div class="ch2-typed" id="ch2-typed"></div>
 
     <div class="ch2-counter" id="ch2-counter">
-      <span id="ch2-count">--</span> participants so far &mdash; Study is live
+      Pearson r = 0.311 &middot; Comfort gap: 5.6 points &middot; N = <span id="ch2-count">--</span>+
     </div>
 
     <div class="ch2-ctas">
-      <a href="https://theartofsound.github.io/egcstudy/" target="_blank" rel="noopener" class="cta-btn cta-primary">[ Take the study — 10 minutes ]</a>
-      <button class="cta-btn cta-secondary" onclick="goToChapter(2)">[ Keep exploring ]</button>
+      <a href="https://theartofsound.github.io/egcstudy/" target="_blank" rel="noopener" class="cta-btn cta-primary">[ Take the study &mdash; 10 minutes ]</a>
+      <a href="https://zenodo.org/records/19242315" target="_blank" rel="noopener" class="cta-btn cta-secondary">[ Read the preprint ]</a>
     </div>
 
-    <div class="ch2-credit">g(K) = 4K(1-K) — Brandyn Leonard's parabolic conviction function</div>
+    <div class="ch2-credit">g(K) = 4K(1&minus;K) &mdash; Brandyn Leonard's parabolic conviction function</div>
   </div>
 </div>
 
 <!-- CHAPTER 3: THE BUILD -->
 <div class="chapter" id="ch3">
+  <button class="chapter-back" onclick="goToChapter(1)">&larr;</button>
+  <div class="chapter-label">03 / THE BUILD</div>
+  <div class="chapter-next" onclick="goToChapter(3)">&rarr; next: Philosophy</div>
   <div id="ch3-desktop">
     <!-- LOLM Window -->
     <div class="os-window" id="win-lolm" style="top:40px; left:60px; width:380px;">
@@ -847,7 +924,10 @@ body::after {
       </div>
       <div class="win-body">
         <h3>LOLM</h3>
-        <p>Language model — built from scratch. Training on TPU infrastructure.</p>
+        <p>Custom Language Model</p>
+        <p>Target: 10B&ndash;100B params</p>
+        <p>Infrastructure: Google TPU (TRC grant)</p>
+        <p>Status: Training</p>
         <div><span class="win-tag">Language Model</span><span class="win-tag">TPU</span><span class="win-tag">From Scratch</span></div>
         <div class="progress-track"><div class="progress-fill" style="width:35%"></div></div>
         <p style="margin-top:8px; font-size:11px; color:var(--accent3);">Training in progress</p>
@@ -866,9 +946,11 @@ body::after {
       </div>
       <div class="win-body">
         <h3>Codey</h3>
-        <p>AI coding assistant. Live deployment on Render. Conversational code generation and editing.</p>
+        <p>AI Coding Intelligence</p>
+        <p>Backend: Live on Render</p>
+        <p>Pricing: Free / $19 / $49 / $149</p>
         <div><span class="win-tag">AI Coding</span><span class="win-tag">Live</span><span class="win-tag">Render</span></div>
-        <p style="margin-top:10px;"><a href="https://theartofsound.github.io/codey/" target="_blank" rel="noopener">Visit Codey &rarr;</a></p>
+        <p style="margin-top:10px;"><a href="https://theartofsound.github.io/codey/" target="_blank" rel="noopener">theartofsound.github.io/codey &rarr;</a></p>
       </div>
     </div>
 
@@ -884,8 +966,11 @@ body::after {
       </div>
       <div class="win-body">
         <h3>NFET</h3>
-        <p>Network traffic analysis. Oscillator-based pattern detection for flow dynamics.</p>
-        <div><span class="win-tag">Traffic</span><span class="win-tag">Oscillator</span><span class="win-tag">Analysis</span></div>
+        <p>Traffic Optimization</p>
+        <p>Method: Kuramoto oscillators</p>
+        <p>Data: Live AZ-511 feed</p>
+        <p>Status: Active</p>
+        <div><span class="win-tag">Traffic</span><span class="win-tag">Kuramoto</span><span class="win-tag">AZ-511</span></div>
         <div class="oscillator-dots">
           <div class="osc-dot"></div>
           <div class="osc-dot"></div>
@@ -911,10 +996,13 @@ body::after {
 
 <!-- CHAPTER 4: PHILOSOPHY -->
 <div class="chapter" id="ch4">
+  <button class="chapter-back" onclick="goToChapter(2)">&larr;</button>
+  <div class="chapter-label">04 / PHILOSOPHY</div>
+  <div class="chapter-next" onclick="goToChapter(4)">&rarr; next: Contact</div>
   <div style="display:flex; flex-direction:column; align-items:center;">
-    <div class="philosophy-line" id="phil1">Real work over everything. Not the appearance of progress. The actual thing.</div>
-    <div class="philosophy-line" id="phil2">Shoot for the scale that makes people uncomfortable when you say it out loud. Then build toward it anyway.</div>
-    <div class="philosophy-line" id="phil3">The gap between knowing and saying is the most interesting problem in existence. We are closing it.</div>
+    <div class="philosophy-line" id="phil1">Real work over everything. Not the appearance of progress. The actual thing. If the numbers don't confirm it, the idea doesn't survive.</div>
+    <div class="philosophy-line" id="phil2">Shoot for the scale that makes people uncomfortable when you say it out loud. 10 billion parameter models. Peer-reviewed consciousness research. From Phoenix, without permission.</div>
+    <div class="philosophy-line" id="phil3">The gap between knowing and saying is the most interesting problem in existence. We are closing it. That is what all of this is.</div>
     <div class="philosophy-tag" id="phil-tag">&gt; Built in Phoenix, Arizona<br>&gt; Without permission</div>
     <div class="ch4-ctas" id="ch4-ctas">
       <button class="cta-btn cta-secondary" onclick="goToChapter(0)">[ Back to the beginning ]</button>
@@ -925,6 +1013,8 @@ body::after {
 
 <!-- CHAPTER 5: CONTACT -->
 <div class="chapter" id="ch5">
+  <button class="chapter-back" onclick="goToChapter(3)">&larr;</button>
+  <div class="chapter-label">05 / CONTACT</div>
   <div id="ch5-inner">
     <div class="ch5-intro" id="ch5-intro">You made it through. Most people don't read this far.</div>
 
@@ -932,8 +1022,9 @@ body::after {
     <div class="ch5-cmd" id="cmd2"><span style="color:var(--accent3)">&gt;</span> cat /links/github<br>&nbsp;&nbsp;<a href="https://github.com/TheArtOfSound" target="_blank" rel="noopener">github.com/TheArtOfSound</a></div>
     <div class="ch5-cmd" id="cmd3"><span style="color:var(--accent3)">&gt;</span> cat /links/linkedin<br>&nbsp;&nbsp;<a href="https://www.linkedin.com/in/bryan-leonard-54155218a/" target="_blank" rel="noopener">linkedin.com/in/bryan-leonard</a></div>
     <div class="ch5-cmd" id="cmd4"><span style="color:var(--accent3)">&gt;</span> cat /links/zenodo<br>&nbsp;&nbsp;<a href="https://zenodo.org/records/19242315" target="_blank" rel="noopener">zenodo.org — EGC Publication</a></div>
-    <div class="ch5-cmd" id="cmd5"><span style="color:var(--accent3)">&gt;</span> cat /links/dashboard<br>&nbsp;&nbsp;<a href="https://theartofsound.github.io/claude-usage-dashboard/" target="_blank" rel="noopener">Claude Usage Dashboard</a></div>
-    <div class="ch5-cmd" id="cmd6"><span style="color:var(--accent3)">&gt;</span> cat /links/the-gate<br>&nbsp;&nbsp;<a href="https://theartofsound.github.io/thegate/" target="_blank" rel="noopener">The Gate — EGC Landing Page</a></div>
+    <div class="ch5-cmd" id="cmd5"><span style="color:var(--accent3)">&gt;</span> cat /links/egcstudy<br>&nbsp;&nbsp;<a href="https://theartofsound.github.io/egcstudy/" target="_blank" rel="noopener">theartofsound.github.io/egcstudy</a></div>
+    <div class="ch5-cmd" id="cmd6"><span style="color:var(--accent3)">&gt;</span> cat /links/codey<br>&nbsp;&nbsp;<a href="https://theartofsound.github.io/codey/" target="_blank" rel="noopener">theartofsound.github.io/codey</a></div>
+    <div class="ch5-cmd" id="cmd7"><span style="color:var(--accent3)">&gt;</span> cat /links/dashboard<br>&nbsp;&nbsp;<a href="https://theartofsound.github.io/claude-usage-dashboard/" target="_blank" rel="noopener">Claude Usage Dashboard</a></div>
 
     <div class="ch5-study" id="ch5-study">
       <p>The study is still live. Your data would matter.</p>
@@ -1170,7 +1261,7 @@ function entranceCh4() {
 /* ── CH5 ENTRANCE ── */
 function entranceCh5() {
   setTimeout(() => document.getElementById('ch5-intro').classList.add('show'), 200);
-  for (let i = 1; i <= 6; i++) {
+  for (let i = 1; i <= 7; i++) {
     setTimeout(() => document.getElementById('cmd' + i).classList.add('show'), 400 + i * 350);
   }
   setTimeout(() => document.getElementById('ch5-study').classList.add('show'), 3000);
