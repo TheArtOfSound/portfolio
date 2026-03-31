@@ -627,19 +627,19 @@ nav {
 
 <!-- SECTION 1: OPENING -->
 <section id="opening">
-  <div class="float-card fc-tl reveal" style="animation: floatY 6s ease-in-out infinite; animation-delay: 0s;">
+  <div class="float-card fc-tl" style="animation: floatY 6s ease-in-out infinite; animation-delay: 0s;">
     <div class="fc-label">Study Live</div>
     <div class="fc-value"><span class="live-count">40</span>+</div>
   </div>
-  <div class="float-card fc-tr reveal" style="animation: floatY 6s ease-in-out infinite; animation-delay: -1.5s;">
+  <div class="float-card fc-tr" style="animation: floatY 6s ease-in-out infinite; animation-delay: -1.5s;">
     <div class="fc-label">Pearson R</div>
     <div class="fc-value">0.311</div>
   </div>
-  <div class="float-card fc-bl reveal" style="animation: floatY 6s ease-in-out infinite; animation-delay: -3s;">
+  <div class="float-card fc-bl" style="animation: floatY 6s ease-in-out infinite; animation-delay: -3s;">
     <div class="fc-label">TPU Research</div>
     <div class="fc-value">Cloud &#10003;</div>
   </div>
-  <div class="float-card fc-br reveal" style="animation: floatY 6s ease-in-out infinite; animation-delay: -4.5s;">
+  <div class="float-card fc-br" style="animation: floatY 6s ease-in-out infinite; animation-delay: -4.5s;">
     <div class="fc-label">Location</div>
     <div class="fc-value">Phoenix, AZ</div>
   </div>
@@ -1015,7 +1015,7 @@ nav {
   var url = 'https://wgzopjrdnyazvhpklzhw.supabase.co';
   var key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indnem9wanJkbnlhenZocGtsemh3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzOTc4NzcsImV4cCI6MjA4OTk3Mzg3N30.8dx5xWljLDZa5PMvE0Ps5q4ZEyuZgx_5FHVnD0WfBjs';
 
-  fetch(url + '/rest/v1/responses?select=id', {
+  fetch(url + '/rest/v1/egc_responses?select=id&is_excluded=eq.false', {
     headers: {
       'apikey': key,
       'Authorization': 'Bearer ' + key
