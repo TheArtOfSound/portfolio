@@ -272,129 +272,12 @@ body::after {
   color: #fff;
 }
 
-/* ── CH2 THE GATE ── */
+/* ── CH2 THE WORK ── */
 #ch2 {
   flex-direction: column;
   padding: 60px;
 }
-#ch2-inner {
-  max-width: 900px;
-  width: 100%;
-}
-.ch2-hook {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(20px, 3vw, 30px);
-  font-style: italic;
-  color: var(--warm);
-  margin-bottom: 48px;
-  line-height: 1.6;
-  opacity: 0;
-  transition: opacity 0.8s;
-}
-.ch2-hook.show { opacity: 1; }
-
-.ch2-figures {
-  display: flex;
-  gap: 40px;
-  justify-content: center;
-  margin-bottom: 48px;
-  flex-wrap: wrap;
-}
-.figure-card {
-  width: 200px;
-  text-align: center;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s, transform 0.6s;
-}
-.figure-card.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-.figure-icon {
-  width: 80px;
-  height: 80px;
-  margin: 0 auto 16px;
-  position: relative;
-}
-.figure-label {
-  font-family: 'Syne', sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--accent2);
-  margin-bottom: 6px;
-}
-.figure-desc {
-  font-size: 12px;
-  color: var(--muted);
-  line-height: 1.5;
-}
-
-/* CSS animated figures */
-.compressor-anim {
-  width: 40px; height: 40px;
-  border: 2px solid var(--accent2);
-  border-radius: 50%;
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  animation: compress 2s ease-in-out infinite;
-}
-@keyframes compress {
-  0%, 100% { width: 40px; height: 40px; }
-  50% { width: 18px; height: 18px; }
-}
-.expander-anim {
-  width: 20px; height: 20px;
-  border: 2px solid var(--accent3);
-  border-radius: 50%;
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  animation: expand 2s ease-in-out infinite;
-}
-@keyframes expand {
-  0%, 100% { width: 20px; height: 20px; }
-  50% { width: 50px; height: 50px; }
-}
-.suppressor-anim {
-  width: 30px; height: 30px;
-  border: 2px solid #ef4444;
-  border-radius: 50%;
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  animation: suppress 2s ease-in-out infinite;
-}
-@keyframes suppress {
-  0%, 100% { width: 30px; height: 30px; opacity: 1; }
-  40% { width: 40px; height: 40px; opacity: 1; }
-  50% { width: 40px; height: 40px; opacity: 0.3; }
-  60% { width: 30px; height: 30px; opacity: 1; }
-}
-
-.ch2-typed {
-  font-size: 14px;
-  color: var(--text);
-  line-height: 1.8;
-  margin-bottom: 32px;
-  min-height: 80px;
-}
-.ch2-counter {
-  font-size: 14px;
-  color: var(--accent3);
-  margin-bottom: 32px;
-  opacity: 0;
-  transition: opacity 0.6s;
-}
-.ch2-counter.show { opacity: 1; }
-.ch2-credit {
-  font-size: 11px;
-  color: var(--muted);
-  margin-top: 20px;
-  font-style: italic;
-}
-.ch2-ctas {
+.cta-btns {
   display: flex;
   gap: 16px;
   flex-wrap: wrap;
@@ -427,174 +310,10 @@ body::after {
   border-color: var(--accent2);
 }
 
-/* ── CH3 THE BUILD ── */
+/* ── CH3 THE NUMBERS ── */
 #ch3 {
   flex-direction: column;
   background: var(--bg2);
-}
-#ch3-desktop {
-  position: relative;
-  width: 100%;
-  height: calc(100vh - 52px);
-  overflow: hidden;
-}
-.os-window {
-  position: absolute;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-  min-width: 280px;
-  opacity: 0;
-  transform: scale(0.95);
-  transition: opacity 0.5s, transform 0.5s, box-shadow 0.3s;
-}
-.os-window.show {
-  opacity: 1;
-  transform: scale(1);
-}
-.os-window.focused {
-  box-shadow: 0 12px 48px rgba(37,99,235,0.15);
-  z-index: 10;
-}
-.os-window.expanded {
-  position: fixed !important;
-  top: 0 !important; left: 0 !important;
-  width: 100vw !important;
-  height: calc(100vh - 52px) !important;
-  border-radius: 0;
-  z-index: 100 !important;
-}
-.win-titlebar {
-  display: flex;
-  align-items: center;
-  padding: 10px 14px;
-  background: var(--bg);
-  border-bottom: 1px solid var(--border);
-  cursor: grab;
-  user-select: none;
-}
-.win-titlebar:active { cursor: grabbing; }
-.win-dots {
-  display: flex;
-  gap: 6px;
-  margin-right: 12px;
-}
-.win-dot {
-  width: 10px; height: 10px;
-  border-radius: 50%;
-  cursor: pointer;
-}
-.win-dot.red { background: #ef4444; }
-.win-dot.yellow { background: #eab308; }
-.win-dot.green { background: #22c55e; }
-.win-title {
-  font-size: 12px;
-  color: var(--muted);
-  flex: 1;
-}
-.win-body {
-  padding: 20px;
-  font-size: 13px;
-  line-height: 1.7;
-  color: var(--text);
-  max-height: 300px;
-  overflow-y: auto;
-}
-.win-body h3 {
-  font-family: 'Syne', sans-serif;
-  font-size: 18px;
-  font-weight: 700;
-  margin-bottom: 10px;
-  color: var(--accent2);
-}
-.win-body p {
-  color: var(--muted);
-  margin-bottom: 8px;
-}
-.win-body a {
-  color: var(--accent3);
-  text-decoration: none;
-}
-.win-body a:hover { text-decoration: underline; }
-.win-tag {
-  display: inline-block;
-  font-size: 10px;
-  padding: 3px 8px;
-  border: 1px solid var(--border);
-  color: var(--accent2);
-  border-radius: 3px;
-  margin-right: 6px;
-  margin-bottom: 6px;
-}
-.progress-track {
-  width: 100%;
-  height: 4px;
-  background: var(--border);
-  border-radius: 2px;
-  margin-top: 10px;
-  overflow: hidden;
-}
-.progress-fill {
-  height: 100%;
-  border-radius: 2px;
-  background: linear-gradient(90deg, var(--accent), var(--accent3));
-}
-.oscillator-dots {
-  display: flex;
-  gap: 4px;
-  margin-top: 10px;
-}
-.osc-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--accent2);
-  animation: oscillate 1.5s ease-in-out infinite;
-}
-.osc-dot:nth-child(2) { animation-delay: 0.2s; }
-.osc-dot:nth-child(3) { animation-delay: 0.4s; }
-.osc-dot:nth-child(4) { animation-delay: 0.6s; }
-.osc-dot:nth-child(5) { animation-delay: 0.8s; }
-@keyframes oscillate {
-  0%, 100% { transform: translateY(0); opacity: 0.4; }
-  50% { transform: translateY(-8px); opacity: 1; }
-}
-
-/* Taskbar */
-#taskbar {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 52px;
-  background: var(--bg);
-  border-top: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 24px;
-  z-index: 200;
-}
-.taskbar-icon {
-  font-size: 11px;
-  color: var(--muted);
-  cursor: pointer;
-  padding: 8px 16px;
-  border-radius: 4px;
-  transition: all 0.2s;
-}
-.taskbar-icon:hover {
-  background: var(--surface);
-  color: var(--accent2);
-}
-.ch3-prompt {
-  position: absolute;
-  bottom: 68px;
-  right: 40px;
-  display: flex;
-  gap: 12px;
-  z-index: 200;
 }
 
 /* ── CH4 PHILOSOPHY ── */
@@ -711,23 +430,23 @@ body::after {
   left: 50%;
   transform: translateX(-50%);
   font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  color: var(--muted);
+  font-size: 12px;
+  color: var(--accent2);
   cursor: pointer;
   z-index: 100;
   transition: color 0.3s;
   letter-spacing: 0.05em;
 }
-.chapter-next:hover { color: var(--accent2); }
+.chapter-next:hover { color: #fff; }
 
 /* ── BACK ARROW ── */
 .chapter-back {
   position: absolute;
-  top: 24px;
+  top: 50px;
   left: 24px;
   font-family: 'DM Mono', monospace;
   font-size: 18px;
-  color: var(--muted);
+  color: var(--accent2);
   cursor: pointer;
   z-index: 100;
   transition: color 0.3s;
@@ -735,7 +454,7 @@ body::after {
   border: none;
   padding: 8px;
 }
-.chapter-back:hover { color: var(--accent2); }
+.chapter-back:hover { color: #fff; }
 
 /* ── CHAPTER LABEL ── */
 .chapter-label {
@@ -751,6 +470,80 @@ body::after {
   text-transform: uppercase;
 }
 
+/* ── TOP NAV BAR ── */
+#top-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 16px 32px;
+  background: rgba(6,8,15,0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+}
+#top-nav.visible {
+  display: flex;
+}
+#top-nav .nav-logo {
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 0.05em;
+}
+#top-nav .nav-links {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+#top-nav .nav-link {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+#top-nav .nav-link:hover {
+  color: var(--accent2);
+}
+#top-nav .nav-link.active {
+  color: var(--accent2);
+}
+#top-nav .hamburger {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px;
+}
+#top-nav .mobile-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: rgba(6,8,15,0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 32px;
+  flex-direction: column;
+  gap: 16px;
+}
+#top-nav .mobile-menu.open {
+  display: flex;
+}
+
 /* ── MOBILE ── */
 @media (max-width: 768px) {
   #ch1-content {
@@ -763,31 +556,6 @@ body::after {
   .ch1-paths { justify-content: center; }
 
   #ch2 { padding: 30px 24px; }
-  .ch2-figures { gap: 20px; }
-  .figure-card { width: 140px; }
-
-  .os-window {
-    position: relative !important;
-    width: 100% !important;
-    top: auto !important;
-    left: auto !important;
-    margin-bottom: 16px;
-    transform: none !important;
-  }
-  #ch3-desktop {
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    overflow-y: auto;
-  }
-  #taskbar { display: none; }
-  .ch3-prompt {
-    position: relative;
-    bottom: auto;
-    right: auto;
-    justify-content: center;
-    margin-top: 16px;
-  }
 
   #ch4 { padding: 30px 24px; }
   #ch5 { padding: 30px 24px; }
@@ -802,8 +570,131 @@ body::after {
   .chapter-next { bottom: 56px; font-size: 10px; }
   .chapter-label { font-size: 9px; bottom: 20px; }
 
+  #top-nav .nav-links { display: none; }
+  #top-nav .hamburger { display: block; }
+
   .philosophy-line { font-size: clamp(15px, 4vw, 22px); margin-bottom: 32px; }
+  .work-grid { grid-template-columns: 1fr !important; }
+  .numbers-grid { grid-template-columns: 1fr 1fr !important; }
 }
+
+/* ── WORK GRID (CH2) ── */
+.work-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  max-width: 900px;
+  width: 100%;
+}
+.work-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px;
+  transition: border-color 0.3s;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.6s, transform 0.6s, border-color 0.3s;
+}
+.work-card.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+.work-card:hover {
+  border-color: var(--accent2);
+}
+.work-card.accent-blue { border-top: 3px solid #2563eb; }
+.work-card.accent-gold { border-top: 3px solid #c8a84b; }
+.work-card.accent-green { border-top: 3px solid #22c55e; }
+.work-card.accent-cyan { border-top: 3px solid #06b6d4; }
+.work-card h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.work-card .work-desc {
+  font-size: 13px;
+  color: var(--accent2);
+  margin-bottom: 12px;
+}
+.work-card .work-stat {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+.work-card .work-link {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--accent3);
+  text-decoration: none;
+}
+.work-card .work-link:hover { text-decoration: underline; }
+.work-card .work-credit {
+  font-size: 11px;
+  color: var(--muted);
+  font-style: italic;
+  margin-top: 8px;
+}
+
+/* ── NUMBERS GRID (CH3) ── */
+#ch3-numbers {
+  max-width: 900px;
+  width: 100%;
+  text-align: center;
+}
+.numbers-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.numbers-subtitle {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(18px, 2.5vw, 26px);
+  color: var(--warm);
+  font-style: italic;
+  margin-bottom: 48px;
+}
+.numbers-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 48px;
+}
+.stat-card {
+  padding: 24px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.6s, transform 0.6s;
+}
+.stat-card.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+.stat-number {
+  font-family: 'Syne', sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--accent2);
+  margin-bottom: 4px;
+}
+.stat-desc {
+  font-size: 12px;
+  color: var(--muted);
+}
+.numbers-tagline {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  color: var(--muted);
+  opacity: 0;
+  transition: opacity 0.8s;
+}
+.numbers-tagline.show { opacity: 1; }
 </style>
 </head>
 <body>
@@ -813,12 +704,32 @@ body::after {
 
 <!-- Nav dots -->
 <div id="nav-dots">
-  <div class="nav-dot" data-ch="0" onclick="goToChapter(0)"></div>
-  <div class="nav-dot" data-ch="1" onclick="goToChapter(1)"></div>
-  <div class="nav-dot" data-ch="2" onclick="goToChapter(2)"></div>
-  <div class="nav-dot" data-ch="3" onclick="goToChapter(3)"></div>
-  <div class="nav-dot" data-ch="4" onclick="goToChapter(4)"></div>
+  <div class="nav-dot" data-ch="0" onclick="goToChapter(0)" title="Identity"></div>
+  <div class="nav-dot" data-ch="1" onclick="goToChapter(1)" title="The Work"></div>
+  <div class="nav-dot" data-ch="2" onclick="goToChapter(2)" title="The Numbers"></div>
+  <div class="nav-dot" data-ch="3" onclick="goToChapter(3)" title="Philosophy"></div>
+  <div class="nav-dot" data-ch="4" onclick="goToChapter(4)" title="Contact"></div>
 </div>
+
+<!-- Top Nav Bar -->
+<nav id="top-nav">
+  <span class="nav-logo">BRYAN LEONARD</span>
+  <div class="nav-links">
+    <span class="nav-link" onclick="goToChapter(0)">Identity</span>
+    <span class="nav-link" onclick="goToChapter(1)">Work</span>
+    <span class="nav-link" onclick="goToChapter(2)">Numbers</span>
+    <span class="nav-link" onclick="goToChapter(3)">Philosophy</span>
+    <span class="nav-link" onclick="goToChapter(4)">Contact</span>
+  </div>
+  <button class="hamburger" onclick="toggleMobileMenu()">&equiv;</button>
+  <div class="mobile-menu" id="mobile-menu">
+    <span class="nav-link" onclick="goToChapter(0); toggleMobileMenu()">Identity</span>
+    <span class="nav-link" onclick="goToChapter(1); toggleMobileMenu()">Work</span>
+    <span class="nav-link" onclick="goToChapter(2); toggleMobileMenu()">Numbers</span>
+    <span class="nav-link" onclick="goToChapter(3); toggleMobileMenu()">Philosophy</span>
+    <span class="nav-link" onclick="goToChapter(4); toggleMobileMenu()">Contact</span>
+  </div>
+</nav>
 
 <!-- BOOT SCREEN -->
 <div id="boot-screen">
@@ -836,30 +747,29 @@ body::after {
       <button class="boot-btn" onclick="bootAnswer('no')">[ NO, I always say what I mean ]</button>
     </div>
   </div>
+  <span id="boot-skip" onclick="completeBoot()" style="position:absolute; bottom:24px; right:24px; font-family:'DM Mono',monospace; font-size:10px; color:var(--muted); cursor:pointer; transition:color 0.3s;" onmouseover="this.style.color='var(--accent2)'" onmouseout="this.style.color='var(--muted)'">skip &rarr;</span>
 </div>
 
 <!-- CHAPTER 1: IDENTITY -->
 <div class="chapter" id="ch1">
   <div class="chapter-label">01 / IDENTITY</div>
-  <div class="chapter-next" onclick="goToChapter(1)">&rarr; next: The Gate</div>
+  <div class="chapter-next" onclick="goToChapter(1)">&rarr; next: The Work</div>
   <canvas id="ch1-canvas"></canvas>
   <div id="ch1-content">
     <div class="ch1-left"></div>
     <div class="ch1-right">
       <div class="identity-line ch1-name">Bryan Leonard</div>
+      <div class="identity-line ch1-role">Builder &middot; Full-Stack Developer</div>
       <div class="identity-line ch1-role">Consciousness Researcher</div>
-      <div class="identity-line ch1-role">Independent Scientist</div>
-      <div class="identity-line ch1-detail">Co-founder, Qira LLC</div>
-      <div class="identity-line ch1-detail">Phoenix, Arizona</div>
+      <div class="identity-line ch1-detail">Co-founder, Qira LLC &middot; Phoenix, Arizona</div>
       <div class="identity-line ch1-terminal">
-        <span>&gt;</span> 9.3B tokens processed &middot; $6,859 in compute this month<br>
-        <span>&gt;</span> Currently running: EGC study &middot; LOLM &middot; Codey &middot; NFET<br>
-        <span>&gt;</span> <span id="live-count">--</span> research subjects and counting
+        <span>&gt;</span> Currently running: EGC &middot; LOLM &middot; Codey &middot; NFET<br>
+        <span>&gt;</span> 9.3B tokens &middot; $6,859 compute &middot; <span id="live-count">--</span> research subjects
       </div>
       <div class="identity-line ch1-paths">
-        <button class="path-btn" onclick="choosePath('research')">[ The Research ]</button>
-        <button class="path-btn" onclick="choosePath('build')">[ The Build ]</button>
-        <button class="path-btn" onclick="choosePath('mission')">[ The Mission ]</button>
+        <button class="path-btn" onclick="goToChapter(1)">[ EGC Research ]</button>
+        <button class="path-btn" onclick="goToChapter(1)">[ Systems &amp; Products ]</button>
+        <button class="path-btn" onclick="goToChapter(3)">[ Philosophy ]</button>
       </div>
     </div>
   </div>
@@ -868,129 +778,67 @@ body::after {
 <!-- CHAPTER 2: THE GATE (EGC) -->
 <div class="chapter" id="ch2">
   <button class="chapter-back" onclick="goToChapter(0)">&larr;</button>
-  <div class="chapter-label">02 / THE GATE</div>
-  <div class="chapter-next" onclick="goToChapter(2)">&rarr; next: The Build</div>
-  <div id="ch2-inner">
-    <div class="ch2-hook" id="ch2-hook"></div>
-
-    <div class="ch2-figures">
-      <div class="figure-card" id="fig-comp">
-        <div class="figure-icon"><div class="compressor-anim"></div></div>
-        <div class="figure-label">Compressor — 42%</div>
-        <div class="figure-desc">Contracts under pressure. Simplifies to survive the moment.</div>
+  <div class="chapter-label">02 / THE WORK</div>
+  <div class="chapter-next" onclick="goToChapter(2)">&rarr; next: The Numbers</div>
+  <div class="work-grid">
+    <div class="work-card accent-blue" id="wc-egc">
+      <h3>EGC</h3>
+      <div class="work-desc">Expression-Gated Consciousness</div>
+      <div class="work-stat">
+        Live empirical study &middot; N=<span id="ch2-count">--</span>+ subjects<br>
+        Pearson r = 0.311 &middot; Comfort gap: 5.6pts<br>
+        g(K) = 4K(1&minus;K)
       </div>
-      <div class="figure-card" id="fig-exp">
-        <div class="figure-icon"><div class="expander-anim"></div></div>
-        <div class="figure-label">Expander — 26%</div>
-        <div class="figure-desc">Opens wider. Says more than they planned. Gains clarity through volume.</div>
-      </div>
-      <div class="figure-card" id="fig-sup">
-        <div class="figure-icon"><div class="suppressor-anim"></div></div>
-        <div class="figure-label">Suppressor — 32%</div>
-        <div class="figure-desc">Stops mid-thought. The signal was there, then it wasn't.</div>
+      <div class="work-credit">Brandyn Leonard</div>
+      <a href="https://theartofsound.github.io/egcstudy/" target="_blank" rel="noopener" class="work-link">Take the study &rarr;</a>
+    </div>
+    <div class="work-card accent-gold" id="wc-lolm">
+      <h3>LOLM</h3>
+      <div class="work-desc">Custom Language Model</div>
+      <div class="work-stat">
+        10B&ndash;100B parameter target<br>
+        Google TPU &middot; TRC Grant<br>
+        Training in progress
       </div>
     </div>
-
-    <div class="ch2-typed" id="ch2-typed"></div>
-
-    <div class="ch2-counter" id="ch2-counter">
-      Pearson r = 0.311 &middot; Comfort gap: 5.6 points &middot; N = <span id="ch2-count">--</span>+
+    <div class="work-card accent-green" id="wc-codey">
+      <h3>Codey</h3>
+      <div class="work-desc">AI Coding Intelligence</div>
+      <div class="work-stat">
+        Live on Render<br>
+        Free / $19 / $49 / $149
+      </div>
+      <a href="https://theartofsound.github.io/codey/" target="_blank" rel="noopener" class="work-link">codey &rarr;</a>
     </div>
-
-    <div class="ch2-ctas">
-      <a href="https://theartofsound.github.io/egcstudy/" target="_blank" rel="noopener" class="cta-btn cta-primary">[ Take the study &mdash; 10 minutes ]</a>
-      <a href="https://zenodo.org/records/19242315" target="_blank" rel="noopener" class="cta-btn cta-secondary">[ Read the preprint ]</a>
+    <div class="work-card accent-cyan" id="wc-nfet">
+      <h3>NFET</h3>
+      <div class="work-desc">Traffic Optimization</div>
+      <div class="work-stat">
+        Kuramoto oscillators &middot; Monte Carlo<br>
+        Live AZ-511 data &middot; Phoenix metro
+      </div>
     </div>
-
-    <div class="ch2-credit">g(K) = 4K(1&minus;K) &mdash; Brandyn Leonard's parabolic conviction function</div>
   </div>
 </div>
 
 <!-- CHAPTER 3: THE BUILD -->
 <div class="chapter" id="ch3">
   <button class="chapter-back" onclick="goToChapter(1)">&larr;</button>
-  <div class="chapter-label">03 / THE BUILD</div>
+  <div class="chapter-label">03 / THE NUMBERS</div>
   <div class="chapter-next" onclick="goToChapter(3)">&rarr; next: Philosophy</div>
-  <div id="ch3-desktop">
-    <!-- LOLM Window -->
-    <div class="os-window" id="win-lolm" style="top:40px; left:60px; width:380px;">
-      <div class="win-titlebar">
-        <div class="win-dots">
-          <div class="win-dot red" onclick="closeWindow('win-lolm')"></div>
-          <div class="win-dot yellow"></div>
-          <div class="win-dot green" onclick="expandWindow('win-lolm')"></div>
-        </div>
-        <div class="win-title">LOLM.app</div>
-      </div>
-      <div class="win-body">
-        <h3>LOLM</h3>
-        <p>Custom Language Model</p>
-        <p>Target: 10B&ndash;100B params</p>
-        <p>Infrastructure: Google TPU (TRC grant)</p>
-        <p>Status: Training</p>
-        <div><span class="win-tag">Language Model</span><span class="win-tag">TPU</span><span class="win-tag">From Scratch</span></div>
-        <div class="progress-track"><div class="progress-fill" style="width:35%"></div></div>
-        <p style="margin-top:8px; font-size:11px; color:var(--accent3);">Training in progress</p>
-      </div>
+  <div id="ch3-numbers">
+    <div class="numbers-title">THE NUMBERS</div>
+    <div class="numbers-subtitle">Scale that speaks for itself.</div>
+    <div class="numbers-grid">
+      <div class="stat-card" id="stat0"><div class="stat-number">9.3B</div><div class="stat-desc">tokens processed</div></div>
+      <div class="stat-card" id="stat1"><div class="stat-number">$6,859</div><div class="stat-desc">compute this month</div></div>
+      <div class="stat-card" id="stat2"><div class="stat-number"><span id="ch3-count">44</span>+</div><div class="stat-desc">research subjects</div></div>
+      <div class="stat-card" id="stat3"><div class="stat-number">10B-100B</div><div class="stat-desc">parameter target</div></div>
+      <div class="stat-card" id="stat4"><div class="stat-number">20+</div><div class="stat-desc">Vol-bot signups</div></div>
+      <div class="stat-card" id="stat5"><div class="stat-number">4</div><div class="stat-desc">simultaneous projects</div></div>
+      <div class="stat-card" id="stat6"><div class="stat-number">0</div><div class="stat-desc">institutional backing</div></div>
     </div>
-
-    <!-- Codey Window -->
-    <div class="os-window" id="win-codey" style="top:120px; left:340px; width:400px;">
-      <div class="win-titlebar">
-        <div class="win-dots">
-          <div class="win-dot red" onclick="closeWindow('win-codey')"></div>
-          <div class="win-dot yellow"></div>
-          <div class="win-dot green" onclick="expandWindow('win-codey')"></div>
-        </div>
-        <div class="win-title">Codey.app</div>
-      </div>
-      <div class="win-body">
-        <h3>Codey</h3>
-        <p>AI Coding Intelligence</p>
-        <p>Backend: Live on Render</p>
-        <p>Pricing: Free / $19 / $49 / $149</p>
-        <div><span class="win-tag">AI Coding</span><span class="win-tag">Live</span><span class="win-tag">Render</span></div>
-        <p style="margin-top:10px;"><a href="https://theartofsound.github.io/codey/" target="_blank" rel="noopener">theartofsound.github.io/codey &rarr;</a></p>
-      </div>
-    </div>
-
-    <!-- NFET Window -->
-    <div class="os-window" id="win-nfet" style="top:80px; left:640px; width:360px;">
-      <div class="win-titlebar">
-        <div class="win-dots">
-          <div class="win-dot red" onclick="closeWindow('win-nfet')"></div>
-          <div class="win-dot yellow"></div>
-          <div class="win-dot green" onclick="expandWindow('win-nfet')"></div>
-        </div>
-        <div class="win-title">NFET.app</div>
-      </div>
-      <div class="win-body">
-        <h3>NFET</h3>
-        <p>Traffic Optimization</p>
-        <p>Method: Kuramoto oscillators</p>
-        <p>Data: Live AZ-511 feed</p>
-        <p>Status: Active</p>
-        <div><span class="win-tag">Traffic</span><span class="win-tag">Kuramoto</span><span class="win-tag">AZ-511</span></div>
-        <div class="oscillator-dots">
-          <div class="osc-dot"></div>
-          <div class="osc-dot"></div>
-          <div class="osc-dot"></div>
-          <div class="osc-dot"></div>
-          <div class="osc-dot"></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="ch3-prompt">
-      <button class="cta-btn cta-secondary" onclick="goToChapter(3)">[ See the philosophy ]</button>
-      <button class="cta-btn cta-secondary" onclick="goToChapter(4)">[ Contact Bryan ]</button>
-    </div>
-  </div>
-
-  <div id="taskbar">
-    <div class="taskbar-icon" onclick="restoreWindow('win-lolm')">LOLM</div>
-    <div class="taskbar-icon" onclick="restoreWindow('win-codey')">Codey</div>
-    <div class="taskbar-icon" onclick="restoreWindow('win-nfet')">NFET</div>
+    <div class="numbers-tagline" id="numbers-tagline">From Phoenix, Arizona. Without permission. Without a lab.</div>
   </div>
 </div>
 
@@ -1069,10 +917,12 @@ async function fetchCount() {
       const n = count.split('/')[1];
       document.getElementById('live-count').textContent = n;
       document.getElementById('ch2-count').textContent = n;
+      document.getElementById('ch3-count').textContent = n;
     }
   } catch(e) {
     document.getElementById('live-count').textContent = '44';
     document.getElementById('ch2-count').textContent = '44';
+    document.getElementById('ch3-count').textContent = '44';
   }
 }
 fetchCount();
@@ -1139,11 +989,36 @@ function bootAnswer(ans) {
   }, 800);
 }
 
+function completeBoot() {
+  sessionStorage.setItem('boot_complete', 'true');
+  const boot = document.getElementById('boot-screen');
+  boot.style.transition = 'opacity 0.8s';
+  boot.style.opacity = '0';
+  setTimeout(() => {
+    boot.style.display = 'none';
+    enterChapters();
+  }, 800);
+}
+
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+/* ── MOBILE MENU TOGGLE ── */
+function toggleMobileMenu() {
+  document.getElementById('mobile-menu').classList.toggle('open');
+}
+
+/* ── NAV LINK ACTIVE STATE ── */
+function updateNavLinks(idx) {
+  document.querySelectorAll('#top-nav .nav-link').forEach((link, i) => {
+    // There are 5 in .nav-links and 5 in .mobile-menu, so use modulo
+    link.classList.toggle('active', (i % 5) === idx);
+  });
+}
 
 /* ── CHAPTER SYSTEM ── */
 function enterChapters() {
   document.getElementById('nav-dots').classList.add('visible');
+  document.getElementById('top-nav').classList.add('visible');
   goToChapter(0);
 }
 
@@ -1168,6 +1043,9 @@ function goToChapter(idx) {
   document.querySelectorAll('.nav-dot').forEach((d, i) => {
     d.classList.toggle('active', i === idx);
   });
+
+  // Top nav active state
+  updateNavLinks(idx);
 
   // Lock forward nav for 2s
   chapterLocked = true;
@@ -1199,49 +1077,23 @@ function entranceCh1() {
 
 /* ── CH2 ENTRANCE ── */
 function entranceCh2() {
-  const hook = document.getElementById('ch2-hook');
-  const ans = sessionStorage.getItem('boot_answer');
-  if (ans === 'yes') {
-    hook.textContent = 'That gap you just described is what this research is about.';
-  } else {
-    hook.textContent = 'You might be an Expander — one of three types this research identifies.';
-  }
-  setTimeout(() => hook.classList.add('show'), 200);
-
-  const figs = ['fig-comp', 'fig-exp', 'fig-sup'];
-  figs.forEach((id, i) => {
-    setTimeout(() => document.getElementById(id).classList.add('show'), 600 + i * 400);
+  const cards = document.querySelectorAll('.work-card');
+  cards.forEach((c, i) => {
+    c.classList.remove('show');
+    setTimeout(() => c.classList.add('show'), i * 200);
   });
-
-  // Typed text
-  const typedEl = document.getElementById('ch2-typed');
-  typedEl.innerHTML = '';
-  const ch2Text = 'Every person, under cognitive load, does one of three things with their knowledge. They compress it, expand it, or suppress it entirely. The EGC framework measures which pattern you default to — and what that means for communication under pressure.';
-  typeIntoElement(typedEl, ch2Text, 25);
-
-  setTimeout(() => document.getElementById('ch2-counter').classList.add('show'), 2500);
-}
-
-function typeIntoElement(el, text, speed) {
-  let i = 0;
-  function tick() {
-    if (i < text.length) {
-      el.textContent += text[i];
-      i++;
-      requestAnimationFrame(() => setTimeout(tick, speed));
-    }
-  }
-  tick();
 }
 
 /* ── CH3 ENTRANCE ── */
 function entranceCh3() {
-  const wins = document.querySelectorAll('.os-window');
-  wins.forEach((w, i) => {
-    w.classList.remove('show');
-    setTimeout(() => w.classList.add('show'), 200 + i * 300);
+  const stats = document.querySelectorAll('.stat-card');
+  stats.forEach((s, i) => {
+    s.classList.remove('show');
+    setTimeout(() => s.classList.add('show'), 200 + i * 150);
   });
-  initDraggable();
+  const tagline = document.getElementById('numbers-tagline');
+  tagline.classList.remove('show');
+  setTimeout(() => tagline.classList.add('show'), 200 + stats.length * 150 + 400);
 }
 
 /* ── CH4 ENTRANCE ── */
@@ -1294,13 +1146,7 @@ document.addEventListener('touchend', e => {
   if (dx > 0 && currentChapter > 0) goToChapter(currentChapter - 1);
 }, { passive: true });
 
-/* ── PATH CHOICE ── */
-function choosePath(path) {
-  sessionStorage.setItem('visitor_path', path);
-  if (path === 'research') goToChapter(1);
-  else if (path === 'build') goToChapter(2);
-  else if (path === 'mission') goToChapter(3);
-}
+/* ── PATH CHOICE (removed — all sections now accessible from nav) ── */
 
 /* ── THREE.JS PARTICLES (CH1) ── */
 let threeInited = false;
@@ -1355,67 +1201,6 @@ function initThreeJS() {
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
   });
-}
-
-/* ── DRAGGABLE WINDOWS (CH3 desktop only) ── */
-function initDraggable() {
-  if (window.innerWidth < 768) return;
-
-  document.querySelectorAll('.win-titlebar').forEach(bar => {
-    let isDragging = false;
-    let startX, startY, origLeft, origTop;
-    const win = bar.parentElement;
-
-    bar.addEventListener('mousedown', e => {
-      if (win.classList.contains('expanded')) return;
-      isDragging = true;
-      startX = e.clientX;
-      startY = e.clientY;
-      origLeft = win.offsetLeft;
-      origTop = win.offsetTop;
-      win.style.zIndex = 50;
-
-      // Focus
-      document.querySelectorAll('.os-window').forEach(w => w.classList.remove('focused'));
-      win.classList.add('focused');
-
-      const onMove = ev => {
-        if (!isDragging) return;
-        win.style.left = (origLeft + ev.clientX - startX) + 'px';
-        win.style.top = (origTop + ev.clientY - startY) + 'px';
-      };
-      const onUp = () => {
-        isDragging = false;
-        document.removeEventListener('mousemove', onMove);
-        document.removeEventListener('mouseup', onUp);
-      };
-      document.addEventListener('mousemove', onMove);
-      document.addEventListener('mouseup', onUp);
-    });
-  });
-}
-
-function closeWindow(id) {
-  const w = document.getElementById(id);
-  w.style.opacity = '0';
-  w.style.transform = 'scale(0.9)';
-  w.style.pointerEvents = 'none';
-}
-function restoreWindow(id) {
-  const w = document.getElementById(id);
-  w.classList.remove('expanded');
-  w.style.opacity = '1';
-  w.style.transform = 'scale(1)';
-  w.style.pointerEvents = 'auto';
-  w.classList.add('show');
-}
-function expandWindow(id) {
-  const w = document.getElementById(id);
-  if (w.classList.contains('expanded')) {
-    w.classList.remove('expanded');
-  } else {
-    w.classList.add('expanded');
-  }
 }
 
 /* ── INIT ── */
