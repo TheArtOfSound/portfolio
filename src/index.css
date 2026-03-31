@@ -1,0 +1,29 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap');
+
+body {
+  margin: 0;
+  background: #080c14;
+  color: #f5f0e8;
+  font-family: 'DM Mono', ui-monospace, monospace;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+::selection {
+  background: #2563eb;
+  color: #f5f0e8;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #1e2d40 transparent;
+}
+
+.font-display {
+  font-family: 'Syne', system-ui, sans-serif;
+}
