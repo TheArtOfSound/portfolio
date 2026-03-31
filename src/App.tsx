@@ -193,6 +193,11 @@ function Act2() {
       color: '#10b981',
     },
     {
+      title: 'An AI-powered app to learn Eastern Armenian from zero.',
+      desc: 'Armo',
+      color: '#e44d26',
+    },
+    {
       title: '9.3 billion tokens visualized in 3D.',
       desc: 'Claude Usage Dashboard',
       color: '#a855f7',
@@ -331,6 +336,55 @@ function Act3() {
               className="text-sm text-[#10b981] hover:text-[#10b981]/80 transition-colors tracking-wider">
               codey.cc &rarr;
             </a>
+          </div>
+        </FadeIn>
+      </div>
+
+      {/* Armo Section */}
+      <div className="max-w-4xl mx-auto px-6 mt-40">
+        <FadeIn>
+          <div className="text-xs tracking-[0.4em] uppercase text-[#e44d26] mb-6">EdTech</div>
+          <h3 className="font-display text-3xl md:text-5xl font-bold mb-8">Armo</h3>
+        </FadeIn>
+        <FadeIn delay={0.2}>
+          <p className="text-2xl font-display text-[#f5f0e8]/80 mb-8 leading-relaxed">
+            A full-stack language learning app for Eastern Armenian — built to take a complete beginner to fluency.
+          </p>
+          <p className="text-[#f5f0e8]/40 text-sm mb-8 max-w-xl">
+            Spaced repetition flashcards, guided lesson paths, alphabet drills, pronunciation training,
+            and a local AI tutor powered by Ollama. Six practice modes, adaptive difficulty, and progress
+            tracking — designed with real language acquisition research in mind.
+          </p>
+        </FadeIn>
+
+        <FadeIn delay={0.3}>
+          <div className="bg-[#0d1220] border border-[#1e2d40] rounded-xl p-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+              <div>
+                <div className="text-2xl font-bold text-[#e44d26]">8+</div>
+                <div className="text-xs text-[#f5f0e8]/30 mt-1">Lessons</div>
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-[#e44d26]">6</div>
+                <div className="text-xs text-[#f5f0e8]/30 mt-1">Practice Modes</div>
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-[#e44d26]">38</div>
+                <div className="text-xs text-[#f5f0e8]/30 mt-1">Letters Drilled</div>
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-[#e44d26]">AI</div>
+                <div className="text-xs text-[#f5f0e8]/30 mt-1">Tutor Built In</div>
+              </div>
+            </div>
+          </div>
+        </FadeIn>
+
+        <FadeIn delay={0.4}>
+          <div className="mt-6 flex flex-wrap gap-3">
+            {['Next.js', 'TypeScript', 'Tailwind', 'Ollama', 'Spaced Repetition', 'IndexedDB'].map((t) => (
+              <span key={t} className="text-xs text-[#e44d26]/60 border border-[#e44d26]/20 rounded-full px-3 py-1">{t}</span>
+            ))}
           </div>
         </FadeIn>
       </div>
