@@ -3,11 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bryan Leonard — Independent Researcher & Builder</title>
+<title>Bryan Leonard — QIRA OS</title>
+<meta name="description" content="Independent researcher, builder, consciousness scientist. Bryan Leonard / Qira LLC.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
-
 :root {
   --bg: #06080f;
   --bg2: #0a0e1a;
@@ -23,1928 +25,1310 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
-
 body {
   background: var(--bg);
   color: var(--text);
   font-family: 'DM Mono', monospace;
-  overflow-x: hidden;
-  cursor: none;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
 }
 
-/* ── CUSTOM CURSOR ── */
-.cursor {
-  position: fixed;
-  width: 12px; height: 12px;
-  background: var(--accent2);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transition: transform 0.1s, opacity 0.3s;
-  mix-blend-mode: difference;
-}
-.cursor-ring {
-  position: fixed;
-  width: 40px; height: 40px;
-  border: 1px solid var(--accent2);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9998;
-  transition: transform 0.15s ease, width 0.3s, height 0.3s, opacity 0.3s;
-  opacity: 0.5;
-}
-
-/* ── THREE.JS CANVAS ── */
-#bg-canvas {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  z-index: 0;
-  opacity: 0.6;
-}
-
-/* ── GRAIN OVERLAY ── */
+/* Film grain */
 body::after {
   content: '';
   position: fixed;
   inset: 0;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
   pointer-events: none;
-  z-index: 1;
-  opacity: 0.4;
-}
-
-/* ── SECTIONS ── */
-section {
-  position: relative;
-  z-index: 2;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 80px 40px;
+  z-index: 10000;
+  opacity: 0.35;
 }
 
 /* ── PROGRESS BAR ── */
-.progress-bar {
+#progress-bar {
   position: fixed;
   top: 0; left: 0;
   height: 2px;
   background: linear-gradient(90deg, var(--accent), var(--accent3));
-  z-index: 1000;
-  transition: width 0.1s;
+  z-index: 9999;
+  width: 0%;
+  transition: width 0.4s cubic-bezier(0.33, 1, 0.68, 1);
 }
 
-/* ── NAV ── */
-nav {
+/* ── NAV DOTS ── */
+#nav-dots {
   position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  padding: 24px 48px;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: linear-gradient(to bottom, rgba(6,8,15,0.9), transparent);
-  backdrop-filter: blur(2px);
-}
-
-.nav-logo {
-  font-family: 'Syne', sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--accent2);
-}
-
-.nav-links {
-  display: flex;
-  gap: 40px;
-  list-style: none;
-}
-
-.nav-links a {
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--muted);
-  text-decoration: none;
-  transition: color 0.3s;
-}
-
-.nav-links a:hover { color: var(--text); }
-
-/* ── SECTION 1: OPENING ── */
-#opening {
-  flex-direction: column;
-  text-align: center;
-  position: relative;
-}
-
-.opening-eyebrow {
-  font-size: 10px;
-  letter-spacing: 0.4em;
-  text-transform: uppercase;
-  color: var(--accent2);
-  margin-bottom: 32px;
+  gap: 14px;
+  z-index: 9998;
   opacity: 0;
-  animation: fadeUp 1s 0.5s forwards;
+  transition: opacity 0.6s;
 }
-
-.opening-question {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(28px, 5vw, 64px);
-  line-height: 1.25;
-  color: var(--warm);
-  max-width: 900px;
-  margin-bottom: 48px;
-  opacity: 0;
-  animation: fadeUp 1.2s 0.8s forwards;
-}
-
-.opening-question em {
-  font-style: italic;
-  color: var(--accent2);
-}
-
-.opening-answer {
-  font-size: 13px;
-  letter-spacing: 0.15em;
-  color: var(--muted);
-  margin-bottom: 64px;
-  opacity: 0;
-  animation: fadeUp 1s 1.8s forwards;
-}
-
-.opening-scroll {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  opacity: 0;
-  animation: fadeUp 1s 2.5s forwards;
+#nav-dots.visible { opacity: 1; }
+.nav-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  border: 1.5px solid var(--accent2);
+  background: transparent;
   cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
 }
-
-.scroll-line {
-  width: 1px;
-  height: 60px;
-  background: linear-gradient(to bottom, var(--accent2), transparent);
-  animation: scrollPulse 2s infinite;
+.nav-dot.active {
+  background: var(--accent2);
+  transform: scale(1.3);
 }
+.nav-dot:hover { background: rgba(96,165,250,0.4); }
 
-.scroll-text {
-  font-size: 9px;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-/* 3D floating cards on opening */
-.floating-cards {
-  position: absolute;
+/* ── BOOT SCREEN ── */
+#boot-screen {
+  position: fixed;
   inset: 0;
-  pointer-events: none;
-  overflow: hidden;
+  background: var(--bg);
+  z-index: 5000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
 }
-
-.float-card {
-  position: absolute;
-  background: rgba(15, 22, 35, 0.6);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 16px 20px;
-  backdrop-filter: blur(10px);
-  font-size: 11px;
-  color: var(--muted);
-  animation: floatAround 20s infinite ease-in-out;
+#boot-terminal {
+  max-width: 640px;
+  width: 100%;
 }
-
-.float-card:nth-child(1) { top: 15%; left: 5%; animation-delay: 0s; }
-.float-card:nth-child(2) { top: 20%; right: 5%; animation-delay: -7s; }
-.float-card:nth-child(3) { bottom: 20%; left: 8%; animation-delay: -14s; }
-.float-card:nth-child(4) { bottom: 15%; right: 8%; animation-delay: -3s; }
-
-.float-card-label {
-  font-size: 8px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+.boot-line {
+  font-family: 'DM Mono', monospace;
+  font-size: 15px;
   color: var(--accent2);
   margin-bottom: 6px;
+  opacity: 0;
+  white-space: nowrap;
+  overflow: hidden;
 }
-
-.float-card-value {
-  font-size: 18px;
-  font-weight: 600;
-  font-family: 'Syne', sans-serif;
-  color: var(--warm);
+.boot-line .cursor-char {
+  display: inline-block;
+  width: 8px;
+  height: 16px;
+  background: var(--accent2);
+  animation: blink 0.6s step-end infinite;
+  vertical-align: text-bottom;
+  margin-left: 2px;
 }
+@keyframes blink { 50% { opacity: 0; } }
 
-/* ── SECTION 2: IDENTITY ── */
-#identity {
-  flex-direction: column;
-}
-
-.identity-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  max-width: 1200px;
-  width: 100%;
-  align-items: center;
-}
-
-.identity-left { position: relative; }
-
-.identity-tag {
-  font-size: 9px;
-  letter-spacing: 0.4em;
-  text-transform: uppercase;
-  color: var(--accent2);
-  margin-bottom: 20px;
-}
-
-.identity-name {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(48px, 6vw, 88px);
-  font-weight: 800;
-  line-height: 0.95;
-  color: var(--warm);
-  margin-bottom: 32px;
-}
-
-.identity-name span {
-  display: block;
-  color: var(--accent2);
-}
-
-.identity-bio {
-  font-size: 15px;
-  line-height: 1.9;
-  color: rgba(232, 237, 245, 0.7);
-  max-width: 460px;
-  margin-bottom: 40px;
-}
-
-.identity-facts {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.fact-row {
-  display: flex;
-  gap: 16px;
-  align-items: flex-start;
-  font-size: 12px;
-}
-
-.fact-label {
-  color: var(--accent2);
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  font-size: 10px;
-  min-width: 100px;
-  padding-top: 2px;
-}
-
-.fact-value { color: var(--text); line-height: 1.6; }
-
-/* Identity right — 3D card stack */
-.identity-right {
-  position: relative;
-  height: 500px;
-}
-
-.card-3d-stack {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  perspective: 1000px;
-}
-
-.stack-card {
-  position: absolute;
-  width: 320px;
-  border-radius: 16px;
-  padding: 32px;
-  backdrop-filter: blur(20px);
-  transition: transform 0.6s ease, box-shadow 0.6s ease;
-}
-
-.stack-card:nth-child(1) {
-  background: linear-gradient(135deg, rgba(37, 99, 235, 0.15), rgba(6,8,15,0.8));
-  border: 1px solid rgba(37, 99, 235, 0.3);
-  top: 0; left: 20px;
-  transform: rotate(-3deg) translateZ(0px);
-  z-index: 3;
-}
-
-.stack-card:nth-child(2) {
-  background: linear-gradient(135deg, rgba(200, 168, 75, 0.1), rgba(6,8,15,0.7));
-  border: 1px solid rgba(200, 168, 75, 0.2);
-  top: 60px; left: 50px;
-  transform: rotate(2deg) translateZ(-20px);
-  z-index: 2;
-}
-
-.stack-card:nth-child(3) {
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(6,8,15,0.7));
-  border: 1px solid rgba(16, 185, 129, 0.2);
-  top: 120px; left: 10px;
-  transform: rotate(-1deg) translateZ(-40px);
-  z-index: 1;
-}
-
-.stack-card-icon {
-  font-size: 28px;
-  margin-bottom: 16px;
-}
-
-.stack-card-title {
-  font-family: 'Syne', sans-serif;
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--warm);
-  margin-bottom: 8px;
-}
-
-.stack-card-desc {
-  font-size: 12px;
-  line-height: 1.7;
-  color: var(--muted);
-}
-
-/* ── SECTION 3: THE GATE ── */
-#gate {
-  flex-direction: column;
-  background: radial-gradient(ellipse at 50% 0%, rgba(37,99,235,0.08) 0%, transparent 70%);
-}
-
-.gate-container {
-  max-width: 1200px;
-  width: 100%;
-}
-
-.gate-header {
+#boot-question {
+  opacity: 0;
+  transition: opacity 1.2s;
   text-align: center;
-  margin-bottom: 80px;
+  margin-top: 60px;
 }
-
-.gate-eyebrow {
-  font-size: 10px;
-  letter-spacing: 0.4em;
-  text-transform: uppercase;
-  color: var(--accent3);
-  margin-bottom: 20px;
-}
-
-.gate-title {
+#boot-question h2 {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(36px, 5vw, 64px);
+  font-size: clamp(22px, 4vw, 36px);
+  font-weight: 400;
+  font-style: italic;
   color: var(--warm);
-  margin-bottom: 24px;
-  line-height: 1.2;
-}
-
-.gate-subtitle {
-  font-size: 14px;
-  color: var(--muted);
+  line-height: 1.5;
   max-width: 600px;
-  margin: 0 auto;
-  line-height: 1.8;
+  margin: 0 auto 40px;
+}
+.boot-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.boot-btn {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  padding: 14px 28px;
+  background: transparent;
+  border: 1px solid var(--accent2);
+  color: var(--accent2);
+  cursor: pointer;
+  transition: all 0.3s;
+  letter-spacing: 0.5px;
+}
+.boot-btn:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
 }
 
-/* Gate visualization */
-.gate-viz {
-  position: relative;
-  height: 200px;
-  margin: 60px 0;
+/* ── CHAPTERS ── */
+.chapter {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s cubic-bezier(0.33, 1, 0.68, 1);
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+}
+.chapter.active {
+  opacity: 1;
+  pointer-events: auto;
 }
 
-.gate-flow {
+/* ── CH1 IDENTITY ── */
+#ch1 {
   display: flex;
+  flex-direction: row;
+}
+#ch1-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+#ch1-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
   align-items: center;
-  gap: 0;
   width: 100%;
-  max-width: 900px;
+  height: 100%;
+  padding: 60px 80px;
 }
-
-.gate-node {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 20px 28px;
-  text-align: center;
-  flex-shrink: 0;
+.ch1-left {
+  flex: 1;
 }
-
-.gate-node-label {
-  font-size: 9px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--accent2);
+.ch1-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 40px;
+}
+.ch1-right .identity-line {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.6s, transform 0.6s;
+}
+.ch1-right .identity-line.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+.ch1-name {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 800;
+  color: var(--text);
   margin-bottom: 8px;
 }
+.ch1-role {
+  font-family: 'DM Mono', monospace;
+  font-size: clamp(13px, 1.5vw, 16px);
+  color: var(--accent2);
+  margin-bottom: 4px;
+}
+.ch1-detail {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 2px;
+}
+.ch1-terminal {
+  margin-top: 32px;
+  font-size: 13px;
+  color: var(--accent2);
+  line-height: 1.8;
+}
+.ch1-terminal span { color: var(--accent3); }
+.ch1-paths {
+  margin-top: 36px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.path-btn {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  padding: 12px 24px;
+  background: rgba(37,99,235,0.08);
+  border: 1px solid var(--border);
+  color: var(--accent2);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.path-btn:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
 
-.gate-node-name {
+/* ── CH2 THE GATE ── */
+#ch2 {
+  flex-direction: column;
+  padding: 60px;
+}
+#ch2-inner {
+  max-width: 900px;
+  width: 100%;
+}
+.ch2-hook {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(20px, 3vw, 30px);
+  font-style: italic;
+  color: var(--warm);
+  margin-bottom: 48px;
+  line-height: 1.6;
+  opacity: 0;
+  transition: opacity 0.8s;
+}
+.ch2-hook.show { opacity: 1; }
+
+.ch2-figures {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+}
+.figure-card {
+  width: 200px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s, transform 0.6s;
+}
+.figure-card.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+.figure-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 16px;
+  position: relative;
+}
+.figure-label {
   font-family: 'Syne', sans-serif;
   font-size: 16px;
   font-weight: 700;
-  color: var(--warm);
-}
-
-.gate-arrow {
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, var(--border), var(--accent2), var(--border));
-  position: relative;
-  margin: 0 8px;
-}
-
-.gate-arrow::after {
-  content: '▶';
-  position: absolute;
-  right: -4px;
-  top: 50%;
-  transform: translateY(-50%);
   color: var(--accent2);
-  font-size: 10px;
-}
-
-.gate-center {
-  position: relative;
-  flex-shrink: 0;
-}
-
-.gate-door {
-  width: 80px;
-  height: 120px;
-  border: 2px solid var(--accent2);
-  border-radius: 40px 40px 4px 4px;
-  position: relative;
-  background: rgba(37, 99, 235, 0.05);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: gateBreath 4s infinite ease-in-out;
-}
-
-.gate-door::before {
-  content: '';
-  position: absolute;
-  inset: 4px;
-  border: 1px solid rgba(37, 99, 235, 0.3);
-  border-radius: 36px 36px 0 0;
-}
-
-.gate-label-center {
-  font-size: 9px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--accent2);
-  text-align: center;
-  margin-top: 12px;
-}
-
-/* Three types */
-.types-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  margin-top: 60px;
-}
-
-.type-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 36px 28px;
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.4s, border-color 0.4s;
-  cursor: default;
-}
-
-.type-card:hover {
-  transform: translateY(-8px);
-  border-color: var(--accent2);
-}
-
-.type-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-}
-
-.type-card.compressor::before { background: linear-gradient(90deg, var(--accent), var(--accent2)); }
-.type-card.expander::before { background: linear-gradient(90deg, var(--accent3), #f59e0b); }
-.type-card.suppressor::before { background: linear-gradient(90deg, #7c3aed, #a78bfa); }
-
-.type-symbol {
-  font-size: 36px;
-  margin-bottom: 20px;
-  display: block;
-}
-
-.type-name {
-  font-family: 'Syne', sans-serif;
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--warm);
-  margin-bottom: 12px;
-}
-
-.type-pct {
-  font-size: 11px;
-  letter-spacing: 0.15em;
-  color: var(--accent2);
-  margin-bottom: 16px;
-}
-
-.type-desc {
-  font-size: 13px;
-  line-height: 1.8;
-  color: rgba(232, 237, 245, 0.65);
-  margin-bottom: 24px;
-}
-
-.type-quote {
-  font-family: 'Playfair Display', serif;
-  font-style: italic;
-  font-size: 13px;
-  color: var(--muted);
-  border-left: 2px solid var(--border);
-  padding-left: 16px;
-  line-height: 1.7;
-}
-
-/* ── SECTION 4: THE WORK ── */
-#work {
-  flex-direction: column;
-  background: radial-gradient(ellipse at 80% 50%, rgba(200, 168, 75, 0.04) 0%, transparent 60%);
-}
-
-.work-container {
-  max-width: 1200px;
-  width: 100%;
-}
-
-.work-header {
-  margin-bottom: 80px;
-}
-
-.work-eyebrow {
-  font-size: 10px;
-  letter-spacing: 0.4em;
-  text-transform: uppercase;
-  color: var(--accent3);
-  margin-bottom: 20px;
-}
-
-.work-title {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(32px, 4vw, 56px);
-  font-weight: 800;
-  color: var(--warm);
-  max-width: 700px;
-  line-height: 1.1;
-}
-
-/* Work items */
-.work-items { display: flex; flex-direction: column; gap: 2px; }
-
-.work-item {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  overflow: hidden;
-  transition: border-color 0.3s;
-}
-
-.work-item:hover { border-color: rgba(37, 99, 235, 0.4); }
-
-.work-item-header {
-  display: grid;
-  grid-template-columns: 80px 1fr auto;
-  gap: 32px;
-  align-items: center;
-  padding: 28px 36px;
-  cursor: pointer;
-}
-
-.work-num {
-  font-family: 'Syne', sans-serif;
-  font-size: 48px;
-  font-weight: 800;
-  color: var(--border);
-  line-height: 1;
-  font-variant-numeric: tabular-nums;
-}
-
-.work-info { }
-
-.work-item-name {
-  font-family: 'Syne', sans-serif;
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--warm);
   margin-bottom: 6px;
 }
-
-.work-item-tagline {
-  font-size: 13px;
-  color: var(--muted);
-}
-
-.work-item-tags {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-}
-
-.tag {
-  font-size: 9px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  padding: 4px 10px;
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  color: var(--muted);
-}
-
-.work-item-body {
-  display: none;
-  padding: 0 36px 28px 148px;
-}
-
-.work-item.open .work-item-body { display: block; }
-
-.work-item-detail {
-  font-size: 13px;
-  line-height: 1.9;
-  color: rgba(232, 237, 245, 0.65);
-  max-width: 700px;
-  margin-bottom: 20px;
-}
-
-.work-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 11px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--accent2);
-  text-decoration: none;
-  transition: gap 0.3s;
-}
-
-.work-link:hover { gap: 12px; }
-
-/* ── SECTION 5: NUMBERS ── */
-#numbers {
-  flex-direction: column;
-  background: radial-gradient(ellipse at 20% 80%, rgba(37,99,235,0.06) 0%, transparent 60%);
-}
-
-.numbers-container {
-  max-width: 1200px;
-  width: 100%;
-  text-align: center;
-}
-
-.numbers-eyebrow {
-  font-size: 10px;
-  letter-spacing: 0.4em;
-  text-transform: uppercase;
-  color: var(--accent2);
-  margin-bottom: 20px;
-}
-
-.numbers-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(28px, 4vw, 48px);
-  color: var(--warm);
-  margin-bottom: 80px;
-  font-style: italic;
-}
-
-.numbers-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2px;
-  margin-bottom: 80px;
-}
-
-.number-cell {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  padding: 40px 24px;
-  position: relative;
-  overflow: hidden;
-  transition: background 0.3s;
-}
-
-.number-cell:hover {
-  background: rgba(37, 99, 235, 0.05);
-}
-
-.number-cell::before {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--accent2), transparent);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.number-cell:hover::before { opacity: 1; }
-
-.number-big {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(36px, 4vw, 64px);
-  font-weight: 800;
-  color: var(--accent2);
-  display: block;
-  margin-bottom: 8px;
-  line-height: 1;
-}
-
-.number-label {
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+.figure-desc {
+  font-size: 12px;
   color: var(--muted);
   line-height: 1.5;
 }
 
-.number-sub {
-  font-size: 10px;
-  color: rgba(100, 116, 139, 0.6);
-  margin-top: 6px;
+/* CSS animated figures */
+.compressor-anim {
+  width: 40px; height: 40px;
+  border: 2px solid var(--accent2);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  animation: compress 2s ease-in-out infinite;
+}
+@keyframes compress {
+  0%, 100% { width: 40px; height: 40px; }
+  50% { width: 18px; height: 18px; }
+}
+.expander-anim {
+  width: 20px; height: 20px;
+  border: 2px solid var(--accent3);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  animation: expand 2s ease-in-out infinite;
+}
+@keyframes expand {
+  0%, 100% { width: 20px; height: 20px; }
+  50% { width: 50px; height: 50px; }
+}
+.suppressor-anim {
+  width: 30px; height: 30px;
+  border: 2px solid #ef4444;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  animation: suppress 2s ease-in-out infinite;
+}
+@keyframes suppress {
+  0%, 100% { width: 30px; height: 30px; opacity: 1; }
+  40% { width: 40px; height: 40px; opacity: 1; }
+  50% { width: 40px; height: 40px; opacity: 0.3; }
+  60% { width: 30px; height: 30px; opacity: 1; }
+}
+
+.ch2-typed {
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.8;
+  margin-bottom: 32px;
+  min-height: 80px;
+}
+.ch2-counter {
+  font-size: 14px;
+  color: var(--accent3);
+  margin-bottom: 32px;
+  opacity: 0;
+  transition: opacity 0.6s;
+}
+.ch2-counter.show { opacity: 1; }
+.ch2-credit {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 20px;
   font-style: italic;
 }
+.ch2-ctas {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.cta-btn {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-decoration: none;
+  display: inline-block;
+}
+.cta-primary {
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  color: #fff;
+}
+.cta-primary:hover {
+  background: var(--accent2);
+  border-color: var(--accent2);
+}
+.cta-secondary {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--accent2);
+}
+.cta-secondary:hover {
+  background: rgba(37,99,235,0.1);
+  border-color: var(--accent2);
+}
 
-/* Live study CTA */
-.study-cta {
+/* ── CH3 THE BUILD ── */
+#ch3 {
+  flex-direction: column;
+  background: var(--bg2);
+}
+#ch3-desktop {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 52px);
+  overflow: hidden;
+}
+.os-window {
+  position: absolute;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 48px;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 40px;
-  align-items: center;
-  text-align: left;
-}
-
-.cta-left { }
-
-.cta-live {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 9px;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: #10b981;
-  margin-bottom: 16px;
-}
-
-.cta-dot {
-  width: 6px; height: 6px;
-  background: #10b981;
-  border-radius: 50%;
-  animation: pulse 2s infinite;
-}
-
-.cta-title {
-  font-family: 'Syne', sans-serif;
-  font-size: 24px;
-  font-weight: 700;
-  color: var(--warm);
-  margin-bottom: 12px;
-}
-
-.cta-desc {
-  font-size: 13px;
-  color: var(--muted);
-  line-height: 1.7;
-  max-width: 500px;
-}
-
-.cta-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  background: var(--accent);
-  color: white;
-  text-decoration: none;
-  padding: 16px 32px;
   border-radius: 8px;
-  font-size: 12px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  transition: background 0.3s, transform 0.2s;
-  white-space: nowrap;
-  flex-shrink: 0;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  min-width: 280px;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.5s, transform 0.5s, box-shadow 0.3s;
 }
-
-.cta-btn:hover { background: #1d4ed8; transform: translateX(4px); }
-
-/* ── SECTION 6: PHILOSOPHY ── */
-#philosophy {
-  flex-direction: column;
-  background: radial-gradient(ellipse at 50% 100%, rgba(200, 168, 75, 0.06) 0%, transparent 60%);
+.os-window.show {
+  opacity: 1;
+  transform: scale(1);
 }
-
-.philosophy-container {
-  max-width: 900px;
-  width: 100%;
+.os-window.focused {
+  box-shadow: 0 12px 48px rgba(37,99,235,0.15);
+  z-index: 10;
 }
-
-.philosophy-eyebrow {
-  font-size: 10px;
-  letter-spacing: 0.4em;
-  text-transform: uppercase;
-  color: var(--accent3);
-  margin-bottom: 60px;
-  text-align: center;
+.os-window.expanded {
+  position: fixed !important;
+  top: 0 !important; left: 0 !important;
+  width: 100vw !important;
+  height: calc(100vh - 52px) !important;
+  border-radius: 0;
+  z-index: 100 !important;
 }
-
-.philosophy-items { display: flex; flex-direction: column; gap: 60px; }
-
-.philosophy-item {
-  display: grid;
-  grid-template-columns: 60px 1fr;
-  gap: 40px;
-  align-items: start;
-}
-
-.phil-num {
-  font-family: 'Syne', sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--accent2);
-  letter-spacing: 0.1em;
-  padding-top: 8px;
-}
-
-.phil-content { }
-
-.phil-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 28px;
-  color: var(--warm);
-  margin-bottom: 16px;
-  line-height: 1.3;
-}
-
-.phil-desc {
-  font-size: 15px;
-  line-height: 1.9;
-  color: rgba(232, 237, 245, 0.65);
-}
-
-/* ── SECTION 7: TIMELINE / CAREER ── */
-#timeline {
-  flex-direction: column;
-}
-
-.timeline-container {
-  max-width: 1000px;
-  width: 100%;
-}
-
-.timeline-header {
-  margin-bottom: 60px;
-}
-
-.timeline-eyebrow {
-  font-size: 10px;
-  letter-spacing: 0.4em;
-  text-transform: uppercase;
-  color: var(--accent2);
-  margin-bottom: 20px;
-}
-
-.timeline-title {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(28px, 4vw, 48px);
-  font-weight: 800;
-  color: var(--warm);
-}
-
-.timeline-items {
-  position: relative;
-  padding-left: 40px;
-}
-
-.timeline-items::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 1px;
-  background: linear-gradient(to bottom, var(--accent2), transparent);
-}
-
-.tl-item {
-  position: relative;
-  margin-bottom: 48px;
-  padding-left: 40px;
-}
-
-.tl-dot {
-  position: absolute;
-  left: -47px; top: 6px;
-  width: 14px; height: 14px;
-  border-radius: 50%;
-  border: 2px solid var(--accent2);
+.win-titlebar {
+  display: flex;
+  align-items: center;
+  padding: 10px 14px;
   background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  cursor: grab;
+  user-select: none;
 }
-
-.tl-dot.active {
-  background: var(--accent2);
-  box-shadow: 0 0 12px var(--accent2);
+.win-titlebar:active { cursor: grabbing; }
+.win-dots {
+  display: flex;
+  gap: 6px;
+  margin-right: 12px;
 }
-
-.tl-date {
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--accent2);
-  margin-bottom: 8px;
+.win-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  cursor: pointer;
 }
-
-.tl-title {
+.win-dot.red { background: #ef4444; }
+.win-dot.yellow { background: #eab308; }
+.win-dot.green { background: #22c55e; }
+.win-title {
+  font-size: 12px;
+  color: var(--muted);
+  flex: 1;
+}
+.win-body {
+  padding: 20px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text);
+  max-height: 300px;
+  overflow-y: auto;
+}
+.win-body h3 {
   font-family: 'Syne', sans-serif;
   font-size: 18px;
   font-weight: 700;
-  color: var(--warm);
-  margin-bottom: 4px;
-}
-
-.tl-org {
-  font-size: 12px;
-  color: var(--muted);
   margin-bottom: 10px;
+  color: var(--accent2);
 }
-
-.tl-desc {
-  font-size: 13px;
-  line-height: 1.8;
-  color: rgba(232, 237, 245, 0.55);
-  max-width: 600px;
-}
-
-/* ── SECTION 8: CONTACT ── */
-#contact {
-  flex-direction: column;
-  min-height: 60vh;
-}
-
-.contact-container {
-  max-width: 800px;
-  width: 100%;
-  text-align: center;
-}
-
-.contact-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(32px, 5vw, 64px);
-  color: var(--warm);
-  margin-bottom: 16px;
-  line-height: 1.2;
-}
-
-.contact-sub {
-  font-size: 14px;
+.win-body p {
   color: var(--muted);
-  margin-bottom: 60px;
-  font-style: italic;
+  margin-bottom: 8px;
 }
-
-.contact-links {
+.win-body a {
+  color: var(--accent3);
+  text-decoration: none;
+}
+.win-body a:hover { text-decoration: underline; }
+.win-tag {
+  display: inline-block;
+  font-size: 10px;
+  padding: 3px 8px;
+  border: 1px solid var(--border);
+  color: var(--accent2);
+  border-radius: 3px;
+  margin-right: 6px;
+  margin-bottom: 6px;
+}
+.progress-track {
+  width: 100%;
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  margin-top: 10px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent3));
+}
+.oscillator-dots {
   display: flex;
-  gap: 24px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 60px;
+  gap: 4px;
+  margin-top: 10px;
+}
+.osc-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent2);
+  animation: oscillate 1.5s ease-in-out infinite;
+}
+.osc-dot:nth-child(2) { animation-delay: 0.2s; }
+.osc-dot:nth-child(3) { animation-delay: 0.4s; }
+.osc-dot:nth-child(4) { animation-delay: 0.6s; }
+.osc-dot:nth-child(5) { animation-delay: 0.8s; }
+@keyframes oscillate {
+  0%, 100% { transform: translateY(0); opacity: 0.4; }
+  50% { transform: translateY(-8px); opacity: 1; }
 }
 
-.contact-link {
+/* Taskbar */
+#taskbar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 52px;
+  background: var(--bg);
+  border-top: 1px solid var(--border);
   display: flex;
   align-items: center;
-  gap: 10px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 14px 24px;
-  color: var(--text);
-  text-decoration: none;
-  font-size: 12px;
-  letter-spacing: 0.1em;
-  transition: border-color 0.3s, transform 0.2s;
+  justify-content: center;
+  gap: 24px;
+  z-index: 200;
 }
-
-.contact-link:hover {
-  border-color: var(--accent2);
-  transform: translateY(-4px);
-}
-
-.contact-link-icon { font-size: 16px; }
-
-.footer-brand {
-  font-size: 10px;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
+.taskbar-icon {
+  font-size: 11px;
   color: var(--muted);
-  opacity: 0.5;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+.taskbar-icon:hover {
+  background: var(--surface);
+  color: var(--accent2);
+}
+.ch3-prompt {
+  position: absolute;
+  bottom: 68px;
+  right: 40px;
+  display: flex;
+  gap: 12px;
+  z-index: 200;
 }
 
-/* ── SCROLL REVEAL ── */
-.reveal {
+/* ── CH4 PHILOSOPHY ── */
+#ch4 {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 60px;
+  background: var(--bg);
+}
+.philosophy-line {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(18px, 2.8vw, 28px);
+  font-weight: 400;
+  color: var(--warm);
+  line-height: 1.7;
+  max-width: 720px;
+  text-align: center;
+  margin-bottom: 48px;
   opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transform: translateY(10px);
+  transition: opacity 1.2s, transform 1.2s;
 }
-
-.reveal.visible {
+.philosophy-line.show {
   opacity: 1;
   transform: translateY(0);
 }
+.philosophy-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  color: var(--muted);
+  text-align: center;
+  line-height: 2;
+  opacity: 0;
+  transition: opacity 1s;
+  margin-top: 16px;
+}
+.philosophy-tag.show { opacity: 1; }
+.ch4-ctas {
+  margin-top: 48px;
+  display: flex;
+  gap: 16px;
+  opacity: 0;
+  transition: opacity 0.8s;
+}
+.ch4-ctas.show { opacity: 1; }
 
-.reveal-delay-1 { transition-delay: 0.1s; }
-.reveal-delay-2 { transition-delay: 0.2s; }
-.reveal-delay-3 { transition-delay: 0.3s; }
-.reveal-delay-4 { transition-delay: 0.4s; }
-.reveal-delay-5 { transition-delay: 0.5s; }
-
-/* ── EQUATION DISPLAY ── */
-.equation-box {
-  background: var(--surface);
-  border: 1px solid rgba(37, 99, 235, 0.3);
-  border-radius: 12px;
-  padding: 24px 32px;
-  display: inline-block;
-  margin: 40px 0;
+/* ── CH5 CONTACT ── */
+#ch5 {
+  flex-direction: column;
+  padding: 60px;
+}
+#ch5-inner {
+  max-width: 640px;
+  width: 100%;
+}
+.ch5-intro {
   font-family: 'Playfair Display', serif;
-  font-size: 18px;
+  font-size: clamp(18px, 2.5vw, 24px);
+  color: var(--warm);
+  font-style: italic;
+  margin-bottom: 40px;
+  opacity: 0;
+  transition: opacity 0.8s;
+}
+.ch5-intro.show { opacity: 1; }
+.ch5-cmd {
+  font-size: 13px;
   color: var(--accent2);
-  letter-spacing: 0.05em;
+  line-height: 2.4;
+  margin-bottom: 8px;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: opacity 0.5s, transform 0.5s;
 }
-
-/* ── ANIMATIONS ── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+.ch5-cmd.show {
+  opacity: 1;
+  transform: translateX(0);
 }
-
-@keyframes floatAround {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  33% { transform: translateY(-20px) rotate(1deg); }
-  66% { transform: translateY(10px) rotate(-1deg); }
+.ch5-cmd a {
+  color: var(--accent2);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1px;
+  transition: border-color 0.3s;
 }
-
-@keyframes gateBreath {
-  0%, 100% { box-shadow: 0 0 20px rgba(37, 99, 235, 0.2); }
-  50% { box-shadow: 0 0 40px rgba(37, 99, 235, 0.5); }
+.ch5-cmd a:hover { border-color: var(--accent2); }
+.ch5-study {
+  margin-top: 40px;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: rgba(37,99,235,0.04);
+  opacity: 0;
+  transition: opacity 0.6s;
 }
-
-@keyframes scrollPulse {
-  0%, 100% { opacity: 0.4; transform: scaleY(1); }
-  50% { opacity: 1; transform: scaleY(1.1); }
+.ch5-study.show { opacity: 1; }
+.ch5-study p {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 12px;
 }
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.3; }
+.ch5-study a {
+  color: var(--accent3);
+  text-decoration: none;
+  font-size: 13px;
 }
+.ch5-study a:hover { text-decoration: underline; }
 
-/* ── SECTION DIVIDERS ── */
-.divider {
-  width: 60px;
-  height: 1px;
-  background: var(--accent2);
-  margin: 32px 0;
-  opacity: 0.5;
-}
-
-/* ── RESPONSIVE ── */
+/* ── MOBILE ── */
 @media (max-width: 768px) {
-  /* Disable custom cursor on touch */
-  body { cursor: auto !important; }
-  .cursor, .cursor-ring { display: none !important; }
+  #ch1-content {
+    flex-direction: column;
+    padding: 30px 24px;
+    justify-content: center;
+  }
+  .ch1-left { display: none; }
+  .ch1-right { padding-left: 0; text-align: center; }
+  .ch1-paths { justify-content: center; }
 
-  /* Nav — hide links, keep logo */
-  nav { padding: 16px 20px; }
-  .nav-links { display: none; }
-  .nav-logo { font-size: 11px; }
+  #ch2 { padding: 30px 24px; }
+  .ch2-figures { gap: 20px; }
+  .figure-card { width: 140px; }
 
-  /* Sections — less padding */
-  section { padding: 40px 20px; min-height: auto; }
+  .os-window {
+    position: relative !important;
+    width: 100% !important;
+    top: auto !important;
+    left: auto !important;
+    margin-bottom: 16px;
+    transform: none !important;
+  }
+  #ch3-desktop {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    overflow-y: auto;
+  }
+  #taskbar { display: none; }
+  .ch3-prompt {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    justify-content: center;
+    margin-top: 16px;
+  }
 
-  /* Opening — smaller text, hide floating cards */
-  .opening-eyebrow { font-size: 9px; margin-bottom: 20px; }
-  .opening-question { font-size: clamp(22px, 6vw, 36px); margin-bottom: 24px; line-height: 1.3; }
-  .opening-answer { font-size: 11px; margin-bottom: 32px; }
-  .float-card { display: none; }
-  .floating-cards { display: none; }
-
-  /* Identity — single column, smaller name */
-  .identity-grid { grid-template-columns: 1fr; gap: 24px; }
-  .identity-name { font-size: clamp(36px, 10vw, 56px); }
-  .identity-bio { font-size: 13px; line-height: 1.8; }
-  .identity-right { height: 260px; }
-  .stack-card { width: 220px; padding: 20px; }
-  .stack-card:nth-child(1) { left: 10px; }
-  .stack-card:nth-child(2) { left: 30px; }
-  .stack-card:nth-child(3) { left: 0px; }
-  .identity-tag { font-size: 8px; }
-  .fact-row { flex-direction: column; gap: 4px; }
-  .fact-label { min-width: auto; }
-
-  /* Gate section */
-  .gate-title { font-size: clamp(24px, 7vw, 40px); }
-  .gate-subtitle { font-size: 12px; }
-  .gate-flow { flex-direction: column; gap: 12px; align-items: center; }
-  .gate-arrow { width: 1px; height: 30px; background: linear-gradient(to bottom, var(--border), var(--accent2)); margin: 0; }
-  .gate-arrow::after { content: '▼'; bottom: -4px; right: 50%; transform: translateX(50%); top: auto; }
-  .gate-node { padding: 14px 18px; }
-  .gate-node-name { font-size: 13px; }
-  .gate-viz { height: auto; margin: 30px 0; }
-
-  /* Type cards — single column */
-  .types-grid { grid-template-columns: 1fr; gap: 16px; }
-  .type-card { padding: 24px 20px; }
-  .type-name { font-size: 17px; }
-  .type-desc { font-size: 12px; }
-  .type-quote { font-size: 11px; }
-  .type-symbol { font-size: 28px; }
-
-  /* Numbers */
-  .numbers-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-
-  /* Work section */
-  .work-header { margin-bottom: 40px; }
-  .work-item-header { grid-template-columns: 40px 1fr; gap: 12px; }
-  .work-item-number { font-size: 20px; }
-  .work-item-title { font-size: 18px; }
-  .work-item-tags { display: none; }
-  .work-item-body { padding: 16px 0 16px 52px; }
-  .work-item-desc { font-size: 12px; }
-
-  /* Philosophy */
-  .philosophy-item { grid-template-columns: 1fr; gap: 12px; }
-  .phil-title { font-size: 17px; }
-  .phil-desc { font-size: 12px; }
-
-  /* Study CTA */
-  .study-cta { grid-template-columns: 1fr; text-align: center; gap: 16px; }
-  .cta-desc { max-width: 100%; }
-  .cta-action { align-items: center; }
-
-  /* Contact */
-  .contact-title { font-size: clamp(28px, 8vw, 48px); }
-  .contact-sub { font-size: 12px; }
-  .contact-links { flex-direction: column; align-items: center; gap: 12px; }
-  .contact-link { padding: 14px 24px; width: 100%; justify-content: center; }
-
-  /* Footer */
-  .footer-grid { grid-template-columns: 1fr; gap: 24px; text-align: center; }
-
-  /* Reduce grain effect on mobile for performance */
-  body::after { opacity: 0.15; }
-  #bg-canvas { opacity: 0.3; }
+  #ch4 { padding: 30px 24px; }
+  #ch5 { padding: 30px 24px; }
 }
 </style>
 </head>
 <body>
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
-<div class="progress-bar" id="progressBar"></div>
-<canvas id="bg-canvas"></canvas>
+<!-- Progress bar -->
+<div id="progress-bar"></div>
 
-<nav>
-  <div class="nav-logo">Bryan Leonard</div>
-  <ul class="nav-links">
-    <li><a href="#identity">About</a></li>
-    <li><a href="#gate">Research</a></li>
-    <li><a href="#work">Work</a></li>
-    <li><a href="#numbers">Data</a></li>
-    <li><a href="https://theartofsound.github.io/claude-usage-dashboard/" target="_blank">Usage Dashboard</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
+<!-- Nav dots -->
+<div id="nav-dots">
+  <div class="nav-dot" data-ch="0" onclick="goToChapter(0)"></div>
+  <div class="nav-dot" data-ch="1" onclick="goToChapter(1)"></div>
+  <div class="nav-dot" data-ch="2" onclick="goToChapter(2)"></div>
+  <div class="nav-dot" data-ch="3" onclick="goToChapter(3)"></div>
+  <div class="nav-dot" data-ch="4" onclick="goToChapter(4)"></div>
+</div>
 
-<!-- ══════════ SECTION 1: OPENING ══════════ -->
-<section id="opening">
-  <div class="floating-cards">
-    <div class="float-card">
-      <div class="float-card-label">Study Live</div>
-      <div class="float-card-value" id="liveN">40+</div>
-    </div>
-    <div class="float-card">
-      <div class="float-card-label">Pearson r</div>
-      <div class="float-card-value">0.311</div>
-    </div>
-    <div class="float-card">
-      <div class="float-card-label">TPU Research</div>
-      <div class="float-card-value">Cloud ✓</div>
-    </div>
-    <div class="float-card">
-      <div class="float-card-label">Location</div>
-      <div class="float-card-value">Phoenix, AZ</div>
+<!-- BOOT SCREEN -->
+<div id="boot-screen">
+  <div id="boot-terminal">
+    <div class="boot-line" id="bl0"></div>
+    <div class="boot-line" id="bl1"></div>
+    <div class="boot-line" id="bl2"></div>
+    <div class="boot-line" id="bl3"></div>
+    <div class="boot-line" id="bl4"></div>
+  </div>
+  <div id="boot-question">
+    <h2>Have you ever known exactly what you wanted to say — but under pressure, a simpler version came out?</h2>
+    <div class="boot-buttons">
+      <button class="boot-btn" onclick="bootAnswer('yes')">[ YES, that happens to me ]</button>
+      <button class="boot-btn" onclick="bootAnswer('no')">[ NO, I always say what I mean ]</button>
     </div>
   </div>
+</div>
 
-  <div style="position: relative; z-index: 2; text-align: center;">
-    <div class="opening-eyebrow">Independent Researcher · Builder · Phoenix, Arizona</div>
-    <h1 class="opening-question">
-      Have you ever known exactly what you<br>
-      wanted to say — but under pressure,<br>
-      <em>a simpler version came out?</em>
-    </h1>
-    <p class="opening-answer">That gap has a name now.</p>
-    <div class="opening-scroll" onclick="document.getElementById('identity').scrollIntoView({behavior:'smooth'})">
-      <div class="scroll-line"></div>
-      <span class="scroll-text">Scroll to enter</span>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════ SECTION 2: IDENTITY ══════════ -->
-<section id="identity">
-  <div class="identity-grid" style="max-width:1200px; width:100%;">
-    <div class="identity-left reveal">
-      <div class="identity-tag">Independent Researcher · Co-founder, Qira LLC</div>
-      <h2 class="identity-name">Bryan<span>Leonard</span></h2>
-      <p class="identity-bio">
-        I work at the intersection of consciousness research and AI architecture — two fields that look unrelated until they suddenly aren't. Based in Phoenix, Arizona. No institution. No lab. Just the work and the belief that it matters.
-      </p>
-      <div class="divider"></div>
-      <div class="identity-facts">
-        <div class="fact-row">
-          <span class="fact-label">Currently</span>
-          <span class="fact-value">ML Researcher & Language Model Architect · Customer Success at Block</span>
-        </div>
-        <div class="fact-row">
-          <span class="fact-label">Research</span>
-          <span class="fact-value">Expression-Gated Consciousness · Live empirical study · In dialogue with NYU</span>
-        </div>
-        <div class="fact-row">
-          <span class="fact-label">Building</span>
-          <span class="fact-value">Novel language model architecture (LOLM) · Coding AI (Codey) · Traffic optimization (NFET)</span>
-        </div>
-        <div class="fact-row">
-          <span class="fact-label">Compute</span>
-          <span class="fact-value">Accepted into Google TPU Research Cloud · Training at scale</span>
-        </div>
-        <div class="fact-row">
-          <span class="fact-label">Collaborator</span>
-          <span class="fact-value">Brandyn Leonard (brother) · Key theoretical contributions to EGC</span>
-        </div>
-        <div class="fact-row">
-          <span class="fact-label">Education</span>
-          <span class="fact-value">Mountain Pointe High School, Phoenix AZ · Self-directed since</span>
-        </div>
-        <div class="fact-row">
-          <span class="fact-label">Philosophy</span>
-          <span class="fact-value">Boldness over caution. Real provable work over all. Stars or nothing.</span>
-        </div>
+<!-- CHAPTER 1: IDENTITY -->
+<div class="chapter" id="ch1">
+  <canvas id="ch1-canvas"></canvas>
+  <div id="ch1-content">
+    <div class="ch1-left"></div>
+    <div class="ch1-right">
+      <div class="identity-line ch1-name">Bryan Leonard</div>
+      <div class="identity-line ch1-role">Consciousness Researcher</div>
+      <div class="identity-line ch1-role">Independent Scientist</div>
+      <div class="identity-line ch1-detail">Co-founder, Qira LLC</div>
+      <div class="identity-line ch1-detail">Phoenix, Arizona</div>
+      <div class="identity-line ch1-terminal">
+        <span>&gt;</span> Currently running: EGC study &middot; LOLM &middot; Codey &middot; NFET<br>
+        <span>&gt;</span> <span id="live-count">--</span> research subjects and counting
       </div>
-    </div>
-    <div class="identity-right reveal reveal-delay-2">
-      <div class="card-3d-stack">
-        <div class="stack-card">
-          <div class="stack-card-icon">🧬</div>
-          <div class="stack-card-title">Consciousness Research</div>
-          <div class="stack-card-desc">Expression-Gated Consciousness — a formal framework for the gap between knowing and saying. Live study. 40+ subjects. NYU collaboration incoming.</div>
-        </div>
-        <div class="stack-card">
-          <div class="stack-card-icon">🤖</div>
-          <div class="stack-card-title">Language Model Architecture</div>
-          <div class="stack-card-desc">LOLM — a novel hybrid architecture built from scratch. 15.1% PPL improvement at 1.57B parameters. Provisional patent filed. Google TPU Research Cloud (320 chips).</div>
-        </div>
-        <div class="stack-card">
-          <div class="stack-card-icon">⚡</div>
-          <div class="stack-card-title">Production AI Systems</div>
-          <div class="stack-card-desc">Codey — a coding AI that sees your codebase as a network. NFET — traffic optimization using Kuramoto oscillator modeling. Both live and running.</div>
-        </div>
+      <div class="identity-line ch1-paths">
+        <button class="path-btn" onclick="choosePath('research')">[ The Research ]</button>
+        <button class="path-btn" onclick="choosePath('build')">[ The Build ]</button>
+        <button class="path-btn" onclick="choosePath('mission')">[ The Mission ]</button>
       </div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- ══════════ SECTION 3: THE GATE ══════════ -->
-<section id="gate">
-  <div class="gate-container">
-    <div class="gate-header reveal">
-      <div class="gate-eyebrow">Expression-Gated Consciousness · EGC</div>
-      <h2 class="gate-title">The gate between<br>knowing and saying</h2>
-      <p class="gate-subtitle">Everyone has lived this. Nobody had a formal name for it. A framework proposing that psychological transparency is actively gated — and that the gate responds differently in different people.</p>
+<!-- CHAPTER 2: THE GATE (EGC) -->
+<div class="chapter" id="ch2">
+  <div id="ch2-inner">
+    <div class="ch2-hook" id="ch2-hook"></div>
+
+    <div class="ch2-figures">
+      <div class="figure-card" id="fig-comp">
+        <div class="figure-icon"><div class="compressor-anim"></div></div>
+        <div class="figure-label">Compressor</div>
+        <div class="figure-desc">Contracts under pressure. Simplifies to survive the moment.</div>
+      </div>
+      <div class="figure-card" id="fig-exp">
+        <div class="figure-icon"><div class="expander-anim"></div></div>
+        <div class="figure-label">Expander</div>
+        <div class="figure-desc">Opens wider. Says more than they planned. Gains clarity through volume.</div>
+      </div>
+      <div class="figure-card" id="fig-sup">
+        <div class="figure-icon"><div class="suppressor-anim"></div></div>
+        <div class="figure-label">Suppressor</div>
+        <div class="figure-desc">Stops mid-thought. The signal was there, then it wasn't.</div>
+      </div>
     </div>
 
-    <div class="gate-viz reveal reveal-delay-1">
-      <div class="gate-flow">
-        <div class="gate-node">
-          <div class="gate-node-label">Internal</div>
-          <div class="gate-node-name">Deep Knowledge</div>
+    <div class="ch2-typed" id="ch2-typed"></div>
+
+    <div class="ch2-counter" id="ch2-counter">
+      <span id="ch2-count">--</span> participants so far &mdash; Study is live
+    </div>
+
+    <div class="ch2-ctas">
+      <a href="https://theartofsound.github.io/egcstudy/" target="_blank" rel="noopener" class="cta-btn cta-primary">[ Take the study — 10 minutes ]</a>
+      <button class="cta-btn cta-secondary" onclick="goToChapter(2)">[ Keep exploring ]</button>
+    </div>
+
+    <div class="ch2-credit">g(K) = 4K(1-K) — Brandyn Leonard's parabolic conviction function</div>
+  </div>
+</div>
+
+<!-- CHAPTER 3: THE BUILD -->
+<div class="chapter" id="ch3">
+  <div id="ch3-desktop">
+    <!-- LOLM Window -->
+    <div class="os-window" id="win-lolm" style="top:40px; left:60px; width:380px;">
+      <div class="win-titlebar">
+        <div class="win-dots">
+          <div class="win-dot red" onclick="closeWindow('win-lolm')"></div>
+          <div class="win-dot yellow"></div>
+          <div class="win-dot green" onclick="expandWindow('win-lolm')"></div>
         </div>
-        <div class="gate-arrow"></div>
-        <div class="gate-center">
-          <div class="gate-door"></div>
-          <div class="gate-label-center">The Gate<br>r(t)</div>
+        <div class="win-title">LOLM.app</div>
+      </div>
+      <div class="win-body">
+        <h3>LOLM</h3>
+        <p>Language model — built from scratch. Training on TPU infrastructure.</p>
+        <div><span class="win-tag">Language Model</span><span class="win-tag">TPU</span><span class="win-tag">From Scratch</span></div>
+        <div class="progress-track"><div class="progress-fill" style="width:35%"></div></div>
+        <p style="margin-top:8px; font-size:11px; color:var(--accent3);">Training in progress</p>
+      </div>
+    </div>
+
+    <!-- Codey Window -->
+    <div class="os-window" id="win-codey" style="top:120px; left:340px; width:400px;">
+      <div class="win-titlebar">
+        <div class="win-dots">
+          <div class="win-dot red" onclick="closeWindow('win-codey')"></div>
+          <div class="win-dot yellow"></div>
+          <div class="win-dot green" onclick="expandWindow('win-codey')"></div>
         </div>
-        <div class="gate-arrow"></div>
-        <div class="gate-node">
-          <div class="gate-node-label">External</div>
-          <div class="gate-node-name">Expression</div>
+        <div class="win-title">Codey.app</div>
+      </div>
+      <div class="win-body">
+        <h3>Codey</h3>
+        <p>AI coding assistant. Live deployment on Render. Conversational code generation and editing.</p>
+        <div><span class="win-tag">AI Coding</span><span class="win-tag">Live</span><span class="win-tag">Render</span></div>
+        <p style="margin-top:10px;"><a href="https://theartofsound.github.io/codey/" target="_blank" rel="noopener">Visit Codey &rarr;</a></p>
+      </div>
+    </div>
+
+    <!-- NFET Window -->
+    <div class="os-window" id="win-nfet" style="top:80px; left:640px; width:360px;">
+      <div class="win-titlebar">
+        <div class="win-dots">
+          <div class="win-dot red" onclick="closeWindow('win-nfet')"></div>
+          <div class="win-dot yellow"></div>
+          <div class="win-dot green" onclick="expandWindow('win-nfet')"></div>
+        </div>
+        <div class="win-title">NFET.app</div>
+      </div>
+      <div class="win-body">
+        <h3>NFET</h3>
+        <p>Network traffic analysis. Oscillator-based pattern detection for flow dynamics.</p>
+        <div><span class="win-tag">Traffic</span><span class="win-tag">Oscillator</span><span class="win-tag">Analysis</span></div>
+        <div class="oscillator-dots">
+          <div class="osc-dot"></div>
+          <div class="osc-dot"></div>
+          <div class="osc-dot"></div>
+          <div class="osc-dot"></div>
+          <div class="osc-dot"></div>
         </div>
       </div>
     </div>
 
-    <div style="text-align:center;" class="reveal reveal-delay-2">
-      <p style="font-size:13px; color:var(--muted); max-width:600px; margin:0 auto 20px;">Under evaluative pressure, the gate responds — but the direction depends on the person. Not everyone suppresses. Some expand.</p>
-    </div>
-
-    <div class="types-grid">
-      <div class="type-card compressor reveal reveal-delay-2">
-        <span class="type-symbol">◎</span>
-        <div class="type-name">Compressor</div>
-        <div class="type-pct">42% of participants</div>
-        <div class="type-desc">Volume drops, quality holds. Under evaluation pressure, you say less — but what you say maintains its depth and precision. The gate narrows, the signal stays clean.</div>
-        <div class="type-quote">"In meetings I give the short version. Not because I can't explain — because the room makes me edit in real time."</div>
-      </div>
-      <div class="type-card expander reveal reveal-delay-3">
-        <span class="type-symbol">✦</span>
-        <div class="type-name">Expander</div>
-        <div class="type-pct">26% of participants</div>
-        <div class="type-desc">Pressure opens the gate. Volume and richness increase when stakes rise. Evaluation is not a threat — it's fuel. The most surprising finding in the data.</div>
-        <div class="type-quote">"I come alive in presentations. The audience doesn't make me smaller — it makes me sharper."</div>
-      </div>
-      <div class="type-card suppressor reveal reveal-delay-4">
-        <span class="type-symbol">◇</span>
-        <div class="type-name">Suppressor</div>
-        <div class="type-pct">32% of participants</div>
-        <div class="type-desc">Both volume and quality decline under evaluation. The resistance term dominates. Deepest insights emerge in low-pressure environments — the shower, the journal, the walk alone.</div>
-        <div class="type-quote">"My best ideas come when no one is watching. Give me space and I'll give you depth."</div>
-      </div>
-    </div>
-
-    <div style="text-align:center; margin-top:60px;" class="reveal reveal-delay-5">
-      <a href="https://theartofsound.github.io/egcstudy/" target="_blank" class="cta-btn" style="display:inline-flex;">
-        Discover your type <span>→</span>
-      </a>
-      <p style="font-size:11px; color:var(--muted); margin-top:16px; letter-spacing:0.1em;">10 minutes · completely anonymous · instant results</p>
+    <div class="ch3-prompt">
+      <button class="cta-btn cta-secondary" onclick="goToChapter(3)">[ See the philosophy ]</button>
+      <button class="cta-btn cta-secondary" onclick="goToChapter(4)">[ Contact Bryan ]</button>
     </div>
   </div>
-</section>
 
-<!-- ══════════ SECTION 4: THE WORK ══════════ -->
-<section id="work">
-  <div class="work-container">
-    <div class="work-header reveal">
-      <div class="work-eyebrow">Projects · Systems · Ideas</div>
-      <h2 class="work-title">Everything being built, simultaneously.</h2>
-    </div>
+  <div id="taskbar">
+    <div class="taskbar-icon" onclick="restoreWindow('win-lolm')">LOLM</div>
+    <div class="taskbar-icon" onclick="restoreWindow('win-codey')">Codey</div>
+    <div class="taskbar-icon" onclick="restoreWindow('win-nfet')">NFET</div>
+  </div>
+</div>
 
-    <div class="work-items">
-      <!-- EGC -->
-      <div class="work-item open reveal reveal-delay-1">
-        <div class="work-item-header" onclick="toggleWork(this)">
-          <div class="work-num">01</div>
-          <div class="work-info">
-            <div class="work-item-name">Expression-Gated Consciousness</div>
-            <div class="work-item-tagline">A formal framework for the mechanism of expressive suppression</div>
-          </div>
-          <div class="work-item-tags">
-            <span class="tag">Psychology</span>
-            <span class="tag">Live Study</span>
-            <span class="tag">NYU</span>
-            <span class="tag">Published</span>
-          </div>
-        </div>
-        <div class="work-item-body">
-          <p class="work-item-detail">EGC proposes that psychological transparency — the clarity of inner experience — is gated by resistance to expression. The framework introduces a novel resistance term into a consciousness equation and identifies three distinct expression types that emerge under evaluative pressure. Co-authored with Brandyn Leonard.</p>
-          <p class="work-item-detail">The study is live and growing. In active dialogue with Dr. Joshua Aronson (NYU), co-author of the landmark 1995 Steele & Aronson stereotype threat paper — one of the most replicated findings in social psychology. The preprint is published. The data strengthens with every new participant.</p>
-          <div style="display:flex; gap:24px; flex-wrap:wrap;">
-            <a href="https://theartofsound.github.io/thegate/" target="_blank" class="work-link">Research page →</a>
-            <a href="https://zenodo.org/records/19242315" target="_blank" class="work-link">Preprint →</a>
-            <a href="https://theartofsound.github.io/egcstudy/" target="_blank" class="work-link">Take the study →</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- LOLM -->
-      <div class="work-item reveal reveal-delay-2">
-        <div class="work-item-header" onclick="toggleWork(this)">
-          <div class="work-num">02</div>
-          <div class="work-info">
-            <div class="work-item-name">LOLM — Language Model Architecture</div>
-            <div class="work-item-tagline">Building language intelligence from the ground up</div>
-          </div>
-          <div class="work-item-tags">
-            <span class="tag">AI/ML</span>
-            <span class="tag">PyTorch</span>
-            <span class="tag">TPU</span>
-            <span class="tag">Research</span>
-          </div>
-        </div>
-        <div class="work-item-body">
-          <p class="work-item-detail">Designing and training a novel language model architecture from scratch — moving beyond standard Transformer-only approaches. Built a multi-component hybrid system that consistently outperforms conventional baselines across multiple training runs.</p>
-          <p class="work-item-detail">Key result at 1.57B parameters: 33.2 PPL vs 39.1 for a matched decoder-only baseline — a 15.1% improvement with identical training compute. Ablation: removing either path catastrophically collapses performance, proving the architecture discovers a fundamentally different decomposition than Transformers or SSMs alone.</p>
-          <p class="work-item-detail">Trained models from 20M to 1.57B parameters. Accepted into Google's TPU Research Cloud (320 chips, active). Provisional patent filed March 2026 (USPTO). Applying to accelerators and compute grants to scale to 7B–10B. Co-developing with Brandyn Leonard. Paper forthcoming.</p>
-          <p class="work-item-detail" style="color:rgba(232,237,245,0.4); font-style:italic;">Architecture details proprietary.</p>
-        </div>
-      </div>
-
-      <!-- Codey -->
-      <div class="work-item reveal reveal-delay-3">
-        <div class="work-item-header" onclick="toggleWork(this)">
-          <div class="work-num">03</div>
-          <div class="work-info">
-            <div class="work-item-name">Codey — Structural Intelligence</div>
-            <div class="work-item-tagline">The only coding AI that sees your codebase as a network</div>
-          </div>
-          <div class="work-item-tags">
-            <span class="tag">SaaS</span>
-            <span class="tag">Live</span>
-            <span class="tag">FastAPI</span>
-            <span class="tag">React</span>
-          </div>
-        </div>
-        <div class="work-item-body">
-          <p class="work-item-detail">Codey maps your codebase topology, predicts cascade failures before they happen, and writes code that keeps your system structurally healthy. Every line of code evaluated for its impact on the dependency graph.</p>
-          <p class="work-item-detail">Live landing page. Backend deployed on Render. Autonomous mode that monitors repos 24/7, refactors high-stress components, and creates PRs within configured boundaries. Personal memory that learns your coding style over time.</p>
-          <a href="https://theartofsound.github.io/codey/" target="_blank" class="work-link">See Codey →</a>
-        </div>
-      </div>
-
-      <!-- NFET -->
-      <div class="work-item reveal reveal-delay-4">
-        <div class="work-item-header" onclick="toggleWork(this)">
-          <div class="work-num">04</div>
-          <div class="work-info">
-            <div class="work-item-name">NFET — Traffic Optimization</div>
-            <div class="work-item-tagline">Kuramoto oscillator modeling for real-world traffic systems</div>
-          </div>
-          <div class="work-item-tags">
-            <span class="tag">Systems</span>
-            <span class="tag">Python</span>
-            <span class="tag">Physics</span>
-            <span class="tag">FastAPI</span>
-          </div>
-        </div>
-        <div class="work-item-body">
-          <p class="work-item-detail">Network Flow Equilibrium Topology — a traffic optimization system using Kuramoto oscillator modeling for signal synchronization, Monte Carlo variance engines, and BPR delay functions. Validated across Phoenix, Los Angeles, and Chicago with live AZ-511 data feeds.</p>
-          <p class="work-item-detail" style="color:rgba(232,237,245,0.4); font-style:italic;">Internal system. Not publicly deployed.</p>
-        </div>
-      </div>
-
-      <!-- Claude Usage Dashboard -->
-      <div class="work-item reveal reveal-delay-5">
-        <div class="work-item-header" onclick="toggleWork(this)">
-          <div class="work-num">05</div>
-          <div class="work-info">
-            <div class="work-item-name">Claude Usage Dashboard</div>
-            <div class="work-item-tagline">9.3 billion tokens visualized in 3D — top 0.1% of Claude users</div>
-          </div>
-          <div class="work-item-tags">
-            <span class="tag">Data Viz</span>
-            <span class="tag">Three.js</span>
-            <span class="tag">Live</span>
-          </div>
-        </div>
-        <div class="work-item-body">
-          <p class="work-item-detail">A 3D animated, immersive data visualization of real Claude Code token usage and costs. Particle globe, burn rate projections, model breakdowns, cost heatmaps, session explorer — all driven by real data from building everything on this page simultaneously.</p>
-          <p class="work-item-detail">$6,865 in compute over 32 days. 32x the Max plan. $215/day burn rate. $78K annual projection. This is what building five products with AI actually costs.</p>
-          <a href="https://theartofsound.github.io/claude-usage-dashboard/" target="_blank" class="work-link">View Live Dashboard →</a>
-        </div>
-      </div>
+<!-- CHAPTER 4: PHILOSOPHY -->
+<div class="chapter" id="ch4">
+  <div style="display:flex; flex-direction:column; align-items:center;">
+    <div class="philosophy-line" id="phil1">Real work over everything. Not the appearance of progress. The actual thing.</div>
+    <div class="philosophy-line" id="phil2">Shoot for the scale that makes people uncomfortable when you say it out loud. Then build toward it anyway.</div>
+    <div class="philosophy-line" id="phil3">The gap between knowing and saying is the most interesting problem in existence. We are closing it.</div>
+    <div class="philosophy-tag" id="phil-tag">&gt; Built in Phoenix, Arizona<br>&gt; Without permission</div>
+    <div class="ch4-ctas" id="ch4-ctas">
+      <button class="cta-btn cta-secondary" onclick="goToChapter(0)">[ Back to the beginning ]</button>
+      <button class="cta-btn cta-primary" onclick="goToChapter(4)">[ Reach out ]</button>
     </div>
   </div>
-</section>
+</div>
 
-<!-- ══════════ SECTION 5: NUMBERS ══════════ -->
-<section id="numbers">
-  <div class="numbers-container">
-    <div class="numbers-eyebrow reveal">Live from the research</div>
-    <h2 class="numbers-title reveal reveal-delay-1">"The data is live and every finding<br>has gotten stronger as the N has grown."</h2>
+<!-- CHAPTER 5: CONTACT -->
+<div class="chapter" id="ch5">
+  <div id="ch5-inner">
+    <div class="ch5-intro" id="ch5-intro">You made it through. Most people don't read this far.</div>
 
-    <div class="numbers-grid">
-      <div class="number-cell reveal reveal-delay-1">
-        <span class="number-big" id="nCount">40+</span>
-        <span class="number-label">Study participants</span>
-        <div class="number-sub">Growing in real time</div>
-      </div>
-      <div class="number-cell reveal reveal-delay-2">
-        <span class="number-big">5.6</span>
-        <span class="number-label">Point comfort gap</span>
-        <div class="number-sub">High-r vs low-r participants</div>
-      </div>
-      <div class="number-cell reveal reveal-delay-3">
-        <span class="number-big">3</span>
-        <span class="number-label">Expression types</span>
-        <div class="number-sub">Confirmed stable across dataset</div>
-      </div>
-      <div class="number-cell reveal reveal-delay-4">
-        <span class="number-big">300+</span>
-        <span class="number-label">Replications</span>
-        <div class="number-sub">Of the phenomenon EGC formalizes</div>
-      </div>
-      <div class="number-cell reveal reveal-delay-1">
-        <span class="number-big">1.57B</span>
-        <span class="number-label">Parameters trained</span>
-        <div class="number-sub">LOLM architecture</div>
-      </div>
-      <div class="number-cell reveal reveal-delay-2">
-        <span class="number-big">320</span>
-        <span class="number-label">TPU chips</span>
-        <div class="number-sub">Google TRC grant (active)</div>
-      </div>
-      <div class="number-cell reveal reveal-delay-3">
-        <span class="number-big">3</span>
-        <span class="number-label">Cities validated</span>
-        <div class="number-sub">NFET traffic system</div>
-      </div>
-      <div class="number-cell reveal reveal-delay-4">
-        <span class="number-big">4</span>
-        <span class="number-label">Active projects</span>
-        <div class="number-sub">Simultaneously</div>
-      </div>
-    </div>
+    <div class="ch5-cmd" id="cmd1"><span style="color:var(--accent3)">&gt;</span> echo $EMAIL<br>&nbsp;&nbsp;<a href="mailto:bryanleonard237@gmail.com">bryanleonard237@gmail.com</a></div>
+    <div class="ch5-cmd" id="cmd2"><span style="color:var(--accent3)">&gt;</span> cat /links/github<br>&nbsp;&nbsp;<a href="https://github.com/TheArtOfSound" target="_blank" rel="noopener">github.com/TheArtOfSound</a></div>
+    <div class="ch5-cmd" id="cmd3"><span style="color:var(--accent3)">&gt;</span> cat /links/linkedin<br>&nbsp;&nbsp;<a href="https://www.linkedin.com/in/bryan-leonard-54155218a/" target="_blank" rel="noopener">linkedin.com/in/bryan-leonard</a></div>
+    <div class="ch5-cmd" id="cmd4"><span style="color:var(--accent3)">&gt;</span> cat /links/zenodo<br>&nbsp;&nbsp;<a href="https://zenodo.org/records/19242315" target="_blank" rel="noopener">zenodo.org — EGC Publication</a></div>
+    <div class="ch5-cmd" id="cmd5"><span style="color:var(--accent3)">&gt;</span> cat /links/dashboard<br>&nbsp;&nbsp;<a href="https://theartofsound.github.io/claude-usage-dashboard/" target="_blank" rel="noopener">Claude Usage Dashboard</a></div>
+    <div class="ch5-cmd" id="cmd6"><span style="color:var(--accent3)">&gt;</span> cat /links/the-gate<br>&nbsp;&nbsp;<a href="https://theartofsound.github.io/thegate/" target="_blank" rel="noopener">The Gate — EGC Landing Page</a></div>
 
-    <div class="study-cta reveal reveal-delay-2">
-      <div class="cta-left">
-        <div class="cta-live">
-          <span class="cta-dot"></span>
-          Study is live now
-        </div>
-        <div class="cta-title">Discover your expression type</div>
-        <p class="cta-desc">Two short writing tasks. One is free. One is evaluated. The difference reveals whether you are a Compressor, Expander, or Suppressor — and why it matters for how you work, learn, and communicate.</p>
-      </div>
-      <a href="https://theartofsound.github.io/egcstudy/" target="_blank" class="cta-btn">
-        Take the study <span>→</span>
-      </a>
+    <div class="ch5-study" id="ch5-study">
+      <p>The study is still live. Your data would matter.</p>
+      <a href="https://theartofsound.github.io/egcstudy/" target="_blank" rel="noopener">[ Take it &rarr; ]</a>
     </div>
   </div>
-</section>
-
-<!-- ══════════ SECTION 6: PHILOSOPHY ══════════ -->
-<section id="philosophy">
-  <div class="philosophy-container">
-    <div class="philosophy-eyebrow reveal">How Bryan operates</div>
-    <div class="philosophy-items">
-      <div class="philosophy-item reveal">
-        <div class="phil-num">01</div>
-        <div class="phil-content">
-          <div class="phil-title">Real provable work over all.</div>
-          <p class="phil-desc">Not belief. Not theory. Proof. The numbers have to confirm the idea works before it counts. The EGC study is not a paper yet — it is a live experiment that keeps running until the data is undeniable. The LOLM architecture is not claimed to be better — it is trained, measured, and compared. Build it and see if it survives contact with reality. If it doesn't, rebuild. That's the method.</p>
-        </div>
-      </div>
-      <div class="philosophy-item reveal reveal-delay-2">
-        <div class="phil-num">02</div>
-        <div class="phil-content">
-          <div class="phil-title">Stars or nothing. Boldness is a methodology.</div>
-          <p class="phil-desc">Four projects simultaneously. A consciousness framework, a custom language model, a coding AI, a traffic optimization system. Not because there is a team — there isn't one beyond a brother. Because the work demands the scale. Small thinking produces small results. The TPU Research Cloud is for researchers with serious ambitions. The call with Aronson happened because the email reached for something large. Boldness is not a disposition. It is how you decide what to build.</p>
-        </div>
-      </div>
-      <div class="philosophy-item reveal reveal-delay-3">
-        <div class="phil-num">03</div>
-        <div class="phil-content">
-          <div class="phil-title">The gap between knowing and saying is worth formalizing.</div>
-          <p class="phil-desc">The framework Bryan built to study expressive suppression in others is also a description of his own situation — an independent researcher with deep knowledge and no institutional gate to open it through. That self-referential quality is not ironic. It is the origin of the work. The phenomenon of knowing more than you can say is not abstract. It is personal. It is what drives the research and what the research is trying to solve.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════ SECTION 7: TIMELINE ══════════ -->
-<section id="timeline">
-  <div class="timeline-container">
-    <div class="timeline-header reveal">
-      <div class="timeline-eyebrow">Background</div>
-      <h2 class="timeline-title">The path that got here.</h2>
-    </div>
-
-    <div class="timeline-items">
-      <div class="tl-item reveal">
-        <div class="tl-dot active"></div>
-        <div class="tl-date">2026 — Present</div>
-        <div class="tl-title">Customer Success Specialist · Block (Square)</div>
-        <div class="tl-org">Block · Tempe, Arizona</div>
-        <div class="tl-desc">Partnering with Square sellers to optimize POS operations. Full-stack technical guidance across Block's ecosystem. Funding the research.</div>
-      </div>
-      <div class="tl-item reveal reveal-delay-1">
-        <div class="tl-dot active"></div>
-        <div class="tl-date">2025 — Present</div>
-        <div class="tl-title">Co-Founder & Lead Researcher · Qira LLC</div>
-        <div class="tl-org">Independent · Phoenix, Arizona</div>
-        <div class="tl-desc">Building EGC from intuition to live empirical study. Training LOLM from 20M to 1.57B parameters — 15.1% PPL improvement over matched baseline, provisional patent filed March 2026. Building Codey from spec to deployed backend. NFET validated across three cities. All simultaneously. All from scratch.</div>
-      </div>
-      <div class="tl-item reveal reveal-delay-2">
-        <div class="tl-dot active"></div>
-        <div class="tl-date">2024 — 2026</div>
-        <div class="tl-title">Tailored Branch Support · Edward Jones</div>
-        <div class="tl-org">Edward Jones · Tempe, Arizona</div>
-        <div class="tl-desc">Supporting financial advisors and clients across multiple branches. Investment account assistance and daily operations support. Built systems thinking and client communication skills.</div>
-      </div>
-      <div class="tl-item reveal reveal-delay-3">
-        <div class="tl-dot"></div>
-        <div class="tl-date">2022 — 2024</div>
-        <div class="tl-title">Customer Service Specialist · Bakkt</div>
-        <div class="tl-org">Bakkt · United States (Remote)</div>
-        <div class="tl-desc">Providing customer service for Chase reward accounts. Built communication, problem-solving, and empathy skills that now inform how Bryan thinks about user experience in his own products.</div>
-      </div>
-      <div class="tl-item reveal reveal-delay-4">
-        <div class="tl-dot"></div>
-        <div class="tl-date">2019 — 2022</div>
-        <div class="tl-title">Customer Service Representative · Majorel / Ally Bank</div>
-        <div class="tl-org">Majorel · United States (Remote)</div>
-        <div class="tl-desc">Supporting Ally Bank customers with financial transactions. Third-party BPO work that built the customer empathy and communication foundation for everything that followed.</div>
-      </div>
-      <div class="tl-item reveal reveal-delay-5">
-        <div class="tl-dot"></div>
-        <div class="tl-date">2014 — 2018</div>
-        <div class="tl-title">High School Diploma · Business & Commerce</div>
-        <div class="tl-org">Mountain Pointe High School · Phoenix, Arizona</div>
-        <div class="tl-desc">Everything since has been self-directed.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════ SECTION 8: CONTACT ══════════ -->
-<section id="contact">
-  <div class="contact-container">
-    <h2 class="contact-title reveal">Collaboration,<br>research, and<br><em>impossible ideas.</em></h2>
-    <p class="contact-sub reveal reveal-delay-1">Open to research partnerships, academic collaboration, and conversations worth having.</p>
-
-    <div class="contact-links reveal reveal-delay-2">
-      <a href="mailto:bryanleonard237@gmail.com" class="contact-link">
-        <span class="contact-link-icon">✉</span>
-        bryanleonard237@gmail.com
-      </a>
-      <a href="https://github.com/TheArtOfSound" target="_blank" class="contact-link">
-        <span class="contact-link-icon">⌥</span>
-        GitHub
-      </a>
-      <a href="https://www.linkedin.com/in/bryan-leonard-54155218a/" target="_blank" class="contact-link">
-        <span class="contact-link-icon">◈</span>
-        LinkedIn
-      </a>
-      <a href="https://theartofsound.github.io/thegate/" target="_blank" class="contact-link">
-        <span class="contact-link-icon">🧬</span>
-        EGC Research
-      </a>
-    </div>
-
-    <div class="footer-brand reveal reveal-delay-3">
-      Qira LLC · Phoenix, Arizona · 2026
-    </div>
-  </div>
-</section>
+</div>
 
 <script>
-// ── THREE.JS NEURAL NETWORK BACKGROUND ──
-const canvas = document.getElementById('bg-canvas');
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+/* ══════════════════════════════════════════
+   QIRA OS — Portfolio Engine
+   ══════════════════════════════════════════ */
 
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.z = 30;
+const SUPABASE_URL = 'https://wgzopjrdnyazvhpklzhw.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indnem9wanJkbnlhenZocGtsemh3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzOTc4NzcsImV4cCI6MjA4OTk3Mzg3N30.8dx5xWljLDZa5PMvE0Ps5q4ZEyuZgx_5FHVnD0WfBjs';
 
-// Create neural network nodes
-const nodeCount = 80;
-const nodes = [];
-const nodeGeometry = new THREE.SphereGeometry(0.08, 8, 8);
-const nodeMaterial = new THREE.MeshBasicMaterial({ color: 0x2563eb });
+let currentChapter = 0;
+let transitioning = false;
+let chapterLocked = false;
+let chapterTimers = {};
 
-for (let i = 0; i < nodeCount; i++) {
-  const mesh = new THREE.Mesh(nodeGeometry, nodeMaterial.clone());
-  mesh.position.set(
-    (Math.random() - 0.5) * 80,
-    (Math.random() - 0.5) * 60,
-    (Math.random() - 0.5) * 40
-  );
-  mesh.userData = {
-    velocity: new THREE.Vector3(
-      (Math.random() - 0.5) * 0.02,
-      (Math.random() - 0.5) * 0.02,
-      (Math.random() - 0.5) * 0.01
-    ),
-    originalColor: Math.random() > 0.7 ? 0xc8a84b : 0x2563eb
-  };
-  mesh.material.color.setHex(mesh.userData.originalColor);
-  scene.add(mesh);
-  nodes.push(mesh);
+const chapters = [
+  document.getElementById('ch1'),
+  document.getElementById('ch2'),
+  document.getElementById('ch3'),
+  document.getElementById('ch4'),
+  document.getElementById('ch5')
+];
+
+/* ── SUPABASE COUNT ── */
+async function fetchCount() {
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/responses?select=id`, {
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`,
+        'Prefer': 'count=exact'
+      }
+    });
+    const count = res.headers.get('content-range');
+    if (count) {
+      const n = count.split('/')[1];
+      document.getElementById('live-count').textContent = n;
+      document.getElementById('ch2-count').textContent = n;
+    }
+  } catch(e) {
+    document.getElementById('live-count').textContent = '44';
+    document.getElementById('ch2-count').textContent = '44';
+  }
 }
+fetchCount();
 
-// Create edges
-const edgeMaterial = new THREE.LineBasicMaterial({
-  color: 0x1a2540,
-  transparent: true,
-  opacity: 0.4
-});
+/* ── BOOT SEQUENCE ── */
+const bootLines = [
+  'QIRA OS v1.0',
+  'Initializing...',
+  'Loading identity layer...',
+  'Loading research core...',
+  'One question before we begin.'
+];
 
-const edgeGeometry = new THREE.BufferGeometry();
-const maxEdges = 200;
-const positions = new Float32Array(maxEdges * 6);
-edgeGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-const edgeLine = new THREE.LineSegments(edgeGeometry, edgeMaterial);
-scene.add(edgeLine);
+function typeBootLine(el, text, speed) {
+  return new Promise(resolve => {
+    el.style.opacity = '1';
+    let i = 0;
+    const cursorSpan = document.createElement('span');
+    cursorSpan.className = 'cursor-char';
+    el.appendChild(cursorSpan);
 
-// Mouse parallax
-let mouseX = 0, mouseY = 0;
-document.addEventListener('mousemove', e => {
-  mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
-  mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
-});
-
-let frame = 0;
-function animate() {
-  requestAnimationFrame(animate);
-  frame++;
-
-  // Move nodes
-  nodes.forEach(node => {
-    node.position.add(node.userData.velocity);
-    if (Math.abs(node.position.x) > 40) node.userData.velocity.x *= -1;
-    if (Math.abs(node.position.y) > 30) node.userData.velocity.y *= -1;
-    if (Math.abs(node.position.z) > 20) node.userData.velocity.z *= -1;
-
-    // Pulse
-    const scale = 1 + Math.sin(frame * 0.02 + node.position.x) * 0.3;
-    node.scale.setScalar(scale);
-  });
-
-  // Update edges
-  let edgeIdx = 0;
-  const pos = edgeGeometry.attributes.position.array;
-
-  for (let i = 0; i < nodes.length && edgeIdx < maxEdges; i++) {
-    for (let j = i + 1; j < nodes.length && edgeIdx < maxEdges; j++) {
-      const dist = nodes[i].position.distanceTo(nodes[j].position);
-      if (dist < 12) {
-        pos[edgeIdx * 6] = nodes[i].position.x;
-        pos[edgeIdx * 6 + 1] = nodes[i].position.y;
-        pos[edgeIdx * 6 + 2] = nodes[i].position.z;
-        pos[edgeIdx * 6 + 3] = nodes[j].position.x;
-        pos[edgeIdx * 6 + 4] = nodes[j].position.y;
-        pos[edgeIdx * 6 + 5] = nodes[j].position.z;
-        edgeIdx++;
+    function tick() {
+      if (i < text.length) {
+        el.insertBefore(document.createTextNode(text[i]), cursorSpan);
+        i++;
+        setTimeout(tick, speed);
+      } else {
+        setTimeout(() => {
+          if (el.contains(cursorSpan)) el.removeChild(cursorSpan);
+          resolve();
+        }, 200);
       }
     }
-  }
-
-  // Clear remaining edges
-  for (let i = edgeIdx; i < maxEdges; i++) {
-    pos[i * 6] = pos[i * 6 + 1] = pos[i * 6 + 2] = 0;
-    pos[i * 6 + 3] = pos[i * 6 + 4] = pos[i * 6 + 5] = 0;
-  }
-
-  edgeGeometry.attributes.position.needsUpdate = true;
-  edgeGeometry.setDrawRange(0, edgeIdx * 2);
-
-  // Camera parallax
-  camera.position.x += (mouseX * 3 - camera.position.x) * 0.02;
-  camera.position.y += (-mouseY * 2 - camera.position.y) * 0.02;
-  camera.lookAt(scene.position);
-
-  renderer.render(scene, camera);
+    tick();
+  });
 }
 
-animate();
+async function runBoot() {
+  if (sessionStorage.getItem('boot_complete')) {
+    document.getElementById('boot-screen').style.display = 'none';
+    enterChapters();
+    return;
+  }
 
-// ── RESIZE ──
-window.addEventListener('resize', () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
+  for (let i = 0; i < bootLines.length; i++) {
+    await typeBootLine(document.getElementById('bl' + i), bootLines[i], 40);
+    if (i < bootLines.length - 1) await sleep(300);
+  }
+
+  await sleep(600);
+  document.getElementById('boot-question').style.opacity = '1';
+}
+
+function bootAnswer(ans) {
+  sessionStorage.setItem('boot_answer', ans);
+  sessionStorage.setItem('boot_complete', 'true');
+
+  const boot = document.getElementById('boot-screen');
+  boot.style.transition = 'opacity 0.8s';
+  boot.style.opacity = '0';
+  setTimeout(() => {
+    boot.style.display = 'none';
+    enterChapters();
+  }, 800);
+}
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+/* ── CHAPTER SYSTEM ── */
+function enterChapters() {
+  document.getElementById('nav-dots').classList.add('visible');
+  goToChapter(0);
+}
+
+function goToChapter(idx) {
+  if (idx < 0 || idx >= chapters.length) return;
+  if (transitioning) return;
+  transitioning = true;
+
+  // Clear old chapter timer
+  if (chapterTimers[currentChapter]) {
+    clearTimeout(chapterTimers[currentChapter]);
+  }
+
+  chapters[currentChapter].classList.remove('active');
+  currentChapter = idx;
+  chapters[idx].classList.add('active');
+
+  // Progress bar
+  document.getElementById('progress-bar').style.width = ((idx + 1) * 20) + '%';
+
+  // Nav dots
+  document.querySelectorAll('.nav-dot').forEach((d, i) => {
+    d.classList.toggle('active', i === idx);
+  });
+
+  // Lock forward nav for 2s
+  chapterLocked = true;
+  chapterTimers[idx] = setTimeout(() => { chapterLocked = false; }, 2000);
+
+  // Run entrance animations
+  setTimeout(() => {
+    runChapterEntrance(idx);
+    transitioning = false;
+  }, 100);
+}
+
+function runChapterEntrance(idx) {
+  if (idx === 0) entranceCh1();
+  if (idx === 1) entranceCh2();
+  if (idx === 2) entranceCh3();
+  if (idx === 3) entranceCh4();
+  if (idx === 4) entranceCh5();
+}
+
+/* ── CH1 ENTRANCE ── */
+function entranceCh1() {
+  const lines = document.querySelectorAll('#ch1 .identity-line');
+  lines.forEach((el, i) => {
+    setTimeout(() => el.classList.add('show'), i * 250);
+  });
+  initThreeJS();
+}
+
+/* ── CH2 ENTRANCE ── */
+function entranceCh2() {
+  const hook = document.getElementById('ch2-hook');
+  const ans = sessionStorage.getItem('boot_answer');
+  if (ans === 'yes') {
+    hook.textContent = 'That gap you just described is what this research is about.';
+  } else {
+    hook.textContent = 'You might be an Expander — one of three types this research identifies.';
+  }
+  setTimeout(() => hook.classList.add('show'), 200);
+
+  const figs = ['fig-comp', 'fig-exp', 'fig-sup'];
+  figs.forEach((id, i) => {
+    setTimeout(() => document.getElementById(id).classList.add('show'), 600 + i * 400);
+  });
+
+  // Typed text
+  const typedEl = document.getElementById('ch2-typed');
+  typedEl.innerHTML = '';
+  const ch2Text = 'Every person, under cognitive load, does one of three things with their knowledge. They compress it, expand it, or suppress it entirely. The EGC framework measures which pattern you default to — and what that means for communication under pressure.';
+  typeIntoElement(typedEl, ch2Text, 25);
+
+  setTimeout(() => document.getElementById('ch2-counter').classList.add('show'), 2500);
+}
+
+function typeIntoElement(el, text, speed) {
+  let i = 0;
+  function tick() {
+    if (i < text.length) {
+      el.textContent += text[i];
+      i++;
+      requestAnimationFrame(() => setTimeout(tick, speed));
+    }
+  }
+  tick();
+}
+
+/* ── CH3 ENTRANCE ── */
+function entranceCh3() {
+  const wins = document.querySelectorAll('.os-window');
+  wins.forEach((w, i) => {
+    w.classList.remove('show');
+    setTimeout(() => w.classList.add('show'), 200 + i * 300);
+  });
+  initDraggable();
+}
+
+/* ── CH4 ENTRANCE ── */
+function entranceCh4() {
+  // Reset
+  ['phil1','phil2','phil3'].forEach(id => document.getElementById(id).classList.remove('show'));
+  document.getElementById('phil-tag').classList.remove('show');
+  document.getElementById('ch4-ctas').classList.remove('show');
+
+  setTimeout(() => document.getElementById('phil1').classList.add('show'), 500);
+  setTimeout(() => document.getElementById('phil2').classList.add('show'), 8500);
+  setTimeout(() => document.getElementById('phil3').classList.add('show'), 14500);
+  setTimeout(() => document.getElementById('phil-tag').classList.add('show'), 20500);
+  setTimeout(() => document.getElementById('ch4-ctas').classList.add('show'), 22000);
+}
+
+/* ── CH5 ENTRANCE ── */
+function entranceCh5() {
+  setTimeout(() => document.getElementById('ch5-intro').classList.add('show'), 200);
+  for (let i = 1; i <= 6; i++) {
+    setTimeout(() => document.getElementById('cmd' + i).classList.add('show'), 400 + i * 350);
+  }
+  setTimeout(() => document.getElementById('ch5-study').classList.add('show'), 3000);
+}
+
+/* ── KEYBOARD NAV ── */
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+    e.preventDefault();
+    if (!chapterLocked && currentChapter < chapters.length - 1) goToChapter(currentChapter + 1);
+  }
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+    e.preventDefault();
+    if (currentChapter > 0) goToChapter(currentChapter - 1);
+  }
+});
+
+/* ── SWIPE NAV ── */
+let touchStartX = 0;
+let touchStartY = 0;
+document.addEventListener('touchstart', e => {
+  touchStartX = e.changedTouches[0].screenX;
+  touchStartY = e.changedTouches[0].screenY;
+}, { passive: true });
+document.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].screenX - touchStartX;
+  const dy = e.changedTouches[0].screenY - touchStartY;
+  if (Math.abs(dx) < 50 || Math.abs(dy) > Math.abs(dx)) return;
+  if (dx < 0 && !chapterLocked && currentChapter < chapters.length - 1) goToChapter(currentChapter + 1);
+  if (dx > 0 && currentChapter > 0) goToChapter(currentChapter - 1);
+}, { passive: true });
+
+/* ── PATH CHOICE ── */
+function choosePath(path) {
+  sessionStorage.setItem('visitor_path', path);
+  if (path === 'research') goToChapter(1);
+  else if (path === 'build') goToChapter(2);
+  else if (path === 'mission') goToChapter(3);
+}
+
+/* ── THREE.JS PARTICLES (CH1) ── */
+let threeInited = false;
+function initThreeJS() {
+  if (threeInited) return;
+  if (window.innerWidth < 768) return; // skip on mobile
+  threeInited = true;
+
+  const canvas = document.getElementById('ch1-canvas');
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+  camera.position.z = 4;
+
+  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
   renderer.setSize(window.innerWidth, window.innerHeight);
-});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-// ── CUSTOM CURSOR ──
-const cursor = document.getElementById('cursor');
-const cursorRing = document.getElementById('cursorRing');
-let cx = 0, cy = 0, rx = 0, ry = 0;
+  const geo = new THREE.BufferGeometry();
+  const count = 400;
+  const positions = new Float32Array(count * 3);
+  for (let i = 0; i < count * 3; i++) {
+    positions[i] = (Math.random() - 0.5) * 8;
+  }
+  geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 
-document.addEventListener('mousemove', e => {
-  cx = e.clientX;
-  cy = e.clientY;
-  cursor.style.left = cx - 6 + 'px';
-  cursor.style.top = cy - 6 + 'px';
-});
-
-function animateCursor() {
-  rx += (cx - rx) * 0.12;
-  ry += (cy - ry) * 0.12;
-  cursorRing.style.left = rx - 20 + 'px';
-  cursorRing.style.top = ry - 20 + 'px';
-  requestAnimationFrame(animateCursor);
-}
-animateCursor();
-
-document.querySelectorAll('a, button, .work-item-header, .type-card').forEach(el => {
-  el.addEventListener('mouseenter', () => {
-    cursorRing.style.width = '60px';
-    cursorRing.style.height = '60px';
-    cursorRing.style.opacity = '0.8';
+  const mat = new THREE.PointsMaterial({
+    color: 0x2563eb,
+    size: 0.025,
+    transparent: true,
+    opacity: 0.7,
+    blending: THREE.AdditiveBlending
   });
-  el.addEventListener('mouseleave', () => {
-    cursorRing.style.width = '40px';
-    cursorRing.style.height = '40px';
-    cursorRing.style.opacity = '0.5';
+
+  const points = new THREE.Points(geo, mat);
+  scene.add(points);
+
+  function animate() {
+    requestAnimationFrame(animate);
+    const pos = geo.attributes.position.array;
+    for (let i = 0; i < count; i++) {
+      pos[i * 3 + 1] += Math.sin(Date.now() * 0.0003 + i * 0.1) * 0.0003;
+      pos[i * 3] += Math.cos(Date.now() * 0.0002 + i * 0.05) * 0.0002;
+    }
+    geo.attributes.position.needsUpdate = true;
+    points.rotation.y += 0.0002;
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
   });
-});
-
-// ── SCROLL PROGRESS ──
-const progressBar = document.getElementById('progressBar');
-window.addEventListener('scroll', () => {
-  const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
-  progressBar.style.width = pct + '%';
-});
-
-// ── SCROLL REVEAL ──
-const reveals = document.querySelectorAll('.reveal');
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) e.target.classList.add('visible');
-  });
-}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-reveals.forEach(el => observer.observe(el));
-
-// ── WORK ITEM TOGGLE ──
-function toggleWork(header) {
-  const item = header.parentElement;
-  const isOpen = item.classList.contains('open');
-  document.querySelectorAll('.work-item').forEach(i => i.classList.remove('open'));
-  if (!isOpen) item.classList.add('open');
 }
 
-// ── 3D CARD HOVER ──
-const cardStack = document.querySelector('.card-3d-stack');
-if (cardStack) {
-  cardStack.addEventListener('mousemove', e => {
-    const rect = cardStack.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    const cards = cardStack.querySelectorAll('.stack-card');
-    cards.forEach((card, i) => {
-      const depth = (cards.length - i) * 5;
-      card.style.transform = `rotate(${(i===0?-3:i===1?2:-1) + x * 3}deg) translateZ(${-i * 20}px) rotateX(${-y * 5}deg)`;
+/* ── DRAGGABLE WINDOWS (CH3 desktop only) ── */
+function initDraggable() {
+  if (window.innerWidth < 768) return;
+
+  document.querySelectorAll('.win-titlebar').forEach(bar => {
+    let isDragging = false;
+    let startX, startY, origLeft, origTop;
+    const win = bar.parentElement;
+
+    bar.addEventListener('mousedown', e => {
+      if (win.classList.contains('expanded')) return;
+      isDragging = true;
+      startX = e.clientX;
+      startY = e.clientY;
+      origLeft = win.offsetLeft;
+      origTop = win.offsetTop;
+      win.style.zIndex = 50;
+
+      // Focus
+      document.querySelectorAll('.os-window').forEach(w => w.classList.remove('focused'));
+      win.classList.add('focused');
+
+      const onMove = ev => {
+        if (!isDragging) return;
+        win.style.left = (origLeft + ev.clientX - startX) + 'px';
+        win.style.top = (origTop + ev.clientY - startY) + 'px';
+      };
+      const onUp = () => {
+        isDragging = false;
+        document.removeEventListener('mousemove', onMove);
+        document.removeEventListener('mouseup', onUp);
+      };
+      document.addEventListener('mousemove', onMove);
+      document.addEventListener('mouseup', onUp);
     });
   });
-  cardStack.addEventListener('mouseleave', () => {
-    const cards = cardStack.querySelectorAll('.stack-card');
-    cards[0].style.transform = 'rotate(-3deg) translateZ(0px)';
-    cards[1].style.transform = 'rotate(2deg) translateZ(-20px)';
-    cards[2].style.transform = 'rotate(-1deg) translateZ(-40px)';
-  });
 }
 
-// ── LIVE SUBJECT COUNT (Supabase) ──
-async function fetchLiveN() {
-  try {
-    const SUPABASE_URL = 'https://wgzopjrdnyazvhpklzhw.supabase.co';
-    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indnem9wanJkbnlhenZocGtsemh3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzOTc4NzcsImV4cCI6MjA4OTk3Mzg3N30.8dx5xWljLDZa5PMvE0Ps5q4ZEyuZgx_5FHVnD0WfBjs';
-    const resp = await fetch(
-      `${SUPABASE_URL}/rest/v1/egc_responses?select=count&is_excluded=eq.false`,
-      { headers: { 'apikey': SUPABASE_KEY, 'Prefer': 'count=exact' } }
-    );
-    const count = resp.headers.get('content-range')?.split('/')[1];
-    if (count) {
-      document.getElementById('nCount').textContent = count + '+';
-      document.getElementById('liveN').textContent = count + '+';
-    }
-  } catch (e) {
-    // Keep default values
+function closeWindow(id) {
+  const w = document.getElementById(id);
+  w.style.opacity = '0';
+  w.style.transform = 'scale(0.9)';
+  w.style.pointerEvents = 'none';
+}
+function restoreWindow(id) {
+  const w = document.getElementById(id);
+  w.classList.remove('expanded');
+  w.style.opacity = '1';
+  w.style.transform = 'scale(1)';
+  w.style.pointerEvents = 'auto';
+  w.classList.add('show');
+}
+function expandWindow(id) {
+  const w = document.getElementById(id);
+  if (w.classList.contains('expanded')) {
+    w.classList.remove('expanded');
+  } else {
+    w.classList.add('expanded');
   }
 }
-fetchLiveN();
 
-// ── SMOOTH SECTION TRANSITIONS ──
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function(e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) target.scrollIntoView({ behavior: 'smooth' });
-  });
-});
+/* ── INIT ── */
+runBoot();
 </script>
 </body>
 </html>
