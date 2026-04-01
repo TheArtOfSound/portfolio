@@ -327,12 +327,99 @@ nav {
   50% { opacity: 1; transform: scaleY(1); }
 }
 
+/* ── SECTION: ABOUT ── */
+#about {
+  padding-top: 100px;
+  padding-bottom: 80px;
+}
+.about-grid {
+  display: flex;
+  gap: 48px;
+  align-items: flex-start;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.about-photo {
+  flex-shrink: 0;
+  width: 180px;
+  height: 220px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  position: relative;
+}
+.about-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  filter: grayscale(20%) contrast(1.05);
+}
+.about-photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  box-shadow: inset 0 0 30px rgba(6, 8, 15, 0.4);
+}
+.about-text h2 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+.about-text p {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.8;
+  margin-bottom: 14px;
+}
+.about-text p strong {
+  color: var(--text);
+}
+.about-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+}
+.about-tag {
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  color: var(--muted);
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.about-tag:hover {
+  border-color: var(--accent2);
+  color: var(--accent2);
+}
+.about-resume-link {
+  display: inline-block;
+  margin-top: 20px;
+  font-size: 12px;
+  color: var(--accent2);
+  text-decoration: none;
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+.about-resume-link:hover {
+  border-color: var(--accent2);
+  background: rgba(37, 99, 235, 0.1);
+}
+
 /* ── SECTION 2: THE WORK ── */
 .work-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px;
-  max-width: 1000px;
+  max-width: 1100px;
   margin: 0 auto;
 }
 .work-card {
@@ -578,6 +665,11 @@ nav {
   max-width: 600px;
 }
 
+/* ── TABLET ── */
+@media (max-width: 1024px) {
+  .work-grid { grid-template-columns: 1fr 1fr; }
+}
+
 /* ── MOBILE ── */
 @media (max-width: 768px) {
   body { cursor: auto; }
@@ -594,7 +686,11 @@ nav {
 
   .opening-name { margin-top: -40px; }
 
-  .work-grid { grid-template-columns: 1fr; }
+  .about-grid { flex-direction: column; align-items: center; text-align: center; gap: 32px; }
+  .about-photo { width: 140px; height: 170px; }
+  .about-tags { justify-content: center; }
+
+  .work-grid { grid-template-columns: 1fr !important; }
 
   .stats-grid { grid-template-columns: 1fr; }
 
@@ -622,6 +718,7 @@ nav {
 <nav>
   <a href="#opening" class="nav-logo">Bryan Leonard</a>
   <ul class="nav-links">
+    <li><a href="#about">About</a></li>
     <li><a href="#work">Work</a></li>
     <li><a href="#numbers">Numbers</a></li>
     <li><a href="#philosophy">Philosophy</a></li>
@@ -632,6 +729,7 @@ nav {
   </button>
 </nav>
 <div class="mobile-menu" id="mobileMenu">
+  <a href="#about" class="mobile-link">About</a>
   <a href="#work" class="mobile-link">Work</a>
   <a href="#numbers" class="mobile-link">Numbers</a>
   <a href="#philosophy" class="mobile-link">Philosophy</a>
@@ -666,6 +764,35 @@ nav {
   <div class="scroll-indicator">
     <div class="line"></div>
     <div class="label">Scroll to enter</div>
+  </div>
+</section>
+
+<!-- SECTION: ABOUT -->
+<section id="about" class="section">
+  <div class="section-title reveal">About</div>
+  <div class="about-grid reveal">
+    <div class="about-photo">
+      <img src="profile.jpg" alt="Bryan Leonard" loading="lazy">
+    </div>
+    <div class="about-text">
+      <h2>Independent researcher building from zero.</h2>
+      <p>I study the gap between what people know and what they can say. That question led me to build <strong>Expression-Gated Consciousness</strong> &mdash; a formal framework for measuring how expression gates transparency &mdash; and to design <strong>LOLM</strong>, a novel language model architecture from scratch.</p>
+      <p>Co-founder of <strong>Qira LLC</strong> with my brother Brandyn Leonard. Self-taught full-stack engineer. Currently training models at billion-parameter scale on Google&rsquo;s TPU Research Cloud while shipping production SaaS, Web3 infrastructure, and autonomous systems.</p>
+      <p>No university. No lab. No venture capital. Just work.</p>
+      <div class="about-tags">
+        <span class="about-tag">PyTorch</span>
+        <span class="about-tag">Python</span>
+        <span class="about-tag">React</span>
+        <span class="about-tag">Next.js</span>
+        <span class="about-tag">TypeScript</span>
+        <span class="about-tag">Solana</span>
+        <span class="about-tag">FastAPI</span>
+        <span class="about-tag">NLP</span>
+        <span class="about-tag">CUDA</span>
+        <span class="about-tag">Supabase</span>
+      </div>
+      <a class="about-resume-link" href="resume.html" target="_blank" rel="noopener">View Resume &rarr;</a>
+    </div>
   </div>
 </section>
 
@@ -714,13 +841,34 @@ nav {
 
     <div class="work-card reveal">
       <div class="card-accent" style="background:#06b6d4;"></div>
-      <h3>Traffic Optimization</h3>
-      <p>Kuramoto oscillator modeling with Monte Carlo variance and BPR delay functions.</p>
-      <div class="card-stats">Live AZ-511 data feed &middot; Phoenix metro area</div>
+      <h3>NFET &mdash; Structural Analysis</h3>
+      <p>A graph-theoretic framework for detecting emergence thresholds in complex systems. Analyzes coupling, cohesion, and cascade depth across connected networks.</p>
+      <div class="card-stats">Integrated into Codey &middot; Real-time codebase health monitoring</div>
       <span class="badge badge-blue">Active</span>
       <div class="card-links">
-        <a class="card-link" href="https://nfet.autohustle.online/" target="_blank" rel="noopener">Live dashboard &rarr;</a>
-        <a class="card-link" href="https://github.com/TheArtOfSound/nfet" target="_blank" rel="noopener">GitHub repo &rarr;</a>
+        <a class="card-link" href="https://github.com/TheArtOfSound/codey" target="_blank" rel="noopener">See it in Codey &rarr;</a>
+      </div>
+    </div>
+
+    <div class="work-card reveal">
+      <div class="card-accent" style="background:#8b5cf6;"></div>
+      <h3>Solana Trading Infrastructure</h3>
+      <p>Multi-wallet volume engine for Solana with boss/worker architecture, 4 trading strategies, and real-time WebSocket dashboards.</p>
+      <div class="card-stats">SaaS product &middot; 20+ signups &middot; Telegram &amp; Discord integration</div>
+      <span class="badge badge-green">Live</span>
+      <div class="card-links">
+        <a class="card-link" href="https://bot.autohustle.online" target="_blank" rel="noopener">Product page &rarr;</a>
+      </div>
+    </div>
+
+    <div class="work-card reveal">
+      <div class="card-accent" style="background:#f59e0b;"></div>
+      <h3>Autonomous Content Engine</h3>
+      <p>End-to-end automated pipeline: trend scraping, LLM scripting, TTS narration, video assembly, and multi-platform distribution with anti-detection.</p>
+      <div class="card-stats">9-platform upload &middot; Self-healing guardian &middot; 6 content niches</div>
+      <span class="badge badge-amber">Active</span>
+      <div class="card-links">
+        <a class="card-link" href="https://github.com/TheArtOfSound" target="_blank" rel="noopener">GitHub &rarr;</a>
       </div>
     </div>
 
@@ -747,7 +895,7 @@ nav {
     <div class="stat-card reveal"><div class="stat-number" data-target="0.311">0.311</div><div class="stat-label">Pearson correlation</div><div class="stat-explain">A statistically significant correlation between how much someone expresses and how comfortable they feel doing it. This number has held steady from 14 subjects to 44.</div></div>
     <div class="stat-card reveal"><div class="stat-number" data-target="10B&ndash;100B">10B&ndash;100B</div><div class="stat-label">parameter target</div><div class="stat-explain">The size of the custom language model being built from scratch. For context, GPT-2 was 1.5B. This targets the scale where real language understanding begins to emerge.</div></div>
     <div class="stat-card reveal"><div class="stat-number" data-target="20+">20+</div><div class="stat-label">Vol-bot signups</div><div class="stat-explain">Free trial signups for an automated trading analysis tool. Built as a side project, generating real user interest with zero marketing spend.</div></div>
-    <div class="stat-card reveal"><div class="stat-number" data-target="4">4</div><div class="stat-label">active projects</div><div class="stat-explain">Running simultaneously: a consciousness study, a language model, a coding platform, and a traffic optimization system. No team. One person.</div></div>
+    <div class="stat-card reveal"><div class="stat-number" data-target="6">6</div><div class="stat-label">active projects</div><div class="stat-explain">Running simultaneously: a consciousness study, a language model, a coding platform, a structural analysis framework, trading infrastructure, and an autonomous content engine. No team. One person.</div></div>
     <div class="stat-card reveal"><div class="stat-number" data-target="0">0</div><div class="stat-label">institutional backing</div><div class="stat-explain">No university, no lab, no research grant (yet), no venture capital. Every project is self-funded and self-directed from a home office in Phoenix.</div></div>
   </div>
   <p class="numbers-quote phoenix-quote">From Phoenix, Arizona. Without permission. Without a lab.</p>
