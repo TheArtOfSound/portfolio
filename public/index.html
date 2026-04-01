@@ -417,7 +417,7 @@ nav {
 /* ── SECTION 2: THE WORK ── */
 .work-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 24px;
   max-width: 1100px;
   margin: 0 auto;
@@ -667,7 +667,7 @@ nav {
 
 /* ── TABLET ── */
 @media (max-width: 1024px) {
-  .work-grid { grid-template-columns: 1fr 1fr; }
+  .work-grid { grid-template-columns: 1fr; }
 }
 
 /* ── MOBILE ── */
@@ -740,7 +740,7 @@ nav {
 <section id="opening">
   <div class="float-card fc-tl" style="animation: floatY 6s ease-in-out infinite; animation-delay: 0s;">
     <div class="fc-label">Study Live</div>
-    <div class="fc-value"><span class="live-count">40</span>+</div>
+    <div class="fc-value"><span class="live-count">44</span>+</div>
   </div>
   <div class="float-card fc-tr" style="animation: floatY 6s ease-in-out infinite; animation-delay: -1.5s;">
     <div class="fc-label">Pearson R</div>
@@ -804,71 +804,51 @@ nav {
     <div class="work-card reveal">
       <div class="card-accent" style="background:#2563eb;"></div>
       <h3>Expression-Gated Consciousness</h3>
-      <p>Live empirical study measuring the gap between what people know and what they express.</p>
-      <div class="card-stats">N=<span class="live-count">40</span>+ subjects &middot; Pearson r=0.311 &middot; Comfort gap: 5.6pts</div>
+      <p>A mathematical framework and live empirical study on how emotional knowledge gates conscious expression. 44+ participants. Three distinct response types confirmed by data.</p>
+      <div class="card-stats">N=<span class="live-count">44</span>+ subjects &middot; Pearson r=0.311 &middot; Comfort gap: 5.6pts</div>
       <div class="card-formula">g(K) = 4K(1&minus;K) &mdash; Brandyn Leonard</div>
       <span class="badge badge-green">Live</span>
       <div class="card-links">
         <a class="card-link" href="https://theartofsound.github.io/egcstudy/" target="_blank" rel="noopener">Take the study &rarr;</a>
         <a class="card-link" href="https://theartofsound.github.io/thegate/" target="_blank" rel="noopener">Research page (The Gate) &rarr;</a>
         <a class="card-link" href="https://zenodo.org/records/19242315" target="_blank" rel="noopener">Preprint on Zenodo &rarr;</a>
+        <a class="card-link" href="https://theartofsound.github.io/thegate/" target="_blank" rel="noopener">Live dashboard &rarr;</a>
       </div>
     </div>
 
     <div class="work-card reveal">
       <div class="card-accent" style="background:#c8a84b;"></div>
-      <h3>Custom Language Model</h3>
-      <p>Building a transformer architecture from scratch targeting 10B&ndash;100B parameters on TPU pods.</p>
-      <div class="card-stats">Google TPU Research Cloud grant &middot; XLA FSDP training</div>
+      <h3>LOLM &mdash; Custom Language Model</h3>
+      <p>Building a transformer architecture from scratch. Not fine-tuning &mdash; original architecture targeting frontier-class capability on Google TPU infrastructure.</p>
+      <div class="card-stats">10B&ndash;100B parameter target &middot; Google TPU Research Cloud grant</div>
       <span class="badge badge-amber">Training</span>
       <div class="card-links">
         <a class="card-link" href="https://theartofsound.github.io/qira-website/" target="_blank" rel="noopener">Project site &rarr;</a>
-        <a class="card-link" href="https://github.com/TheArtOfSound/lolm" target="_blank" rel="noopener">GitHub repo &rarr;</a>
+        <a class="card-link" href="https://github.com/TheArtOfSound/lolm" target="_blank" rel="noopener">GitHub &rarr;</a>
       </div>
     </div>
 
     <div class="work-card reveal">
       <div class="card-accent" style="background:#10b981;"></div>
-      <h3>AI Coding Intelligence</h3>
-      <p>The only coding AI that treats your codebase as a connected network.</p>
-      <div class="card-stats">Live on Render &middot; Free / $19 / $49 / $149</div>
+      <h3>Codey &mdash; AI Coding Intelligence</h3>
+      <p>A coding platform that understands your codebase as a connected network. Structural analysis, dependency mapping, and intelligent code generation.</p>
+      <div class="card-stats">Live on Render &middot; 12 LLM providers integrated</div>
       <span class="badge badge-green">Live</span>
       <div class="card-links">
-        <a class="card-link" href="https://theartofsound.github.io/codey/" target="_blank" rel="noopener">Codey landing page &rarr;</a>
-        <a class="card-link" href="https://github.com/TheArtOfSound/codey" target="_blank" rel="noopener">GitHub repo &rarr;</a>
+        <a class="card-link" href="https://theartofsound.github.io/codey/" target="_blank" rel="noopener">Landing page &rarr;</a>
+        <a class="card-link" href="https://github.com/TheArtOfSound/codey" target="_blank" rel="noopener">GitHub &rarr;</a>
       </div>
     </div>
 
     <div class="work-card reveal">
       <div class="card-accent" style="background:#06b6d4;"></div>
-      <h3>NFET &mdash; Structural Analysis</h3>
-      <p>A graph-theoretic framework for detecting emergence thresholds in complex systems. Analyzes coupling, cohesion, and cascade depth across connected networks.</p>
-      <div class="card-stats">Integrated into Codey &middot; Real-time codebase health monitoring</div>
-      <span class="badge badge-blue">Active</span>
-      <div class="card-links">
-        <a class="card-link" href="https://github.com/TheArtOfSound/codey" target="_blank" rel="noopener">See it in Codey &rarr;</a>
-      </div>
-    </div>
-
-    <div class="work-card reveal">
-      <div class="card-accent" style="background:#8b5cf6;"></div>
-      <h3>Solana Trading Infrastructure</h3>
-      <p>Multi-wallet volume engine for Solana with boss/worker architecture, 4 trading strategies, and real-time WebSocket dashboards.</p>
-      <div class="card-stats">SaaS product &middot; 20+ signups &middot; Telegram &amp; Discord integration</div>
+      <h3>NFET &mdash; Traffic Intelligence</h3>
+      <p>Real-time traffic optimization using Kuramoto oscillator networks, BPR delay modeling, and Monte Carlo variance analysis. Monitoring 8 Phoenix freeway corridors 24/7.</p>
+      <div class="card-stats">Live AZ-511 data &middot; 44,000+ network snapshots &middot; 8 corridors</div>
       <span class="badge badge-green">Live</span>
       <div class="card-links">
-        <a class="card-link" href="https://bot.autohustle.online" target="_blank" rel="noopener">Product page &rarr;</a>
-      </div>
-    </div>
-
-    <div class="work-card reveal">
-      <div class="card-accent" style="background:#f59e0b;"></div>
-      <h3>Autonomous Content Engine</h3>
-      <p>End-to-end automated pipeline: trend scraping, LLM scripting, TTS narration, video assembly, and multi-platform distribution with anti-detection.</p>
-      <div class="card-stats">9-platform upload &middot; Self-healing guardian &middot; 6 content niches</div>
-      <span class="badge badge-amber">Active</span>
-      <div class="card-links">
-        <a class="card-link" href="https://github.com/TheArtOfSound" target="_blank" rel="noopener">GitHub &rarr;</a>
+        <a class="card-link" href="https://nfet.autohustle.online/" target="_blank" rel="noopener">Live dashboard &rarr;</a>
+        <a class="card-link" href="https://github.com/TheArtOfSound/nfet" target="_blank" rel="noopener">GitHub &rarr;</a>
       </div>
     </div>
 
@@ -877,10 +857,10 @@ nav {
   <!-- Additional links -->
   <div class="work-extra-links reveal" style="max-width:1000px;margin:32px auto 0;display:flex;flex-wrap:wrap;gap:16px;justify-content:center;">
     <a href="https://theartofsound.github.io/claude-usage-dashboard/" target="_blank" rel="noopener" style="font-size:12px;color:var(--accent3);text-decoration:none;padding:8px 16px;border:1px solid var(--border);border-radius:6px;transition:all 0.2s;">Claude Usage Dashboard &rarr;</a>
-    <a href="https://github.com/TheArtOfSound" target="_blank" rel="noopener" style="font-size:12px;color:var(--accent2);text-decoration:none;padding:8px 16px;border:1px solid var(--border);border-radius:6px;transition:all 0.2s;">All GitHub Repos &rarr;</a>
-    <a href="https://theartofsound.github.io/egcstudy/egcrate/" target="_blank" rel="noopener" style="font-size:12px;color:var(--accent2);text-decoration:none;padding:8px 16px;border:1px solid var(--border);border-radius:6px;transition:all 0.2s;">EGC Rater Interface &rarr;</a>
     <a href="https://nfet.autohustle.online/" target="_blank" rel="noopener" style="font-size:12px;color:#4dffd4;text-decoration:none;padding:8px 16px;border:1px solid var(--border);border-radius:6px;transition:all 0.2s;">NFET Live Dashboard &rarr;</a>
     <a href="https://theartofsound.github.io/command-center/" target="_blank" rel="noopener" style="font-size:12px;color:var(--accent2);text-decoration:none;padding:8px 16px;border:1px solid var(--border);border-radius:6px;transition:all 0.2s;">Command Center &rarr;</a>
+    <a href="https://github.com/TheArtOfSound" target="_blank" rel="noopener" style="font-size:12px;color:var(--accent2);text-decoration:none;padding:8px 16px;border:1px solid var(--border);border-radius:6px;transition:all 0.2s;">All GitHub Repos &rarr;</a>
+    <a href="https://theartofsound.github.io/egcstudy/egcrate/" target="_blank" rel="noopener" style="font-size:12px;color:var(--accent2);text-decoration:none;padding:8px 16px;border:1px solid var(--border);border-radius:6px;transition:all 0.2s;">EGC Rater Interface &rarr;</a>
   </div>
 </section>
 
@@ -894,8 +874,8 @@ nav {
     <div class="stat-card reveal"><div class="stat-number live-count-stat" data-target="44+">44+</div><div class="stat-label">research subjects</div><div class="stat-explain">Real people who completed a live psychology study. Each one wrote authentic responses that are now part of a peer-reviewable dataset on consciousness and expression.</div></div>
     <div class="stat-card reveal"><div class="stat-number" data-target="0.311">0.311</div><div class="stat-label">Pearson correlation</div><div class="stat-explain">A statistically significant correlation between how much someone expresses and how comfortable they feel doing it. This number has held steady from 14 subjects to 44.</div></div>
     <div class="stat-card reveal"><div class="stat-number" data-target="10B&ndash;100B">10B&ndash;100B</div><div class="stat-label">parameter target</div><div class="stat-explain">The size of the custom language model being built from scratch. For context, GPT-2 was 1.5B. This targets the scale where real language understanding begins to emerge.</div></div>
-    <div class="stat-card reveal"><div class="stat-number" data-target="20+">20+</div><div class="stat-label">Vol-bot signups</div><div class="stat-explain">Free trial signups for an automated trading analysis tool. Built as a side project, generating real user interest with zero marketing spend.</div></div>
-    <div class="stat-card reveal"><div class="stat-number" data-target="6">6</div><div class="stat-label">active projects</div><div class="stat-explain">Running simultaneously: a consciousness study, a language model, a coding platform, a structural analysis framework, trading infrastructure, and an autonomous content engine. No team. One person.</div></div>
+    <div class="stat-card reveal"><div class="stat-number" data-target="44,000+">44,000+</div><div class="stat-label">traffic snapshots</div><div class="stat-explain">Continuous monitoring data from 8 Phoenix freeway corridors collected every 10 seconds. Real AZ-511 data from ADOT.</div></div>
+    <div class="stat-card reveal"><div class="stat-number" data-target="4">4</div><div class="stat-label">active projects</div><div class="stat-explain">Running simultaneously: a consciousness study, a language model, a coding platform, and a traffic intelligence system. No team. One person.</div></div>
     <div class="stat-card reveal"><div class="stat-number" data-target="0">0</div><div class="stat-label">institutional backing</div><div class="stat-explain">No university, no lab, no research grant (yet), no venture capital. Every project is self-funded and self-directed from a home office in Phoenix.</div></div>
   </div>
   <p class="numbers-quote phoenix-quote">From Phoenix, Arizona. Without permission. Without a lab.</p>
@@ -936,6 +916,10 @@ nav {
     <a class="contact-row" href="https://theartofsound.github.io/claude-usage-dashboard" target="_blank" rel="noopener">
       <span class="cr-label">Dashboard</span>
       <span class="cr-value">Claude Usage Dashboard</span>
+    </a>
+    <a class="contact-row" href="https://theartofsound.github.io/thegate/" target="_blank" rel="noopener">
+      <span class="cr-label">The Gate</span>
+      <span class="cr-value">theartofsound.github.io/thegate</span>
     </a>
   </div>
 
