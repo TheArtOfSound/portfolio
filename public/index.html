@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bryan Leonard — Researcher, Engineer, Builder</title>
 <meta name="description" content="Bryan Leonard — Independent researcher building at the intersection of consciousness science, machine learning, and traffic intelligence. Qira LLC, Phoenix AZ.">
-<meta property="og:title" content="Bryan Leonard — Researcher, Engineer, Builder">
-<meta property="og:description" content="Expression-Gated Consciousness researcher. Builder of LOLM, Codey, and NFET. 10B+ tokens of AI compute. Qira LLC.">
+<meta property="og:title" content="Bryan Leonard — Independent researcher building real-time traffic intelligence, custom transformers, and consciousness research from Phoenix">
+<meta property="og:description" content="Live predictive traffic cascade model for Phoenix freeways. Custom 10B-parameter transformer from scratch on Google TPU. Consciousness study with 44+ participants. $9K+ in AI compute, zero VC. Qira LLC.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://theartofsound.github.io/portfolio/">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Bryan Leonard — Researcher, Engineer, Builder">
-<meta name="twitter:description" content="Expression-Gated Consciousness researcher. Builder of LOLM, Codey, and NFET.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Bryan Leonard — Traffic intelligence, custom transformers, consciousness research. Zero VC.">
+<meta name="twitter:description" content="Two brothers built a live predictive cascade model for Phoenix freeways, a custom transformer architecture on Google TPU, and a consciousness study with 44+ participants. All self-funded from a home office.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
 <meta name="theme-color" content="#06080f">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -526,6 +526,152 @@ nav {
 }
 .card-link:hover { color: var(--text); }
 
+/* ── INFRASTRUCTURE PROOF ── */
+#infrastructure {
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+.infra-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.infra-header h2 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+.infra-header p {
+  font-size: 13px;
+  color: var(--muted);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+.infra-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.infra-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 28px;
+  position: relative;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+.infra-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(99,102,241,0.3);
+}
+.infra-card .infra-icon {
+  font-size: 24px;
+  margin-bottom: 14px;
+  display: block;
+}
+.infra-card h3 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.infra-card p {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+.infra-card .infra-stat {
+  font-size: 11px;
+  color: var(--accent2);
+  font-weight: 500;
+}
+.infra-card .infra-link {
+  display: inline-block;
+  font-size: 11px;
+  color: var(--accent2);
+  text-decoration: none;
+  margin-top: 8px;
+  transition: color 0.2s;
+}
+.infra-card .infra-link:hover { color: var(--text); }
+.infra-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+.infra-badge.live { background: rgba(34,197,94,0.15); color: #22c55e; }
+.infra-badge.training { background: rgba(245,158,11,0.15); color: #f59e0b; }
+.infra-badge.dev { background: rgba(96,165,250,0.15); color: #60a5fa; }
+
+/* ── OUTREACH CTA CARDS ── */
+.outreach-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  max-width: 900px;
+  margin: 32px auto 0;
+}
+.outreach-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 10px;
+  padding: 20px;
+  transition: border-color 0.2s;
+}
+.outreach-card:hover { border-color: rgba(99,102,241,0.3); }
+.outreach-card .oc-audience {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent2);
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+.outreach-card .oc-text {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+.outreach-card .oc-link {
+  font-size: 11px;
+  color: var(--accent2);
+  text-decoration: none;
+}
+.outreach-card .oc-link:hover { color: var(--text); }
+
+/* ── OPEN TO BANNER ── */
+.open-to {
+  margin-top: 20px;
+  padding: 14px 20px;
+  background: rgba(37,99,235,0.06);
+  border: 1px solid rgba(37,99,235,0.15);
+  border-radius: 8px;
+  font-size: 12px;
+  color: var(--accent2);
+  line-height: 1.6;
+}
+.open-to strong { color: var(--text); }
+
+@media (max-width: 768px) {
+  .infra-grid { grid-template-columns: 1fr; }
+  .outreach-grid { grid-template-columns: 1fr; }
+}
+
 /* ── SECTION 3: THE NUMBERS ── */
 #numbers .section-subtitle {
   font-family: 'DM Mono', monospace;
@@ -749,6 +895,7 @@ nav {
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#work">Work</a></li>
+    <li><a href="#infrastructure">Infrastructure</a></li>
     <li><a href="#numbers">Numbers</a></li>
     <li><a href="#philosophy">Philosophy</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -760,6 +907,7 @@ nav {
 <div class="mobile-menu" id="mobileMenu">
   <a href="#about" class="mobile-link">About</a>
   <a href="#work" class="mobile-link">Work</a>
+  <a href="#infrastructure" class="mobile-link">Infrastructure</a>
   <a href="#numbers" class="mobile-link">Numbers</a>
   <a href="#philosophy" class="mobile-link">Philosophy</a>
   <a href="#contact" class="mobile-link">Contact</a>
@@ -807,7 +955,8 @@ nav {
       <h2>Independent researcher building from zero.</h2>
       <p>I study the gap between what people know and what they can say. That question led me to build <strong>Expression-Gated Consciousness</strong> &mdash; a formal framework for measuring how expression gates transparency &mdash; and to design <strong>LOLM</strong>, a novel language model architecture from scratch.</p>
       <p>Co-founder of <strong>Qira LLC</strong> with my brother Brandyn Leonard. Self-taught full-stack engineer. Currently training models at billion-parameter scale on Google&rsquo;s TPU Research Cloud while shipping production SaaS, Web3 infrastructure, and autonomous systems.</p>
-      <p>No university. No lab. No venture capital. Just work.</p>
+      <p><strong>No university. No lab. No venture capital.</strong> Just work.</p>
+      <div class="open-to"><strong>Open to:</strong> Municipal technology partnerships, research collaboration, compute grants, and teams solving hard problems.</div>
       <div class="about-tags">
         <span class="about-tag">PyTorch</span>
         <span class="about-tag">Python</span>
@@ -902,6 +1051,71 @@ nav {
   </div>
 </section>
 
+<!-- SECTION: LIVE INFRASTRUCTURE -->
+<section id="infrastructure" class="section">
+  <div class="infra-header reveal">
+    <h2>Live Infrastructure</h2>
+    <p>Every system listed here is running in production right now. Not demos. Not mockups. Live services on real data, self-funded from Phoenix.</p>
+  </div>
+  <div class="infra-grid">
+
+    <div class="infra-card reveal">
+      <span class="infra-badge live">Live 24/7</span>
+      <span class="infra-icon">&#9632;</span>
+      <h3>Phoenix Traffic Intelligence</h3>
+      <p>Real-time predictive cascade model for I-10 and I-17 corridors. Ingests live AZ-511 data, computes Level of Service grades, and generates 2-minute AI crew dispatch recommendations for 8 Phoenix freeway corridors.</p>
+      <div class="infra-stat">375K+ corridor snapshots &middot; 10-second polling &middot; AI sweep every 2 min</div>
+      <a class="infra-link" href="https://adot.autohustle.online/" target="_blank" rel="noopener">View live public dashboard &rarr;</a>
+    </div>
+
+    <div class="infra-card reveal">
+      <span class="infra-badge training">Training</span>
+      <span class="infra-icon">&#9670;</span>
+      <h3>LOLM &mdash; Custom Transformer</h3>
+      <p>Original language model architecture designed from scratch. Not fine-tuning an existing model &mdash; building the architecture, tokenizer, training loop, and evaluation pipeline. Running on Google TPU Research Cloud infrastructure.</p>
+      <div class="infra-stat">10B&ndash;100B parameter target &middot; Google TPU Research Cloud grant</div>
+      <a class="infra-link" href="https://github.com/TheArtOfSound/lolm" target="_blank" rel="noopener">View architecture on GitHub &rarr;</a>
+    </div>
+
+    <div class="infra-card reveal">
+      <span class="infra-badge live">Live Study</span>
+      <span class="infra-icon">&#9679;</span>
+      <h3>EGC &mdash; Consciousness Research</h3>
+      <p>Live empirical psychology study with 44+ participants. Original mathematical framework (g(K) = 4K(1&minus;K), by Brandyn Leonard) measuring how emotional knowledge gates conscious expression. Preprint on Zenodo.</p>
+      <div class="infra-stat">N=44+ &middot; Pearson r=0.311 &middot; 3 confirmed response types &middot; Peer-reviewable</div>
+      <a class="infra-link" href="https://zenodo.org/records/19242315" target="_blank" rel="noopener">Read the preprint &rarr;</a>
+    </div>
+
+    <div class="infra-card reveal">
+      <span class="infra-badge dev">In Development</span>
+      <span class="infra-icon">&#9674;</span>
+      <h3>Codey &mdash; AI Coding Agent</h3>
+      <p>Full-stack SaaS coding platform with structural codebase analysis. Multi-provider AI routing (GPT-4o, Groq, Gemini, Claude), real code execution, autonomous repo monitoring, and health scoring.</p>
+      <div class="infra-stat">FastAPI + Next.js + PostgreSQL + Redis + Celery &middot; 11 AI providers</div>
+      <a class="infra-link" href="https://codey.autohustle.online/" target="_blank" rel="noopener">Try the beta &rarr;</a>
+    </div>
+
+    <div class="infra-card reveal">
+      <span class="infra-badge live">Live</span>
+      <span class="infra-icon">&#9644;</span>
+      <h3>Compute at Scale</h3>
+      <p>13B+ AI tokens processed across all projects in 48 days. $9,100+ in equivalent API compute, entirely self-funded. Every token tracked and auditable through a custom usage dashboard.</p>
+      <div class="infra-stat">31x the Anthropic Max plan &middot; 48 days &middot; Zero institutional backing</div>
+      <a class="infra-link" href="https://theartofsound.github.io/claude-usage-dashboard/" target="_blank" rel="noopener">View usage dashboard &rarr;</a>
+    </div>
+
+    <div class="infra-card reveal">
+      <span class="infra-badge live">Live</span>
+      <span class="infra-icon">&#9654;</span>
+      <h3>Full-Stack Server Infrastructure</h3>
+      <p>DigitalOcean droplet running all production services simultaneously. FastAPI backends, Cloudflare tunnels, SQLite + PostgreSQL databases, Celery workers, systemd services, UFW firewall, fail2ban, SSH key-only auth.</p>
+      <div class="infra-stat">4 production services &middot; 8GB RAM &middot; Ubuntu 24.04 &middot; NYC3</div>
+      <a class="infra-link" href="https://github.com/TheArtOfSound" target="_blank" rel="noopener">View all repos &rarr;</a>
+    </div>
+
+  </div>
+</section>
+
 <!-- SECTION 3: THE NUMBERS -->
 <section id="numbers" class="section">
   <div class="section-title reveal">The Numbers</div>
@@ -963,6 +1177,29 @@ nav {
       <span class="cr-label">The Gate</span>
       <span class="cr-value">theartofsound.github.io/thegate</span>
     </a>
+  </div>
+
+  <div class="outreach-grid reveal">
+    <div class="outreach-card">
+      <div class="oc-audience">For Municipal &amp; Transportation Leaders</div>
+      <div class="oc-text">We built a live predictive cascade model for the I-10 and I-17 corridors that generates 2-minute crew dispatch recommendations. It's running right now on real AZ-511 data.</div>
+      <a class="oc-link" href="https://adot.autohustle.online/" target="_blank" rel="noopener">See the live Phoenix traffic dashboard &rarr;</a>
+    </div>
+    <div class="outreach-card">
+      <div class="oc-audience">For Researchers &amp; Academics</div>
+      <div class="oc-text">The EGC framework proposes that expression gates consciousness through a measurable function. The study is still live and the preprint is on Zenodo. Your data would matter.</div>
+      <a class="oc-link" href="https://theartofsound.github.io/egcstudy/" target="_blank" rel="noopener">Take the study or read the preprint &rarr;</a>
+    </div>
+    <div class="outreach-card">
+      <div class="oc-audience">For Compute &amp; Cloud Providers</div>
+      <div class="oc-text">We are pushing $9K+ equivalent in API compute and training custom architectures without institutional backing. We are looking for compute grants to scale LOLM to frontier class.</div>
+      <a class="oc-link" href="https://theartofsound.github.io/claude-usage-dashboard/" target="_blank" rel="noopener">View our compute usage dashboard &rarr;</a>
+    </div>
+    <div class="outreach-card">
+      <div class="oc-audience">For Engineers &amp; Builders</div>
+      <div class="oc-text">Everything here was built by two people from a home office in Phoenix. Every repo is public. If you're building something hard and want to collaborate, reach out.</div>
+      <a class="oc-link" href="https://github.com/TheArtOfSound" target="_blank" rel="noopener">Browse all repos on GitHub &rarr;</a>
+    </div>
   </div>
 
   <div class="study-cta reveal">
