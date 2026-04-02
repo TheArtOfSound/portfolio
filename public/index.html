@@ -473,6 +473,26 @@ nav {
   color: var(--accent2);
   margin-bottom: 6px;
 }
+
+/* Featured project cards */
+.work-card.featured {
+  grid-column: 1 / -1;
+  padding: 40px;
+  border-color: rgba(99,102,241,0.25);
+  background: rgba(255,255,255,0.06);
+  box-shadow: 0 0 30px rgba(37,99,235,0.08);
+}
+.work-card.featured .card-accent { height: 3px; }
+.work-card.featured h3 { font-size: 22px; }
+.work-card.featured p { font-size: 14px; }
+.work-card.featured .card-stats { font-size: 13px; }
+.featured-tag {
+  font-size: 9px; text-transform: uppercase; letter-spacing: 0.15em;
+  color: #94a3b8; margin-bottom: 6px; display: block;
+  padding: 3px 10px; background: rgba(99,102,241,0.1); border-radius: 4px;
+  display: inline-block;
+}
+
 .work-card .card-formula {
   font-size: 12px;
   color: var(--accent3);
@@ -716,6 +736,20 @@ nav {
 <!-- Scroll progress -->
 <div id="scroll-progress"></div>
 
+    <div class="work-card featured reveal">
+      <div class="card-accent" style="background:#06b6d4;"></div>
+      <span class="featured-tag">Live Product &mdash; In Talks With ADOT</span>
+      <h3>Phoenix Traffic Intelligence</h3>
+      <p>Real-time traffic intelligence with AI-powered predictions, TomTom live speeds, and cascade failure detection. Monitoring 8 Phoenix freeway corridors 24/7 with automated crew dispatch recommendations.</p>
+      <div class="card-stats">Live AZ-511 data &middot; 375K+ corridor snapshots &middot; 8 corridors &middot; 2-min sweep cycle</div>
+      <span class="badge badge-green">Live</span>
+      <div class="card-links">
+        <a class="card-link" href="https://adot.autohustle.online/" target="_blank" rel="noopener">Public corridor monitor &rarr;</a>
+        <a class="card-link" href="https://nfet.autohustle.online/" target="_blank" rel="noopener">Technical dashboard &rarr;</a>
+        <a class="card-link" href="https://github.com/TheArtOfSound/nfet" target="_blank" rel="noopener">GitHub &rarr;</a>
+      </div>
+    </div>
+
 <!-- Custom cursor -->
 <div class="cursor-dot" id="cursorDot"></div>
 <div class="cursor-ring" id="cursorRing"></div>
@@ -810,8 +844,9 @@ nav {
   <div class="section-title reveal">The Work</div>
   <div class="work-grid">
 
-    <div class="work-card reveal">
+    <div class="work-card featured reveal">
       <div class="card-accent" style="background:#2563eb;"></div>
+      <span class="featured-tag">Flagship Research</span>
       <h3>Expression-Gated Consciousness</h3>
       <p>A mathematical framework and live empirical study on how emotional knowledge gates conscious expression. 44+ participants. Three distinct response types confirmed by data.</p>
       <div class="card-stats">N=<span class="live-count">44</span>+ subjects &middot; Pearson r=0.311 &middot; Comfort gap: 5.6pts</div>
@@ -825,8 +860,9 @@ nav {
       </div>
     </div>
 
-    <div class="work-card reveal">
+    <div class="work-card featured reveal">
       <div class="card-accent" style="background:#c8a84b;"></div>
+      <span class="featured-tag">Original Architecture &mdash; Google TPU Grant</span>
       <h3>LOLM &mdash; Custom Language Model</h3>
       <p>Building a transformer architecture from scratch. Not fine-tuning &mdash; original architecture targeting frontier-class capability on Google TPU infrastructure.</p>
       <div class="card-stats">10B&ndash;100B parameter target &middot; Google TPU Research Cloud grant</div>
@@ -850,18 +886,7 @@ nav {
       </div>
     </div>
 
-    <div class="work-card reveal">
-      <div class="card-accent" style="background:#06b6d4;"></div>
-      <h3>NFET &mdash; Traffic Intelligence</h3>
-      <p>Real-time traffic intelligence with AI-powered predictions, TomTom live speeds, and cascade failure detection. Monitoring 8 Phoenix freeway corridors 24/7 with automated crew dispatch recommendations.</p>
-      <div class="card-stats">Live AZ-511 data &middot; 375K+ corridor snapshots &middot; 8 corridors &middot; 2-min sweep cycle</div>
-      <span class="badge badge-green">Live</span>
-      <div class="card-links">
-        <a class="card-link" href="https://adot.autohustle.online/" target="_blank" rel="noopener">Public corridor monitor &rarr;</a>
-        <a class="card-link" href="https://nfet.autohustle.online/" target="_blank" rel="noopener">Technical dashboard &rarr;</a>
-        <a class="card-link" href="https://github.com/TheArtOfSound/nfet" target="_blank" rel="noopener">GitHub &rarr;</a>
-      </div>
-    </div>
+    
 
   </div>
 
