@@ -1,3 +1,4 @@
+import QiraBanner from "./QiraBanner"
 import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
@@ -657,6 +658,7 @@ export default function App() {
     <div className="relative">
       <Particles />
       <Act1 />
+      <QiraBanner />
       <Act2 />
       <Act3 />
       <Act4 />
