@@ -625,15 +625,15 @@ function Act5() {
 
       <FadeIn delay={0.2}>
         <div className="flex flex-col items-center gap-4">
-          <a href="mailto:bryan@qira.ai" className="text-[#2563eb] hover:text-[#60a5fa] transition-colors text-lg tracking-wider">
-            bryan@qira.ai
+          <a href="mailto:bryanleonard@imagineqira.com" className="text-[#2563eb] hover:text-[#60a5fa] transition-colors text-lg tracking-wider">
+            bryanleonard@imagineqira.com
           </a>
           <div className="flex gap-6 mt-4">
             <a href="https://github.com/TheArtOfSound" target="_blank" rel="noopener noreferrer"
               className="text-[#f5f0e8]/30 hover:text-[#f5f0e8]/60 transition-colors text-sm tracking-wider">
               GitHub
             </a>
-            <a href="https://linkedin.com/in/bryanleonard" target="_blank" rel="noopener noreferrer"
+            <a href="https://www.linkedin.com/in/bryan-leonard-54155218a/" target="_blank" rel="noopener noreferrer"
               className="text-[#f5f0e8]/30 hover:text-[#f5f0e8]/60 transition-colors text-sm tracking-wider">
               LinkedIn
             </a>
@@ -642,7 +642,8 @@ function Act5() {
       </FadeIn>
 
       <FadeIn delay={0.4}>
-        <div className="mt-20 text-[10px] tracking-[0.3em] uppercase text-[#f5f0e8]/15">
+        <div className="mt-12 mb-4"><a href="https://imagineqira.com" target="_blank" rel="noopener noreferrer" className="text-[#2563eb] hover:text-[#60a5fa] transition-colors text-sm tracking-wider">imagineqira.com</a></div>
+        <div className="mt-4 text-[10px] tracking-[0.3em] uppercase text-[#f5f0e8]/30">
           Qira LLC
         </div>
       </FadeIn>
