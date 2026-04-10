@@ -152,7 +152,7 @@ a:hover { text-decoration: underline; }
       <div class="project">
         <div class="project-badge" style="color:#8b5cf6">Active Research</div>
         <h3>Expression-Gated Cognition</h3>
-        <p>Empirical study on how identity pressure modulates expression. N=58 subjects, r=0.311, 3 expression types. NYU collaboration pending.</p>
+        <p>Empirical study on how identity pressure modulates expression. <span id="egc-n">N=60</span> subjects, 3 expression types. NYU collaboration pending.</p>
         <a href="https://egc.imagineqira.com" target="_blank">Learn More →</a>
       </div>
       <div class="project">
@@ -219,5 +219,13 @@ a:hover { text-decoration: underline; }
 
 </div>
 
+<script>
+fetch('https://wgzopjrdnyazvhpklzhw.supabase.co/rest/v1/egc_responses?excluded=eq.false&select=id',{
+  headers:{'apikey':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indnem9wanJkbnlhenZocGtsemh3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzOTc4NzcsImV4cCI6MjA4OTk3Mzg3N30.8dx5xWljLDZa5PMvE0Ps5q4ZEyuZgx_5FHVnD0WfBjs'}
+}).then(function(r){return r.json()}).then(function(d){
+  var el=document.getElementById('egc-n');
+  if(el&&d&&d.length)el.textContent='N='+d.length;
+}).catch(function(){});
+</script>
 </body>
 </html>
