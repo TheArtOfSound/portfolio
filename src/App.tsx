@@ -203,6 +203,11 @@ function Act2() {
       desc: 'Claude Usage Dashboard',
       color: '#a855f7',
     },
+    {
+      title: 'Custom websites that look expensive. Fixed pricing.',
+      desc: 'Web Design — webbuild.imagineqira.com',
+      color: '#ff4e1f',
+    },
   ]
 
   return (
@@ -438,6 +443,56 @@ function Act3() {
             <a href="https://theartofsound.github.io/claude-usage-dashboard/" target="_blank" rel="noopener noreferrer"
               className="text-sm text-[#a855f7] hover:text-[#a855f7]/80 transition-colors tracking-wider">
               View Live Dashboard &rarr;
+            </a>
+          </div>
+        </FadeIn>
+      </div>
+
+      {/* Web Design Section */}
+      <div className="max-w-4xl mx-auto px-6 mt-40">
+        <FadeIn>
+          <div className="text-xs tracking-[0.4em] uppercase text-[#ff4e1f] mb-6">Web Design</div>
+          <h3 className="font-display text-3xl md:text-5xl font-bold mb-8">Custom Web Builds</h3>
+        </FadeIn>
+        <FadeIn delay={0.2}>
+          <p className="text-2xl font-display text-[#f5f0e8]/80 mb-8 leading-relaxed">
+            Websites that look expensive. Fixed pricing. No templates.
+          </p>
+          <p className="text-[#f5f0e8]/40 text-sm mb-8 max-w-xl">
+            Full-stack custom websites for businesses that take themselves seriously — brand sites,
+            product pages, live dashboards, research platforms. Designed, built, deployed, and
+            supported through launch. 8+ live builds in production.
+          </p>
+        </FadeIn>
+
+        <FadeIn delay={0.3}>
+          <div className="bg-[#0d1220] border border-[#1e2d40] rounded-xl p-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+              <div>
+                <div className="text-2xl font-bold text-[#ff4e1f]">8+</div>
+                <div className="text-xs text-[#f5f0e8]/30 mt-1">Live Builds</div>
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-[#ff4e1f]">$1.5k</div>
+                <div className="text-xs text-[#f5f0e8]/30 mt-1">Starter Sites</div>
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-[#ff4e1f]">$10k+</div>
+                <div className="text-xs text-[#f5f0e8]/30 mt-1">Dashboards</div>
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-[#ff4e1f]">100%</div>
+                <div className="text-xs text-[#f5f0e8]/30 mt-1">Code Ownership</div>
+              </div>
+            </div>
+          </div>
+        </FadeIn>
+
+        <FadeIn delay={0.4}>
+          <div className="mt-8">
+            <a href="https://webbuild.imagineqira.com" target="_blank" rel="noopener noreferrer"
+              className="text-sm text-[#ff4e1f] hover:text-[#ff4e1f]/80 transition-colors tracking-wider">
+              webbuild.imagineqira.com &rarr;
             </a>
           </div>
         </FadeIn>
