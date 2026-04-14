@@ -12,6 +12,7 @@ export default function QiraBanner() {
           <span className="text-xs px-3 py-1 rounded-full font-semibold" style={{ background: 'rgba(34,197,94,0.15)', color: '#22c55e' }}>PTI — Live Traffic Intelligence</span>
           <span className="text-xs px-3 py-1 rounded-full font-semibold" style={{ background: 'rgba(139,92,246,0.15)', color: '#a78bfa' }}>EGC — Cognitive Research</span>
           <span className="text-xs px-3 py-1 rounded-full font-semibold" style={{ background: 'rgba(250,204,21,0.15)', color: '#facc15' }}>LOLM — Language Model</span>
+          <span className="text-xs px-3 py-1 rounded-full font-semibold" style={{ background: 'rgba(37,99,235,0.15)', color: '#60a5fa' }}>BRY-NFET-SX — Secure Workflows</span>
         </div>
         <div className="mt-3 text-xs text-blue-500 font-semibold">imagineqira.com →</div>
       </a>

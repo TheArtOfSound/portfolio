@@ -194,6 +194,11 @@ function Act2() {
       color: '#10b981',
     },
     {
+      title: 'Signed, verifiable security artifacts with trust semantics.',
+      desc: 'BRY-NFET-SX — secure.imagineqira.com',
+      color: '#3b82f6',
+    },
+    {
       title: 'An AI-powered app to learn Eastern Armenian from zero.',
       desc: 'Armo',
       color: '#e44d26',
@@ -341,6 +346,53 @@ function Act3() {
             <a href="https://codey.cc" target="_blank" rel="noopener noreferrer"
               className="text-sm text-[#10b981] hover:text-[#10b981]/80 transition-colors tracking-wider">
               codey.cc &rarr;
+            </a>
+          </div>
+        </FadeIn>
+      </div>
+
+      {/* BRY-NFET-SX Section */}
+      <div className="max-w-4xl mx-auto px-6 mt-40">
+        <FadeIn>
+          <div className="text-xs tracking-[0.4em] uppercase text-[#3b82f6] mb-6">Security</div>
+          <h3 className="font-display text-3xl md:text-5xl font-bold mb-8">BRY-NFET-SX</h3>
+        </FadeIn>
+        <FadeIn delay={0.2}>
+          <p className="text-2xl font-display text-[#f5f0e8]/80 mb-8 leading-relaxed">
+            Encrypted envelope workflows with verifiable trust semantics.
+          </p>
+          <p className="text-[#f5f0e8]/40 text-sm mb-8 max-w-xl">
+            A policy-aware encrypted envelope workflow platform built on standard ChaCha20-Poly1305 authenticated
+            encryption. Packages structured messages into session artifacts, compares routing policies, persists
+            artifacts with integrity binding, and exports signed bundles with explicit trust verification.
+            189 tests. Three adversarial security reviews. Live product site with dogfooded site-integrity verification.
+          </p>
+        </FadeIn>
+
+        <FadeIn delay={0.3}>
+          <div className="grid grid-cols-3 gap-4 mb-8">
+            {[
+              { label: '189 tests', sub: 'Passing' },
+              { label: '3 audits', sub: 'Security reviews' },
+              { label: 'ChaCha20', sub: 'Standard AEAD' },
+            ].map((s, i) => (
+              <div key={i} className="bg-[#0d1220] border border-[#1e2d40] rounded-xl p-4 text-center">
+                <div className="text-lg font-bold text-[#3b82f6]">{s.label}</div>
+                <div className="text-xs text-[#f5f0e8]/40 mt-1">{s.sub}</div>
+              </div>
+            ))}
+          </div>
+        </FadeIn>
+
+        <FadeIn delay={0.4}>
+          <div className="mt-8 flex gap-6">
+            <a href="https://secure.imagineqira.com" target="_blank" rel="noopener noreferrer"
+              className="text-sm text-[#3b82f6] hover:text-[#3b82f6]/80 transition-colors tracking-wider">
+              secure.imagineqira.com &rarr;
+            </a>
+            <a href="https://secure.imagineqira.com/app/" target="_blank" rel="noopener noreferrer"
+              className="text-sm text-[#f5f0e8]/40 hover:text-[#f5f0e8]/60 transition-colors tracking-wider">
+              Live Demo &rarr;
             </a>
           </div>
         </FadeIn>
