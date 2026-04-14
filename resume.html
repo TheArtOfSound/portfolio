@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bryan Leonard — Resume</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  color: #1e293b;
+  line-height: 1.5;
+  font-size: 13px;
+  background: #f8fafc;
+  -webkit-font-smoothing: antialiased;
+}
+.page {
+  max-width: 800px;
+  margin: 0 auto;
+  background: white;
+  padding: 40px 48px 80px;
+  min-height: 100vh;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+.header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 2px solid #0f172a; }
+.name { font-size: 28px; font-weight: 800; color: #0f172a; letter-spacing: -0.02em; }
+.title { font-size: 14px; color: #475569; margin-top: 2px; }
+.contact-info { text-align: right; font-size: 11px; color: #475569; line-height: 1.7; }
+.contact-info a { color: #2563eb; text-decoration: none; }
+.section { margin-bottom: 18px; }
+.section-title { font-size: 11px; font-weight: 700; color: #2563eb; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; padding-bottom: 3px; border-bottom: 1px solid #e2e8f0; }
+.summary { font-size: 13px; color: #334155; line-height: 1.6; }
+.skills-grid { display: flex; flex-wrap: wrap; gap: 5px; }
+.skill-tag { font-size: 11px; padding: 2px 9px; background: #f1f5f9; color: #334155; border-radius: 4px; font-weight: 500; }
+.skill-tag.primary { background: #dbeafe; color: #1e40af; }
+.job { margin-bottom: 12px; }
+.job-row { display: flex; justify-content: space-between; align-items: baseline; }
+.company { font-weight: 700; color: #0f172a; font-size: 13px; }
+.role { color: #475569; font-size: 13px; }
+.dates { font-size: 11px; color: #94a3b8; white-space: nowrap; }
+.job ul { margin: 3px 0 0 16px; }
+.job li { font-size: 12px; color: #475569; margin-bottom: 2px; line-height: 1.5; }
+.job li strong { color: #1e293b; }
+.research-item { font-size: 12px; color: #334155; margin-bottom: 5px; padding-left: 12px; border-left: 2px solid #2563eb; }
+.research-item a { color: #2563eb; text-decoration: none; }
+.edu-item { font-size: 12px; color: #334155; margin-bottom: 3px; }
+.download-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #0f172a; padding: 12px 24px; display: flex; justify-content: center; gap: 16px; align-items: center; z-index: 100; }
+.download-bar button { background: #2563eb; color: white; border: none; padding: 10px 28px; border-radius: 8px; font-weight: 600; font-size: 14px; cursor: pointer; font-family: inherit; }
+.download-bar span { color: #94a3b8; font-size: 12px; }
+@media print {
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }
+  body { background: white !important; margin: 0; padding: 0; font-size: 12px; }
+  .page { padding: 16px 24px; box-shadow: none; min-height: auto; max-width: 100%; }
+  .download-bar { display: none !important; }
+  .section { break-inside: avoid; margin-bottom: 14px; }
+  .job { break-inside: avoid; margin-bottom: 10px; }
+  .name { font-size: 22px; }
+  .header { margin-bottom: 14px; padding-bottom: 10px; flex-direction: row !important; }
+  .contact-info { text-align: right !important; }
+  .section-title { font-size: 10px; margin-bottom: 6px; color: #2563eb !important; border-bottom: 1px solid #cbd5e1; }
+  .summary { font-size: 11.5px; }
+  .skills-grid { gap: 4px; }
+  .skill-tag { font-size: 10px; padding: 1px 7px; background: #eef2ff !important; }
+  .skill-tag.primary { background: #dbeafe !important; color: #1e40af !important; }
+  .job-row { margin-bottom: 2px; }
+  .company { font-size: 12px; }
+  .role { font-size: 12px; }
+  .dates { font-size: 10px; }
+  .job li { font-size: 11px; margin-bottom: 1px; }
+  .job ul { margin-top: 2px; }
+  .research-item { font-size: 11px; border-left: 2px solid #2563eb !important; }
+  .edu-item { font-size: 11px; }
+  a { color: #1e40af !important; }
+  @page { margin: 0.4in 0.4in; size: letter; }
+}
+@media (max-width: 600px) {
+  .page { padding: 24px 20px 80px; }
+  .header { flex-direction: column; gap: 8px; }
+  .contact-info { text-align: left; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="header">
+  <div>
+    <div class="name">Bryan Leonard</div>
+    <div class="title">Co-Founder & Lead Researcher — Qira LLC</div>
+  </div>
+  <div class="contact-info">
+    Phoenix, Arizona<br>
+    <a href="mailto:bryanleonard@imagineqira.com">bryanleonard@imagineqira.com</a><br>
+    <a href="tel:+14802569684">(480) 256-9684</a><br>
+    <a href="https://www.linkedin.com/in/bryan-leonard-54155218a/">LinkedIn</a> &middot; <a href="https://imagineqira.com">imagineqira.com</a>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">Summary</div>
+  <div class="summary">
+    Self-taught systems engineer and applied researcher who builds production AI platforms from the ground up. Co-founded Qira LLC to apply network physics to real-world problems — currently operating a live traffic intelligence system monitoring 8 Phoenix freeway corridors with AI-driven analysis, training custom language models on Google TPU pods, and running an empirical consciousness study with 58+ participants. U.S. provisional patent filed. 6+ years in customer-facing roles across fintech, payments, and financial services with strong technical communication skills.
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">Technical Skills</div>
+  <div class="skills-grid">
+    <span class="skill-tag primary">Python</span>
+    <span class="skill-tag primary">PyTorch</span>
+    <span class="skill-tag primary">FastAPI</span>
+    <span class="skill-tag primary">React</span>
+    <span class="skill-tag primary">TypeScript</span>
+    <span class="skill-tag">JAX / TPU</span>
+    <span class="skill-tag">NumPy / SciPy</span>
+    <span class="skill-tag">SQL / PostgreSQL</span>
+    <span class="skill-tag">Next.js</span>
+    <span class="skill-tag">Tailwind CSS</span>
+    <span class="skill-tag">Node.js</span>
+    <span class="skill-tag">nginx</span>
+    <span class="skill-tag">Linux / Ubuntu</span>
+    <span class="skill-tag">Git / GitHub</span>
+    <span class="skill-tag">DigitalOcean</span>
+    <span class="skill-tag">Cloudflare</span>
+    <span class="skill-tag">Stripe API</span>
+    <span class="skill-tag">REST API Design</span>
+    <span class="skill-tag">LLM Integration</span>
+    <span class="skill-tag">Data Analysis</span>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">Experience</div>
+
+  <div class="job">
+    <div class="job-row">
+      <div><span class="company">Qira LLC</span> <span class="role">— Co-Founder & Lead Researcher</span></div>
+      <div class="dates">Jan 2025 – Present</div>
+    </div>
+    <ul>
+      <li>Built and deployed <strong>Phoenix Traffic Intelligence</strong> — a live system monitoring 8 freeway corridors using HERE Traffic API, AZ-511 event feeds, and Cerebras AI. Generates crew dispatch recommendations and DMS messages every 2 minutes. <strong>48,000+ analysis sweeps, 14+ days continuous uptime, 700K+ data points collected.</strong></li>
+      <li>Designed <strong>LOLM</strong>, a 5-stream hybrid Transformer-SSM language model with a novel gating mechanism. Accepted into <strong>Google TPU Research Cloud</strong> (v4-32 pod). Trained models from 20M to 1B+ parameters.</li>
+      <li>Created <strong>EGC</strong> (Expression-Gated Cognition) — an empirical study on how identity pressure modulates expression. <strong>58 subjects</strong>, r=0.311, 3 expression types discovered. Active collaboration with NYU researcher.</li>
+      <li>Filed <strong>U.S. Provisional Patent #64/002,166</strong> covering the core mathematical framework.</li>
+      <li>Architected full-stack production infrastructure: Python/FastAPI backends, React frontends, nginx with SSL, systemd services, SQLite/PostgreSQL databases, automated monitoring crons, CI/CD via GitHub Actions.</li>
+      <li>Shipped <strong>Codey</strong> — AI coding SaaS with structural code analysis, multi-provider LLM routing (Cerebras, Groq, GPT-4o), Stripe billing, and GitHub OAuth. 50+ registered users.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-row">
+      <div><span class="company">Block (Square)</span> <span class="role">— Customer Success Specialist</span></div>
+      <div class="dates">Jan 2026 – Present</div>
+    </div>
+    <ul>
+      <li>Partner with Square sellers to optimize POS operations across Block's payments ecosystem.</li>
+      <li>Resolve complex technical, billing, and integration issues for merchants with high satisfaction ratings.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-row">
+      <div><span class="company">Amazon</span> <span class="role">— Associate Candidate Care Specialist</span></div>
+      <div class="dates">Oct – Dec 2025</div>
+    </div>
+    <ul>
+      <li>Managed Tier 1 onboarding workflows for incoming associates. Identified and implemented process improvements that reduced candidate friction.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-row">
+      <div><span class="company">Edward Jones</span> <span class="role">— Tailored Branch Support</span></div>
+      <div class="dates">Sep 2024 – Oct 2025</div>
+    </div>
+    <ul>
+      <li>Supported financial advisors and high-net-worth clients across multiple branches. Handled investment account operations, transfers, and complex client inquiries in a regulated environment.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-row">
+      <div><span class="company">Bakkt (Chase)</span> <span class="role">— Customer Service Specialist</span></div>
+      <div class="dates">Sep 2022 – Jun 2024</div>
+    </div>
+    <ul>
+      <li>Provided support for Chase Ultimate Rewards and digital asset experiences in a high-volume fintech environment. Consistently met performance metrics.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-row">
+      <div><span class="company">Majorel (Ally Bank)</span> <span class="role">— Customer Service Representative</span></div>
+      <div class="dates">Nov 2019 – Jan 2022</div>
+    </div>
+    <ul>
+      <li>Assisted Ally Bank customers with financial transactions, account management, and dispute resolution over 2+ years.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">Research & Publications</div>
+  <div class="research-item">"Expression-Gated Cognition" — Preprint &middot; <a href="https://zenodo.org/records/19242315">zenodo.org/records/19242315</a></div>
+  <div class="research-item">LOLM Architecture & Adaptive Training Dynamics — U.S. Patent Pending #64/002,166</div>
+  <div class="research-item">Active collaboration with Dr. Joshua Aronson (NYU Steinhardt) on stereotype threat and expression suppression</div>
+</div>
+
+<div class="section">
+  <div class="section-title">Education & Credentials</div>
+  <div class="edu-item"><strong>Self-directed</strong> — Machine learning, systems engineering, applied mathematics, cognitive science</div>
+  <div class="edu-item"><strong>Google TPU Research Cloud</strong> — Accepted researcher, 2026</div>
+</div>
+
+</div>
+
+<div class="download-bar">
+  <span>Bryan Leonard — Resume</span>
+  <button onclick="window.print()">Download PDF</button>
+</div>
+
+</body>
+</html>
