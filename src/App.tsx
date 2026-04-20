@@ -106,9 +106,9 @@ function useParticipantCount() {
       }).then(r => {
         const ct = r.headers.get('content-range')
         if (ct) setCount(parseInt(ct.split('/')[1]))
-      }).catch(() => setCount(40))
+      }).catch(() => setCount(344))
     } else {
-      setCount(40)
+      setCount(344)
     }
   }, [])
   return count
